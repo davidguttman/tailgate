@@ -25,7 +25,7 @@ app.configure ->
   app.use express.cookieParser()
   app.use express.session
     secret: "the linguistic cyclist fusses beneath an overloaded assistant"
-    # store: new RedisStore
+    store: new RedisStore
   app.use setUser
   app.use express.bodyParser()
   app.use express.static './public'
