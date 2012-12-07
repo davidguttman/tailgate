@@ -14,7 +14,10 @@ DirectoryView = Backbone.View.extend
 
   render: ->
     locals = @opts
-    locals.entries = @collection.toJSON()
+    
+    locals.directories = @collection.directories()
+    locals.files = @collection.files()
+
     @$el.html template locals
 
 module.exports = (opts) ->

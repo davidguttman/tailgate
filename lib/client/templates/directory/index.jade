@@ -1,21 +1,44 @@
-.page-header
-  h2
-    = dirName
+.container
+  .row
+    .page-header
+      h2
+        = dirName
 
-p.lead
-  = path
+    p.lead
+      = path
 
-table.table
-  thead
-    tr
-      th
-        | Name
-      th
-        | Modified
-  tbody
-    for entry in entries
-      tr
-        td
-          = entry.name
-        td
-          = entry.mtime
+  .row
+    .directories.span6
+      table.table
+        thead
+          tr
+            th
+              | Name
+            th
+              | Created
+        tbody
+          for directory in directories
+            tr.dir
+              td
+                a.name
+                  = directory.get('name')
+              td
+                = directory.created()
+
+  
+    .files.span6
+      table.table
+        thead
+          tr
+            th
+              | Name
+            th
+              | Created
+        tbody
+          for file in files
+            tr.file
+              td
+                a.name
+                  = file.get('name')
+              td
+                = file.created()
