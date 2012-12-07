@@ -25,10 +25,7 @@ sendStats = (req, res, path, files) ->
   async.map files, fn, (err, stats) ->
     return res.send 500, err.message if err
 
-    files = JSON.stringify(stats)
-    res.setHeader "Content-Type", "application/json"
-    res.setHeader "Content-Length", files.length
-    res.end files
+    res.json stats
 
 removeHidden = (files) ->
   files.filter (file) ->
