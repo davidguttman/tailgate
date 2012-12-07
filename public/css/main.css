@@ -1,0 +1,80 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px; }
+
+.view_2d .btn-group {
+  clear: left; }
+.view_2d form.csv {
+  float: left; }
+.view_2d .vis_toggle {
+  cursor: pointer;
+  float: left; }
+.view_2d .vis_toggle:hover {
+  background: none;
+  margin-top: -1px;
+  margin-left: -1px;
+  border: 1px solid #e1e1e1; }
+.view_2d .vis_toggle.active {
+  background: #e4ffd2; }
+.view_2d table.two_d td {
+  font-size: 13px;
+  position: relative; }
+  .view_2d table.two_d td a {
+    color: black; }
+  .view_2d table.two_d td .primary_actions {
+    position: absolute;
+    padding: 2px;
+    z-index: 99;
+    display: none; }
+    .view_2d table.two_d td .primary_actions a {
+      margin-right: 1px;
+      -webkit-border-radius: 3px;
+      padding: 6px;
+      -webkit-box-shadow: 2px 2px 8px rgba(50, 50, 50, 0.3);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #45484d), color-stop(100%, black));
+      /* Chrome,Safari4+ */
+      color: white !important;
+      font-weight: bold !important;
+      text-decoration: none !important;
+      font-size: 70%;
+      cursor: pointer; }
+.view_2d table.two_d td.selected {
+  background: rgba(255, 255, 0, 0.2); }
+.view_2d table.two_d tr:hover td.selected {
+  background: rgba(255, 255, 0, 0.1); }
+.view_2d table.two_d tr:hover a {
+  color: #1671ce;
+  text-decoration: underline; }
+.view_2d table.two_d td.over {
+  color: #000000; }
+  .view_2d table.two_d td.over .primary_actions {
+    display: block; }
+.view_2d .chzn-choices {
+  width: 800px; }
+.view_2d .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9000;
+  padding: 50px; }
+
+.graph_2d_view {
+  position: absolute;
+  padding: 12px;
+  display: none;
+  background: rgba(0, 0, 0, 0.8); }
+  .graph_2d_view rect {
+    fill: #88a9b8;
+    stroke: none; }
+  .graph_2d_view rect.selected {
+    fill: #1191c3; }
+  .graph_2d_view text {
+    fill: white;
+    font-size: 70%; }
+
+#app-version {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: rgba(0, 0, 0, 0.1); }

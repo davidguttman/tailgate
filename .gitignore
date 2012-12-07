@@ -1,0 +1,11 @@
+.sass-cache/
+tmp/*
+lib/tmp/*
+log/*.log
+dump/
+public/fixtures/*.json
+lib/client/*.js
+lib/client/**/*.js
+!lib/client/vendor/*.js
+public/json/*.temp.json
+public/css/_*.css
