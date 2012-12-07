@@ -34,29 +34,31 @@ directory = (req, res, next) ->
       files = removeHidden(files)
       files.sort()
       
-      json req, res, files
+      json req, res, files, path
 
-fileStat = (file, cb) ->
-  path = normalize(join(root, file))
+fileStat = (dirPath, file, cb) ->
+  console.log 'arguments', arguments
+  path = normalize(join(dirPath, file))
   fs.stat path, (err, results) ->
+    return cb err if err
+
     cb null,
       name: file
       isDirectory: results.isDirectory()
-      isFile: results.isFile()
       size: results.size
       atime: results.atime
       mtime: results.mtime
       ctime: results.ctime
 
-json = (req, res, files) ->
+json = (req, res, files, path) ->
+  fn = async.apply fileStat, path
+  async.map files, fn, (err, stats) ->
+    return res.send 500, err.message if err
 
-  async.map files, fileStat, (err, results) ->
-    console.log 'results', results
-
-  files = JSON.stringify(files)
-  res.setHeader "Content-Type", "application/json"
-  res.setHeader "Content-Length", files.length
-  res.end files
+    files = JSON.stringify(stats)
+    res.setHeader "Content-Type", "application/json"
+    res.setHeader "Content-Length", files.length
+    res.end files
 
 removeHidden = (files) ->
   files.filter (file) ->
