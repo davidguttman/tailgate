@@ -7,7 +7,7 @@ config = require '../../config/tailgate.json'
 authorizedUsers = config.users.map (user) -> user.email
 
 bundle = require './bundle'
-api = require './api'
+get = require './api/get'
 
 app = express()
 
@@ -40,7 +40,7 @@ app.get '/', (req, res) ->
   else
     res.render 'login.jade'
 
-app.get '/api/directory', auth, api.directory
+app.get '/api/get', auth, get
 
 app.post "/login", (req, res) ->
   token = req.body.token
