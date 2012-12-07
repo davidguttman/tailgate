@@ -1,6 +1,7 @@
-fs = require("fs")
-parse = require("url").parse
-path = require("path")
+async = require 'async'
+fs = require 'fs'
+parse = require('url').parse
+path = require 'path'
 normalize = path.normalize
 extname = path.extname
 join = path.join
@@ -33,10 +34,25 @@ directory = (req, res, next) ->
       files = removeHidden(files)
       files.sort()
       
-      json req, res, files, next, originalDir, showUp
+      json req, res, files
+
+fileStat = (file, cb) ->
+  path = normalize(join(root, file))
+  fs.stat path, (err, results) ->
+    cb null,
+      name: file
+      isDirectory: results.isDirectory()
+      isFile: results.isFile()
+      size: results.size
+      atime: results.atime
+      mtime: results.mtime
+      ctime: results.ctime
 
 json = (req, res, files) ->
-  console.log 'arguments', arguments
+
+  async.map files, fileStat, (err, results) ->
+    console.log 'results', results
+
   files = JSON.stringify(files)
   res.setHeader "Content-Type", "application/json"
   res.setHeader "Content-Length", files.length
