@@ -1,2 +1,15 @@
+directoryView = require '../views/directory'
+
+path = ->
+  @ensureParams {path: '/'}
+
+  view = directoryView @params
+
+  @target.html view.el
+
 module.exports = 
-  '/': -> console.log 'root url'
+  '/': ->
+    location.hash = '/directory'
+
+  '/directory': path
+  '/directory/:json': path

@@ -1,0 +1,21 @@
+.page-header
+  h2
+    = dirName
+
+p.lead
+  = path
+
+table.table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Modified
+  tbody
+    for entry in entries
+      tr
+        td
+          = entry.name
+        td
+          = entry.mtime
