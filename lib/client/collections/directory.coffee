@@ -9,6 +9,12 @@ Directory = Backbone.Collection.extend
   url: ->
     '/api/get?path='+@path
 
+  parse: (data) ->
+    path = @path  
+    data.map (entry) -> 
+      entry.path = path + '/' + entry.name
+      return entry
+
   directories: ->
     filtered = @filter (entry) ->
       entry.get 'isDirectory'
