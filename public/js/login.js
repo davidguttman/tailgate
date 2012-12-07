@@ -1,4 +1,6 @@
 auth = function(token) {
+  if (!token) return;
+  
   var onSuccess, opts;
   onSuccess = function(data) {
     console.log("Login Successful", data);

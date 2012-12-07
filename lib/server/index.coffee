@@ -3,13 +3,23 @@ request         = require 'request'
 express         = require 'express'
 RedisStore      = (require 'connect-redis') express
 
+config = require '../../config/tailgate.json'
+authorizedUsers = config.users.map (user) -> user.email
+
 bundle = require './bundle'
+api = require './api'
 
 app = express()
 
 setUser = (req, res, next) ->
   app.locals.currentUser = req.session.currentUser
   next()
+
+auth = (req, res, next) ->
+  if req.session.currentUser
+    next()
+  else
+    res.send 404
 
 app.configure ->
   app.use express.cookieParser()
@@ -30,6 +40,8 @@ app.get '/', (req, res) ->
   else
     res.render 'login.jade'
 
+app.get '/api/directory', auth, api.directory
+
 app.post "/login", (req, res) ->
   token = req.body.token
   audience = "http://" + req.headers.host
@@ -41,7 +53,7 @@ app.post "/login", (req, res) ->
       audience: audience
 
   onResponse = (err, resp, body) ->
-    if body.email
+    if body.email in authorizedUsers
       req.session.currentUser = body.email
       res.send req.session.desiredUrl or "/"
     else
