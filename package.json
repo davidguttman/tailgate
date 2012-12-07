@@ -26,6 +26,7 @@
     "roto": "git+ssh://git@git.lincx.co:roto.git#v0.1.0",
     "uglify-js": "~1.3.4",
     "request": "~2.12.0",
-    "async": "~0.1.22"
+    "async": "~0.1.22",
+    "send": "~0.1.0"
   }
 }

@@ -1,2 +1,4 @@
+send = require 'send'
+
 module.exports = (req, res, path) ->
-  res.json {path: path}
+  send(req, path).pipe res
