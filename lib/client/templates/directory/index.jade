@@ -17,14 +17,15 @@
             th
               | Created
         tbody
-          tr.up
-            td(colspan=2)
-              a
-                | Up
+          if upLink
+            tr.up
+              td(colspan=2)
+                a(href=upLink)
+                  | Up
           for directory in directories
             tr.dir
               td
-                a.name
+                a.name(href=pathToLink(directory.get('path')))
                   = directory.get('name')
               td
                 = directory.created()

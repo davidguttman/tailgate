@@ -10,9 +10,13 @@ Directory = Backbone.Collection.extend
     '/api/get?path='+@path
 
   parse: (data) ->
-    path = @path  
+    path = @path
     data.map (entry) -> 
-      entry.path = path + '/' + entry.name
+      console.log 'entry', entry
+      if path is '/'
+        entry.path = path + entry.name
+      else
+        entry.path = path + '/' + entry.name
       return entry
 
   directories: ->
