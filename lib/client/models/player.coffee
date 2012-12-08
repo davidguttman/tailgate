@@ -25,6 +25,9 @@ Player = Backbone.Model.extend
 
     return index
 
+  select: (cid) ->
+    @set selected: cid
+
   prev: ->
     index = @indexForCid @selected() 
     return unless index?

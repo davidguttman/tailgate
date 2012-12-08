@@ -11,6 +11,8 @@ Playlist = Backbone.View.extend
     'click i.icon-pause': 'pause'
     'click i.icon-remove-sign': 'clear'
     'click i.icon-step-forward': 'next'
+
+    'click .list a': 'select'
   
   initialize: ->
     _.bindAll this
@@ -29,6 +31,10 @@ Playlist = Backbone.View.extend
     @$el.html template
       items: @collection.models
       selected: @player.selected()
+
+  select: (e) ->
+    cid = $(e.target).data 'cid'
+    @player.select cid
 
   prev: ->
     @player.prev()

@@ -4,8 +4,12 @@
   
   .list {
     text-align: left;
+    li {
+      margin: 3px 0;
+    }
     a {
       line-height: 1em;
+      cursor: pointer;
     }
   }
 

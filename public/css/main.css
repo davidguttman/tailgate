@@ -84,8 +84,11 @@ body {
   text-align: center; }
   .playlist .list {
     text-align: left; }
+    .playlist .list li {
+      margin: 3px 0; }
     .playlist .list a {
-      line-height: 1em; }
+      line-height: 1em;
+      cursor: pointer; }
   .playlist .controls {
     margin: 0 auto;
     margin-bottom: 10px; }
