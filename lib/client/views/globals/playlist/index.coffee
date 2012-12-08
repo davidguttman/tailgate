@@ -46,8 +46,8 @@ Playlist = Backbone.View.extend
     console.log 'pause'
 
   clear: ->
-    forReals = confirm 'Clear playlist?'
-    console.log 'forReals', forReals
+    if confirm 'Clear playlist?'
+      @player.clear()
 
   next: ->
     @player.next()

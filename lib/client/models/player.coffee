@@ -2,7 +2,6 @@ Player = Backbone.Model.extend
   defaults:
     status: 'stopped'
     selected: null
-    playlist: null
 
   initialize: ->
     console.log 'player!'
@@ -44,6 +43,10 @@ Player = Backbone.Model.extend
     cid = nextItem?.cid
     @set selected: cid if cid?
 
+  clear: ->
+    @playlist().reset()
+    @set @defaults
+    @trigger 'change'
 
   playlist: ->
     @get 'playlist'
