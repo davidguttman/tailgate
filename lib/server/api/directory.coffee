@@ -20,7 +20,7 @@ fileStat = (dirPath, file, cb) ->
       atime: results.atime
       mtime: results.mtime
       ctime: results.ctime
-      ext: extname path
+      ext: extname(file).replace '.', ''
 
 sendStats = (req, res, path, files) ->
   fn = async.apply fileStat, path

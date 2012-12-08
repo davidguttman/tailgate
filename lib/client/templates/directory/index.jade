@@ -42,9 +42,9 @@
               | Created
         tbody
           for file in files
-            tr.file
+            tr.file(class=file.get('ext'))
               td
-                a.name(href=file.get('url'))
+                a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
                   = file.get('name')
               td
                 = file.created()

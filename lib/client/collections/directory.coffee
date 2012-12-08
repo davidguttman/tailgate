@@ -12,7 +12,6 @@ Directory = Backbone.Collection.extend
   parse: (data) ->
     path = @path
     data.map (entry) -> 
-      console.log 'entry', entry
       if path is '/'
         entry.path = path + entry.name
       else
@@ -34,7 +33,7 @@ Directory = Backbone.Collection.extend
 
   files: ->
     filtered = @filter (entry) -> 
-      not entry.get 'isDirectory'
+      (not entry.get 'isDirectory') and (entry.get('ext') is 'mp3')
     _.sortBy filtered, (entry) ->
       (entry.get 'name').toLowerCase()
 

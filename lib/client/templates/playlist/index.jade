@@ -1,0 +1,9 @@
+.row
+  .span12
+    h2
+      | Playlist
+
+    ul
+      for item in items
+        li
+          = item.get('name')
