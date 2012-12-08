@@ -1,3 +1,4 @@
+player = require '../../../models/player'
 playlist = require '../../../collections/playlist'
 template = require '../../../templates/playlist'
 
@@ -18,17 +19,22 @@ Playlist = Backbone.View.extend
     @collection.on 'add', @render
     @collection.on 'remove', @render
 
+    @player = player @collection
+    @player.on 'change', @render
+
     @render()
 
   render: ->
+    console.log '@player.selected()', @player.selected()
     @$el.html template
       items: @collection.models
+      selected: @player.selected()
 
   prev: ->
-    console.log 'prev'
+    @player.prev()
 
   play: ->
-    console.log 'play'
+    @player.play()
 
   pause: ->
     console.log 'pause'
@@ -38,7 +44,7 @@ Playlist = Backbone.View.extend
     console.log 'forReals', forReals
 
   next: ->
-    console.log 'next'
+    @player.next()
 
 
 
