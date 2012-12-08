@@ -20,7 +20,7 @@ Directory = Backbone.Collection.extend
       if entry.isDirectory
         entry.url = "#/directory/#{JSON.stringify {path: entry.path}}"
       else
-        entry.url = "/api/get?path=#{entry.path}"
+        entry.url = "/api/get?path=#{escape entry.path}"
       
       return entry
 
