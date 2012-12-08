@@ -33,6 +33,11 @@ DirectoryView = Backbone.View.extend
 
     @$el.html template locals
 
+    if locals.directories.length is 0
+      @$('.directories').hide()
+      @$('.files').removeClass('span6').addClass 'span12'
+
+
   pathToUrl: (path) ->
     path = '/' if path is ''
     "#/directory/#{JSON.stringify {path: path}}"
