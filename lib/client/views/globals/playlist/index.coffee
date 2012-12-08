@@ -6,14 +6,13 @@ Playlist = Backbone.View.extend
   
   initialize: ->
     _.bindAll this
-    
+
     @collection = playlist()
     @collection.on 'add', @render
     
     @render()
 
   render: ->
-    console.log 'rendering...'
     @$el.html template
       items: @collection.models
 

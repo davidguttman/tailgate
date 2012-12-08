@@ -1,50 +1,50 @@
-.container
-  .row
-    .page-header
-      h2
-        = dirName
 
-    p.lead
-      = path
+.row
+  .page-header
+    h2
+      = dirName
 
-    if upLink
-      .up
-        a.btn(href=upLink)
-          | Up One Directory
+  p.lead
+    = path
 
-  .row
+  if upLink
+    .up
+      a.btn(href=upLink)
+        | Up One Directory
 
-    .directories.span6
-      table.table
-        thead
-          tr
-            th
-              | Name
-            th
-              | Created
-        tbody
-          for directory in directories
-            tr.dir
-              td
-                a.name(href=directory.get('url'))
-                  = directory.get('name')
-              td
-                = directory.created()
+.row
 
-  
-    .files.span6
-      table.table
-        thead
-          tr
-            th
-              | Name
-            th
-              | Created
-        tbody
-          for file in files
-            tr.file(class=file.get('ext'))
-              td
-                a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
-                  = file.get('name')
-              td
-                = file.created()
+  .directories.span6
+    table.table
+      thead
+        tr
+          th
+            | Name
+          th
+            | Created
+      tbody
+        for directory in directories
+          tr.dir
+            td
+              a.name(href=directory.get('url'))
+                = directory.get('name')
+            td
+              = directory.created()
+
+
+  .files.span6
+    table.table
+      thead
+        tr
+          th
+            | Name
+          th
+            | Created
+      tbody
+        for file in files
+          tr.file(class=file.get('ext'))
+            td
+              a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
+                = file.get('name')
+            td
+              = file.created()

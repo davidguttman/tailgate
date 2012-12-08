@@ -14,8 +14,8 @@ module.exports = ->
 
   globalViews.elements = [
     globalViews.top.el
-    globalViews.main.el
     globalViews.playlist.el
+    globalViews.main.el
   ]
 
   return globalViews

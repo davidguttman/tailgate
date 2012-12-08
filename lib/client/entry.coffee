@@ -7,11 +7,9 @@ router       = require 'roto'
 routingTable = require './router'
 
 addGlobals = ->
-  $main = $('<div/>').addClass('fullpage').attr({'id': 'main', 'role': 'main'})
   $version = $('<div/>').attr({'id': 'app-version'}).html window.VERSION
   
   globalElements = globalViews().elements
-  globalElements.push $main
   globalElements.push $version
   
   $('#container').empty()
