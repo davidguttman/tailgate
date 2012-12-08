@@ -78,3 +78,24 @@ body {
   top: 5px;
   right: 10px;
   color: rgba(0, 0, 0, 0.1); }
+
+.playlist {
+  font-size: 80%;
+  text-align: center; }
+  .playlist .list {
+    text-align: left; }
+    .playlist .list a {
+      line-height: 1em; }
+  .playlist .controls {
+    margin: 0 auto; }
+    .playlist .controls i {
+      padding: 5px; }
+
+.directory-view {
+  position: relative; }
+  .directory-view .buttons {
+    position: absolute;
+    top: 0px;
+    right: 0px; }
+    .directory-view .buttons .btn {
+      margin: 5px; }

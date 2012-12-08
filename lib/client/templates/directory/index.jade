@@ -1,21 +1,26 @@
 
 .row
   .location.span10
+    p.small
+      = path
+
     .page-header
       h2
         = dirName
 
-    p.lead
-      = path
+    
 
-    if upLink
-      .up.pull-right
-        a.btn(href=upLink)
-          | Up One Directory
+    .buttons
+      .add-all.pull-right
+        a.btn
+          | Add All
 
-    .add-all.pull-right
-      a.btn
-        | Add All
+      if upLink
+        .up.pull-right
+          a.btn(href=upLink)
+            | Up One Directory
+
+      
 .row
 
   .directories.span5

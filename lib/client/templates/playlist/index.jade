@@ -1,15 +1,12 @@
-.page-header
-  h4
-    | Playlist
-
 .controls
   i.icon-step-backward
   i.icon-play
   i.icon-pause
   i.icon-step-forward
 
-ul.nav.nav-tabs.nav-stacked
-  for item in items
-    li
-      a
-        = item.get('name')
+.list
+  ul.nav.nav-tabs.nav-stacked
+    for item in items
+      li
+        a
+          = item.get('name').replace(/_/g, ' ')
