@@ -21,5 +21,8 @@ kickoff = ->
   router $('#main'), routingTable
 
 $(document).ready ->
-  
-  kickoff()
+  soundManager.setup
+    url: '/swf'
+    preferFlash: false
+    useHTML5Audio: true
+    onready: kickoff

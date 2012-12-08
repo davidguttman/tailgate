@@ -1,3 +1,5 @@
+
+
 Player = Backbone.Model.extend
   defaults:
     status: 'stopped'
@@ -16,6 +18,20 @@ Player = Backbone.Model.extend
 
     if @selected()
       @set status: 'playing'
+      item = @playlist().getByCid @selected()
+      # console.log 'item.attributes', item.attributes
+      
+      sound = soundManager.createSound
+        id: item.get 'name'
+        url: item.get 'url'
+        whileplaying: @onUpdate
+        stream: true
+        autoPlay: true
+
+
+  onUpdate: ->
+
+    # console.log 'this.position/this.duration', this.position/this.duration
 
   indexForCid: (cid) ->
     index = null

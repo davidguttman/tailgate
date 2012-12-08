@@ -29,6 +29,7 @@ bundle.prepend "window.VERSION = '#{version}';"
 includes = [
   'jquery.min.js'
   'bootstrap.min.js'
+  'soundmanager2.js'
 ]
 
 for js in includes.reverse()
