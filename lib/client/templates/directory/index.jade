@@ -8,8 +8,6 @@
       h2
         = dirName
 
-    
-
     .buttons
       .add-all.pull-right
         a.btn
@@ -27,9 +25,9 @@
     table.table
       thead
         tr
-          th
+          th.sort(data-sort='name')
             | Name
-          th
+          th.sort(data-sort='ctime')
             | Created
       tbody
         for directory in directories
@@ -45,9 +43,9 @@
     table.table
       thead
         tr
-          th
+          th.sort(data-sort='ctime')
             | Name
-          th
+          th.sort(data-sort='ctime')
             | Created
       tbody
         for file in files

@@ -8,6 +8,8 @@ DirectoryView = Backbone.View.extend
   events:
     'click tr.mp3 a': 'addToPlaylist'
     'click .add-all a': 'addAllToPlaylist'
+    'click .directories th.sort': 'sortDirectories'
+    'click .files th.sort': 'sortFiles'
 
   initialize: (@opts) ->
     _.bindAll this
@@ -23,6 +25,9 @@ DirectoryView = Backbone.View.extend
 
     @opts.dirName = pathParts.reverse()[0] or '/'
 
+    @fileSortReverse = false
+    @directorySortReverse = false
+
     @collection = collection @opts.path
     @collection.on 'reset', @render
     @collection.fetch()
@@ -37,14 +42,37 @@ DirectoryView = Backbone.View.extend
     else
       locals.upLink = @pathToUrl @upPath
 
-    locals.directories = @collection.directories()
-    locals.files = @collection.files()
+    locals.directories = @collection.directories @directorySorter
+    locals.directories.reverse() if @directorySortReverse
+
+    locals.files = @collection.files @fileSorter
+    locals.files.reverse() if @fileSortReverse
 
     @$el.html template locals
 
     if locals.directories.length is 0
       @$('.directories').hide()
       @$('.files').removeClass('span5').addClass 'span10'
+
+  sortFiles: (e) ->
+    sortProperty = $(e.target).data 'sort'
+    @fileSortProperty ?= sortProperty
+    changed = sortProperty isnt @fileSortProperty
+    @fileSortProperty = sortProperty
+    @fileSortReverse = not @fileSortReverse unless changed
+    @fileSorter = (file) ->
+      (file.get sortProperty).toLowerCase()
+    @render()
+
+  sortDirectories: (e) ->
+    sortProperty = $(e.target).data 'sort'
+    @directorySortProperty ?= sortProperty
+    changed = sortProperty isnt @directorySortProperty
+    @directorySortProperty = sortProperty
+    @directorySortReverse = not @directorySortReverse unless changed
+    @directorySorter = (dir) ->
+      (dir.get sortProperty).toLowerCase()
+    @render()
 
   addFromElement: (el) ->
     $el = $(el)
