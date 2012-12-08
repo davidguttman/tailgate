@@ -8,5 +8,5 @@
   ul.nav.nav-tabs.nav-stacked
     for item in items
       li
-        a
+        a(data-cid=item.cid)
           = item.get('name').replace(/_/g, ' ')
