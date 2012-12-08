@@ -1,15 +1,14 @@
-.row
-  .span12
-    h2
-      | Playlist
 
-    .controls
-      i.icon-step-backward
-      i.icon-play
-      i.icon-pause
-      i.icon-step-forward
+h2
+  | Playlist
 
-    ul
-      for item in items
-        li
-          = item.get('name')
+.controls
+  i.icon-step-backward
+  i.icon-play
+  i.icon-pause
+  i.icon-step-forward
+
+ul
+  for item in items
+    li
+      = item.get('name')

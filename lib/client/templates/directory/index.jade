@@ -1,20 +1,21 @@
 
 .row
-  .page-header
-    h2
-      = dirName
+  .location.span10
+    .page-header
+      h2
+        = dirName
 
-  p.lead
-    = path
+    p.lead
+      = path
 
-  if upLink
-    .up
-      a.btn(href=upLink)
-        | Up One Directory
+    if upLink
+      .up
+        a.btn(href=upLink)
+          | Up One Directory
 
 .row
 
-  .directories.span6
+  .directories.span5
     table.table
       thead
         tr
@@ -32,7 +33,7 @@
               = directory.created()
 
 
-  .files.span6
+  .files.span5
     table.table
       thead
         tr

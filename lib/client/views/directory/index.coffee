@@ -3,6 +3,8 @@ template = require '../../templates/directory'
 playlist = require '../../collections/playlist'
 
 DirectoryView = Backbone.View.extend
+  className: 'directory-view'
+
   events:
     'click tr.mp3 a': 'addToPlaylist'
 
@@ -41,12 +43,13 @@ DirectoryView = Backbone.View.extend
 
     if locals.directories.length is 0
       @$('.directories').hide()
-      @$('.files').removeClass('span6').addClass 'span12'
+      @$('.files').removeClass('span5').addClass 'span10'
 
   addToPlaylist: (event) ->
     $el = $(event.target)
     name = $el.data "name"
     url = $el.data "url"
+
     @playlist.add
       name: name
       url: url
