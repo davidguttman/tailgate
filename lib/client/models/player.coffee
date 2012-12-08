@@ -81,9 +81,9 @@ Player = Backbone.Model.extend
     @playSelected()
 
   clear: ->
+    soundManager.stopAll()
     @playlist().reset()
     @set @defaults
-    # @trigger 'change'
 
   playlist: ->
     @get 'playlist'
