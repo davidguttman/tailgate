@@ -1,17 +1,21 @@
 .playlist {
   font-size: 80%;
-
   text-align: center;
+  
   .list {
     text-align: left;
     a {
       line-height: 1em;
     }
   }
+
   .controls {
     margin: 0 auto;
+    margin-bottom: 10px;
+    
     i {
-      padding: 5px;
+      margin: 5px;
+      cursor: pointer;
     }
   }
 }
