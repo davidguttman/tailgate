@@ -9,6 +9,7 @@ join = path.join
 fileStat = (dirPath, file, cb) ->
   console.log 'arguments', arguments
   path = normalize(join(dirPath, file))
+
   fs.stat path, (err, results) ->
     return cb err if err
 
@@ -19,6 +20,7 @@ fileStat = (dirPath, file, cb) ->
       atime: results.atime
       mtime: results.mtime
       ctime: results.ctime
+      ext: extname path
 
 sendStats = (req, res, path, files) ->
   fn = async.apply fileStat, path

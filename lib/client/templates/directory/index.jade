@@ -7,7 +7,13 @@
     p.lead
       = path
 
+    if upLink
+      .up
+        a.btn(href=upLink)
+          | Up One Directory
+
   .row
+
     .directories.span6
       table.table
         thead
@@ -17,15 +23,10 @@
             th
               | Created
         tbody
-          if upLink
-            tr.up
-              td(colspan=2)
-                a(href=upLink)
-                  | Up
           for directory in directories
             tr.dir
               td
-                a.name(href=pathToLink(directory.get('path')))
+                a.name(href=directory.get('url'))
                   = directory.get('name')
               td
                 = directory.created()
@@ -43,7 +44,7 @@
           for file in files
             tr.file
               td
-                a.name
+                a.name(href=file.get('url'))
                   = file.get('name')
               td
                 = file.created()

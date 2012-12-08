@@ -26,16 +26,14 @@ DirectoryView = Backbone.View.extend
     if @path is '' or @path is '/'
       locals.upLink = null
     else
-      locals.upLink = @pathToLink @upPath
+      locals.upLink = @pathToUrl @upPath
 
     locals.directories = @collection.directories()
     locals.files = @collection.files()
-    locals.pathToLink = @pathToLink
 
     @$el.html template locals
 
-  pathToLink: (path) ->
-    console.log 'path', path
+  pathToUrl: (path) ->
     path = '/' if path is ''
     "#/directory/#{JSON.stringify {path: path}}"
 
