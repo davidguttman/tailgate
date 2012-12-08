@@ -20,6 +20,7 @@ Playlist = Backbone.View.extend
     @collection = playlist()
     @collection.on 'add', @render
     @collection.on 'remove', @render
+    @collection.on 'reset', @render
 
     @player = player @collection
     @player.on 'change', @render
@@ -43,7 +44,7 @@ Playlist = Backbone.View.extend
     @player.play()
 
   pause: ->
-    console.log 'pause'
+    @player.pause()
 
   clear: ->
     if confirm 'Clear playlist?'
