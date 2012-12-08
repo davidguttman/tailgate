@@ -107,6 +107,8 @@ body {
 
 .directory-view {
   position: relative; }
+  .directory-view th {
+    cursor: pointer; }
   .directory-view .buttons {
     position: absolute;
     top: 0px;

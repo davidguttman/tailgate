@@ -1,6 +1,10 @@
 .directory-view {
   position: relative;
 
+  th {
+    cursor: pointer;
+  }
+
   .buttons {
     position: absolute;
     top: 0px;
