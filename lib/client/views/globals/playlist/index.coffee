@@ -23,7 +23,11 @@ Playlist = Backbone.View.extend
     @collection.on 'reset', @render
 
     @player = player @collection
-    @player.on 'change', @render
+
+    @player.on 'change:selected', @render
+    @player.on 'change:status', @render
+    @player.on 'change:progress', @renderProgress
+
 
     @render()
 
@@ -32,6 +36,11 @@ Playlist = Backbone.View.extend
     @$el.html template
       items: @collection.models
       selected: @player.selected()
+    @renderProgress()
+
+  renderProgress: ->
+    progress = @player.get 'progress'
+    @$('.progress .bar').css 'width', "#{progress * 100}%"
 
   select: (e) ->
     cid = $(e.target).data 'cid'

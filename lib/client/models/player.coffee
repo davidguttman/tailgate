@@ -4,9 +4,10 @@ Player = Backbone.Model.extend
   defaults:
     status: 'stopped'
     selected: null
+    progress: 0
 
   initialize: ->
-    console.log 'player!'
+    _.bindAll this, 'next', 'onUpdate'
 
   play: ->
     if @status() is 'playing'
@@ -26,6 +27,8 @@ Player = Backbone.Model.extend
 
   playSelected: ->
     if @selected()
+      self = this
+
       @set status: 'playing'
       item = @playlist().getByCid @selected()
       
@@ -36,15 +39,18 @@ Player = Backbone.Model.extend
       sounds[soundId] ?= soundManager.createSound
         id: soundId
         url: item.get 'url'
-        whileplaying: @onUpdate
         stream: true
+        onfinish: @next
+        whileplaying: ->
+          self.onUpdate this
         
       sounds[soundId].play()
 
 
-  onUpdate: ->
-
-    # console.log 'this.position/this.duration', this.position/this.duration
+  onUpdate: (sound) ->
+    @set 
+      progress: sound.position/sound.duration
+  
 
   indexForCid: (cid) ->
     index = null

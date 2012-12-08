@@ -89,12 +89,21 @@ body {
     .playlist .list a {
       line-height: 1em;
       cursor: pointer; }
-  .playlist .controls {
-    margin: 0 auto;
-    margin-bottom: 10px; }
-    .playlist .controls i {
-      margin: 5px;
-      cursor: pointer; }
+  .playlist .player {
+    position: relative;
+    margin-left: 0px;
+    margin-right: 15px; }
+    .playlist .player .controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      margin: 0 auto;
+      margin-bottom: 10px; }
+      .playlist .player .controls i {
+        margin: 5px;
+        margin-top: -2px;
+        cursor: pointer; }
 
 .directory-view {
   position: relative; }

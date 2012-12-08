@@ -13,13 +13,26 @@
     }
   }
 
-  .controls {
-    margin: 0 auto;
-    margin-bottom: 10px;
-    
-    i {
-      margin: 5px;
-      cursor: pointer;
+  .player {
+    position: relative;
+    margin-left: 0px;
+    margin-right: 15px;
+
+    .controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      margin: 0 auto;
+      margin-bottom: 10px;
+      
+      i {
+        margin: 5px;
+        margin-top: -2px;
+        cursor: pointer;
+      }
     }
   }
+  
 }
