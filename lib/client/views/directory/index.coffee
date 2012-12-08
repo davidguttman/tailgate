@@ -7,6 +7,7 @@ DirectoryView = Backbone.View.extend
 
   events:
     'click tr.mp3 a': 'addToPlaylist'
+    'click .add-all a': 'addAllToPlaylist'
 
   initialize: (@opts) ->
     _.bindAll this
@@ -45,8 +46,8 @@ DirectoryView = Backbone.View.extend
       @$('.directories').hide()
       @$('.files').removeClass('span5').addClass 'span10'
 
-  addToPlaylist: (event) ->
-    $el = $(event.target)
+  addFromElement: (el) ->
+    $el = $(el)
     name = $el.data "name"
     url = $el.data "url"
 
@@ -54,6 +55,13 @@ DirectoryView = Backbone.View.extend
       name: name
       url: url
 
+  addAllToPlaylist: ->
+    addFromElement = @addFromElement
+    @$('tr.mp3 a').each (i, el) ->
+      addFromElement el
+
+  addToPlaylist: (event) ->
+    @addFromElement event.target
     event.preventDefault()
 
   pathToUrl: (path) ->

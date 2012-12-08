@@ -1,6 +1,6 @@
-
-h2
-  | Playlist
+.page-header
+  h4
+    | Playlist
 
 .controls
   i.icon-step-backward
@@ -8,7 +8,8 @@ h2
   i.icon-pause
   i.icon-step-forward
 
-ul
+ul.nav.nav-tabs.nav-stacked
   for item in items
     li
-      = item.get('name')
+      a
+        = item.get('name')
