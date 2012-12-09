@@ -9,3 +9,4 @@ lib/client/**/*.js
 !lib/client/vendor/*.js
 public/json/*.temp.json
 public/css/_*.css
+node_modules
