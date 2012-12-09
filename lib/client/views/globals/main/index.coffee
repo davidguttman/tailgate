@@ -1,6 +1,6 @@
 Main = Backbone.View.extend
   id: 'main'
-  className: 'span10'
+  className: 'span8'
 
 module.exports = ->
   new Main

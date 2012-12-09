@@ -117,6 +117,7 @@ body {
         opacity: 1; }
 
 .directory-view {
+  font-size: 70%;
   position: relative; }
   .directory-view th {
     cursor: pointer; }
