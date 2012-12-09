@@ -13,6 +13,7 @@ Playlist = Backbone.View.extend
     'click i.icon-step-forward': 'next'
 
     'click .list a': 'select'
+    'click .list a i.icon-remove-circle': 'removeItem'
   
   initialize: ->
     _.bindAll this
@@ -42,9 +43,16 @@ Playlist = Backbone.View.extend
     progress = @player.get 'progress'
     @$('.progress .bar').css 'width', "#{progress * 100}%"
 
+  removeItem: (e) ->
+    cid = $(e.target).data 'cid'
+    @player.remove cid
+    e.stopPropagation()
+
   select: (e) ->
+    console.log 'select...'
     cid = $(e.target).data 'cid'
     @player.select cid
+    e.preventDefault()
 
   prev: ->
     @player.prev()

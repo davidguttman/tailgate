@@ -1,7 +1,7 @@
 .player
   .progress
     .bar
-    
+
   .controls
     i.icon-step-backward
     i.icon-play
@@ -13,5 +13,7 @@
   ul.nav.nav-stacked.nav-list
     for item in items
       li(class=selected === item.cid ? 'active' : '')
+
         a(data-cid=item.cid, class=item.cid)
+          i.icon-remove-circle(data-cid=item.cid)
           = item.get('name').replace(/_/g, ' ')

@@ -46,6 +46,18 @@ Player = Backbone.Model.extend
         
       sounds[soundId].play()
 
+  stop: ->
+    soundManager.stopAll()
+    @set
+      status: 'stopped'
+
+
+  remove: (cid) ->
+    @stop() if cid is @selected()
+      
+    item = @playlist().getByCid cid
+    @playlist().remove item
+
 
   onUpdate: (sound) ->
     @set 

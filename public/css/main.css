@@ -89,6 +89,14 @@ body {
     .playlist .list a {
       line-height: 1em;
       cursor: pointer; }
+      .playlist .list a i {
+        opacity: 0;
+        margin-left: -15px;
+        margin-top: -1px; }
+    .playlist .list a:hover i {
+      opacity: 0.7; }
+    .playlist .list a:hover i:hover {
+      opacity: 1; }
   .playlist .player {
     position: relative;
     margin-left: 0px;
@@ -101,9 +109,12 @@ body {
       margin: 0 auto;
       margin-bottom: 10px; }
       .playlist .player .controls i {
+        opacity: 0.7;
         margin: 5px;
         margin-top: -2px;
         cursor: pointer; }
+      .playlist .player .controls i:hover {
+        opacity: 1; }
 
 .directory-view {
   position: relative; }
