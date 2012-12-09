@@ -34,7 +34,7 @@
           tr.dir
             td
               a.name(href=directory.get('url'))
-                = directory.get('name')
+                = directory.get('name').replace(/_/g, ' ')
             td
               = directory.created()
 
@@ -52,6 +52,6 @@
           tr.file(class=file.get('ext'))
             td
               a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
-                = file.get('name')
+                = file.get('name').replace(/_/g, ' ')
             td
               = file.created()
