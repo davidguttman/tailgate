@@ -7,7 +7,6 @@ extname = path.extname
 join = path.join
 
 fileStat = (dirPath, file, cb) ->
-  console.log 'arguments', arguments
   path = normalize(join(dirPath, file))
 
   fs.stat path, (err, results) ->
