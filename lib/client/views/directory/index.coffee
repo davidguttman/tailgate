@@ -14,17 +14,6 @@ DirectoryView = Backbone.View.extend
   initialize: (@opts) ->
     _.bindAll this
 
-    @path = @opts.path
-
-    pathParts = @opts.path.split '/'
-    
-    if pathParts.length < 2
-      @upPath = '/'
-    else
-      @upPath = pathParts[0..-2].join '/'
-
-    @opts.dirName = pathParts.reverse()[0] or '/'
-
     @fileSortReverse = false
     @directorySortReverse = false
 
@@ -35,12 +24,29 @@ DirectoryView = Backbone.View.extend
     @playlist = playlist()
 
   render: ->
-    locals = @opts
+    locals = @getLocals @opts
+    
+    @$el.html template locals
+
+    if locals.directories.length is 0
+      @$('.directories').hide()
+      @$('.files').removeClass('span4').addClass 'span8'
+
+  getLocals: (opts) ->
+    locals = _.extend {}, opts
+    pathParts = locals.path.split '/'
+    
+    if pathParts.length < 2
+      locals.upPath = '/'
+    else
+      locals.upPath = pathParts[0..-2].join '/'
+
+    locals.dirName = pathParts.reverse()[0] or '/'
   
-    if @path is '' or @path is '/'
+    if locals.path is '' or locals.path is '/'
       locals.upLink = null
     else
-      locals.upLink = @pathToUrl @upPath
+      locals.upLink = @pathToUrl locals.upPath
 
     locals.directories = @collection.directories @directorySorter
     locals.directories.reverse() if @directorySortReverse
@@ -48,11 +54,9 @@ DirectoryView = Backbone.View.extend
     locals.files = @collection.files @fileSorter
     locals.files.reverse() if @fileSortReverse
 
-    @$el.html template locals
+    return locals
 
-    if locals.directories.length is 0
-      @$('.directories').hide()
-      @$('.files').removeClass('span5').addClass 'span10'
+
 
   sortFiles: (e) ->
     sortProperty = $(e.target).data 'sort'
