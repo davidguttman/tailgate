@@ -17,4 +17,10 @@ auth = function(token) {
   return $.ajax(opts);
 };
 
-navigator.id.get(auth);
+$(document).ready(function() {
+  
+  $('.login').on('click', function() {
+    navigator.id.get(auth);
+  });
+
+});
