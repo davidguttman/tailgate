@@ -4,8 +4,10 @@
 
   .controls
     i.icon-step-backward
-    i.icon-play
-    i.icon-pause
+    if playing
+      i.icon-pause
+    else
+      i.icon-play
     i.icon-remove-sign
     i.icon-step-forward
 

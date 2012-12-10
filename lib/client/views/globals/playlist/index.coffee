@@ -7,8 +7,8 @@ Playlist = Backbone.View.extend
 
   events:
     'click i.icon-step-backward': 'prev'
-    'click i.icon-play': 'play'
-    'click i.icon-pause': 'pause'
+    'click i.icon-play': 'playPause'
+    'click i.icon-pause': 'playPause'
     'click i.icon-remove-sign': 'clear'
     'click i.icon-step-forward': 'next'
 
@@ -37,6 +37,7 @@ Playlist = Backbone.View.extend
     @$el.html template
       items: @collection.models
       selected: @player.selected()
+      playing: @player.status() is 'playing'
     @renderProgress()
 
   renderProgress: ->
@@ -56,6 +57,12 @@ Playlist = Backbone.View.extend
 
   prev: ->
     @player.prev()
+
+  playPause: ->
+    if @player.status() is 'playing'
+      @player.pause()
+    else
+      @player.play()
 
   play: ->
     @player.play()
