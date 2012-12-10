@@ -3,7 +3,7 @@ window.Backbone = require 'backbone'
 
 globalViews  = require './views/globals'
 
-router       = require 'roto'
+router       = require 'directify'
 routingTable = require './router'
 
 addGlobals = ->
@@ -18,7 +18,9 @@ addGlobals = ->
 
 kickoff = -> 
   addGlobals()
-  router $('#main'), routingTable
+  router routingTable, $('#main')
+  if window.location.hash is ''
+    window.location.hash = '/'
 
 $(document).ready ->
   soundManager.setup
