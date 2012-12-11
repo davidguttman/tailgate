@@ -11,3 +11,4 @@ lib/client/**/*.js
 public/json/*.temp.json
 public/css/_*.css
 node_modules
+config/deploy.rb
