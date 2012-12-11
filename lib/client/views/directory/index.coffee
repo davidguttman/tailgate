@@ -8,14 +8,19 @@ DirectoryView = Backbone.View.extend
   events:
     'click tr.mp3 a': 'addToPlaylist'
     'click .add-all a': 'addAllToPlaylist'
-    'click .directories th.sort': 'sortDirectories'
-    'click .files th.sort': 'sortFiles'
+    'click .directories th.sort': 'sort'
+    'click .files th.sort': 'sort'
 
   initialize: (@opts) ->
     _.bindAll this
 
-    @fileSortReverse = false
-    @directorySortReverse = false
+    @sortOpts = 
+      files:
+        reverse: false
+        property: 'name'
+      directories:
+        reverse: true
+        property: 'ctime'
 
     @collection = collection @opts.path
     @collection.on 'reset', @render
@@ -48,35 +53,30 @@ DirectoryView = Backbone.View.extend
     else
       locals.upLink = @pathToUrl locals.upPath
 
-    locals.directories = @collection.directories @directorySorter
-    locals.directories.reverse() if @directorySortReverse
+    locals.directories = @collection.directories @sortOpts.directories.sorter
+    locals.directories.reverse() if @sortOpts.directories.reverse
 
-    locals.files = @collection.files @fileSorter
-    locals.files.reverse() if @fileSortReverse
+    locals.files = @collection.files @sortOpts.files.sorter
+    locals.files.reverse() if @sortOpts.files.reverse
 
     return locals
 
+  sort: (e) ->
+    type = $(e.target).data 'sort-type'
+    property = $(e.target).data 'sort-property'
+    console.log 'type', type
+    console.log 'property', property
+    
+    @sortOpts[type].property ?= property
+    changed = property isnt @sortOpts[type].property
 
-
-  sortFiles: (e) ->
-    sortProperty = $(e.target).data 'sort'
-    @fileSortProperty ?= sortProperty
-    changed = sortProperty isnt @fileSortProperty
-    @fileSortProperty = sortProperty
-    @fileSortReverse = not @fileSortReverse unless changed
-    @fileSorter = (file) ->
-      (file.get sortProperty).toLowerCase()
+    @sortOpts[type].property = property
+    @sortOpts[type].reverse = not @sortOpts[type].reverse unless changed
+    
+    @sortOpts[type].sorter = (model) ->
+      (model.get property).toLowerCase()
     @render()
 
-  sortDirectories: (e) ->
-    sortProperty = $(e.target).data 'sort'
-    @directorySortProperty ?= sortProperty
-    changed = sortProperty isnt @directorySortProperty
-    @directorySortProperty = sortProperty
-    @directorySortReverse = not @directorySortReverse unless changed
-    @directorySorter = (dir) ->
-      (dir.get sortProperty).toLowerCase()
-    @render()
 
   addFromElement: (el) ->
     $el = $(el)

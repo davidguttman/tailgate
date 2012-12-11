@@ -25,9 +25,9 @@
     table.table
       thead
         tr
-          th.sort(data-sort='name')
+          th.sort(data-sort-property='name', data-sort-type='directories')
             | Name
-          th.sort(data-sort='ctime')
+          th.sort(data-sort-property='ctime', data-sort-type='directories')
             | Created
       tbody
         for directory in directories
@@ -43,9 +43,9 @@
     table.table
       thead
         tr
-          th.sort(data-sort='ctime')
+          th.sort(data-sort-property='name', data-sort-type='files')
             | Name
-          th.sort(data-sort='ctime')
+          th.sort(data-sort-property='ctime', data-sort-type='files')
             | Created
       tbody
         for file in files
