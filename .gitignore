@@ -1,3 +1,4 @@
+config/tailgate.json
 .sass-cache/
 tmp/*
 lib/tmp/*
