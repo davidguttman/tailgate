@@ -31,6 +31,15 @@ DirectoryView = Backbone.View.extend
   render: ->
     locals = @getLocals @opts
     
+    sortOpts = @sortOpts
+    locals.files = _.sortBy locals.files, (file) ->
+      (file.get sortOpts.files.property).toLowerCase()
+    locals.files.reverse() if sortOpts.files.reverse
+
+    locals.directories = _.sortBy locals.directories, (dir) ->
+      (dir.get sortOpts.directories.property).toLowerCase()
+    locals.directories.reverse() if sortOpts.directories.reverse
+
     @$el.html template locals
 
     if locals.directories.length is 0
@@ -52,20 +61,15 @@ DirectoryView = Backbone.View.extend
       locals.upLink = null
     else
       locals.upLink = @pathToUrl locals.upPath
-
-    locals.directories = @collection.directories @sortOpts.directories.sorter
-    locals.directories.reverse() if @sortOpts.directories.reverse
-
-    locals.files = @collection.files @sortOpts.files.sorter
-    locals.files.reverse() if @sortOpts.files.reverse
+    
+    locals.directories = @collection.directories()    
+    locals.files = @collection.files()
 
     return locals
 
   sort: (e) ->
     type = $(e.target).data 'sort-type'
     property = $(e.target).data 'sort-property'
-    console.log 'type', type
-    console.log 'property', property
     
     @sortOpts[type].property ?= property
     changed = property isnt @sortOpts[type].property
@@ -73,8 +77,6 @@ DirectoryView = Backbone.View.extend
     @sortOpts[type].property = property
     @sortOpts[type].reverse = not @sortOpts[type].reverse unless changed
     
-    @sortOpts[type].sorter = (model) ->
-      (model.get property).toLowerCase()
     @render()
 
 

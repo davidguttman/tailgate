@@ -28,20 +28,9 @@ Directory = Backbone.Collection.extend
     filtered = @filter (entry) ->
       entry.get 'isDirectory'
 
-    sorter = sorter or (entry) ->
-      (entry.get 'name').toLowerCase()
-
-    _.sortBy filtered, sorter
-
-
   files: (sorter) ->
     filtered = @filter (entry) -> 
       (not entry.get 'isDirectory') and (entry.get('ext') is 'mp3')
-
-    sorter = sorter or (entry) ->
-      (entry.get 'name').toLowerCase()
-
-    _.sortBy filtered, sorter
 
 module.exports = (path) ->
   new Directory path
