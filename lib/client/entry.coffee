@@ -26,5 +26,5 @@ $(document).ready ->
   soundManager.setup
     url: '/swf'
     preferFlash: false
-    useHTML5Audio: true
+    # useHTML5Audio: true
     onready: kickoff

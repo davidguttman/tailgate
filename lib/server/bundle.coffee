@@ -27,9 +27,10 @@ bundle.register '.jade', (body, fn) ->
 bundle.prepend "window.VERSION = '#{version}';"
 
 includes = [
+  'logfix.js'
   'jquery.min.js'
   'bootstrap.min.js'
-  'soundmanager2.js'
+  'soundmanager2-nodebug-jsmin.js'
 ]
 
 for js in includes.reverse()
