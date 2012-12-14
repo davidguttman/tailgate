@@ -95,8 +95,9 @@ Player = Backbone.Model.extend
   
     nextItem = @playlist().at (index+1)
     cid = nextItem?.cid
-    @set selected: cid if cid?
-    @playSelected()
+    if cid? and cid isnt @get 'selected'
+      @set selected: cid 
+      @playSelected()
 
   clear: ->
     soundManager.stopAll()
