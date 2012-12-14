@@ -71,8 +71,8 @@ Playlist = Backbone.View.extend
     @player.pause()
 
   clear: ->
-    if confirm 'Clear playlist?'
-      @player.clear()
+    # if confirm 'Clear playlist?'
+    @player.clear()
 
   next: ->
     @player.next()
