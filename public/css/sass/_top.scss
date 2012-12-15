@@ -8,4 +8,12 @@
   .navbar-inner {
     border-radius: 0;
   }
+
+  .song-progress {
+    height: 2px;
+    width: 30%;
+    position: relative;
+    bottom: 0;
+    background: #08c;
+  }
 }
