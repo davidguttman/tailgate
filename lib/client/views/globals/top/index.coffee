@@ -1,7 +1,7 @@
 template = require '../../../templates/top'
 
 Top = Backbone.View.extend
-  className: 'navbar navbar-inverse navbar-fixed-top'
+  className: 'navbar navbar-inverse affix'
   
   initialize: ->
     @render()
