@@ -3,7 +3,7 @@ playlist = require '../../../collections/playlist'
 template = require '../../../templates/playlist'
 
 Playlist = Backbone.View.extend
-  className: 'playlist span4'
+  className: 'playlist'
 
   events:
     'click i.icon-step-backward': 'prev'

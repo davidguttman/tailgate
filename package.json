@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "supervisor -n exit -e js,coffee index"
+    "dev": "supervisor -n exit -e js,coffee,jade index"
   },
   "repository": "",
   "author": "David Guttman",

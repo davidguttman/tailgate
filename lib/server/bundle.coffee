@@ -6,6 +6,7 @@ uglify     = require 'uglify-js'
 {version}  = require '../../package.json'
 
 bOpts = 
+  cache: true
   require:
     backbone: 'backbone-browserify'
 
@@ -21,6 +22,7 @@ bundle.register '.jade', (body, fn) ->
   fn = jade.compile body, 
     compileDebug: false
     client: true
+    filename: fn
   
   return "module.exports = #{fn};"
 
@@ -29,6 +31,7 @@ bundle.prepend "window.VERSION = '#{version}';"
 includes = [
   'logfix.js'
   'jquery.min.js'
+  'jquery.collapse.js'
   'bootstrap.min.js'
   'soundmanager2-nodebug-jsmin.js'
 ]

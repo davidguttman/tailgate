@@ -44,7 +44,6 @@ DirectoryView = Backbone.View.extend
 
     if locals.directories.length is 0
       @$('.directories').hide()
-      @$('.files').removeClass('span4').addClass 'span8'
 
   getLocals: (opts) ->
     locals = _.extend {}, opts

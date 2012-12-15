@@ -1,6 +1,6 @@
 
 .row
-  .location.span10
+  .location
     p.small
       = path
 
@@ -21,37 +21,6 @@
       
 .row
 
-  .directories.span4
-    table.table
-      thead
-        tr
-          th.sort(data-sort-property='name', data-sort-type='directories')
-            | Name
-          th.sort(data-sort-property='ctime', data-sort-type='directories')
-            | Created
-      tbody
-        for directory in directories
-          tr.dir
-            td
-              a.name(href=directory.get('url'))
-                = directory.get('name').replace(/_/g, ' ')
-            td
-              = directory.created()
+  include directories
 
-
-  .files.span4
-    table.table
-      thead
-        tr
-          th.sort(data-sort-property='name', data-sort-type='files')
-            | Name
-          th.sort(data-sort-property='ctime', data-sort-type='files')
-            | Created
-      tbody
-        for file in files
-          tr.file(class=file.get('ext'))
-            td
-              a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
-                = file.get('name').replace(/_/g, ' ')
-            td
-              = file.created()
+  include files
