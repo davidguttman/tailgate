@@ -1,3 +1,5 @@
+windowState = require '../../models/window_state'
+
 collection = require '../../collections/directory'
 template = require '../../templates/directory'
 playlist = require '../../collections/playlist'
@@ -13,6 +15,10 @@ DirectoryView = Backbone.View.extend
 
   initialize: (@opts) ->
     _.bindAll this
+
+    @windowState = windowState()
+    @windowState.on 'change:directories', @render
+    @windowState.on 'change:files', @render
 
     @sortOpts = 
       files:
@@ -47,6 +53,10 @@ DirectoryView = Backbone.View.extend
 
   getLocals: (opts) ->
     locals = _.extend {}, opts
+
+    locals.filesActive = @windowState.get 'files'
+    locals.directoriesActive = @windowState.get 'directories'
+
     pathParts = locals.path.split '/'
     
     if pathParts.length < 2
