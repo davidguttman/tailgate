@@ -1,3 +1,4 @@
+playlist = require '../collections/playlist'
 sounds = {}
 
 Player = Backbone.Model.extend
@@ -115,6 +116,6 @@ Player = Backbone.Model.extend
 
 cache = null
 
-module.exports = (playlist) ->
+module.exports = () ->
   cache = cache or new Player 
-    playlist: playlist
+    playlist: playlist()

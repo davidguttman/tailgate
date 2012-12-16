@@ -1,9 +1,13 @@
-.navbar.affix {
+.navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   z-index: 10;
+  bottom: 0;
+  left: 0;
+
+  margin-bottom: 0;
+
+  width: 100%;
+  
 
   .navbar-inner {
     border-radius: 0;
@@ -11,9 +15,12 @@
 
   .song-progress {
     height: 2px;
-    width: 30%;
     position: relative;
     bottom: 0;
-    background: #08c;
+    background: #1B1B1B;
+    .fill {
+      background: #08c;
+      width: 30%;
+    }
   }
 }

@@ -1,23 +1,24 @@
 html {
-  padding-top: 60px; }
+  padding-top: 60px;
+  padding-bottom: 60px; }
 
-body {
-  padding-bottom: 40px; }
-
-.navbar.affix {
+.navbar {
   position: fixed;
-  top: 0;
+  z-index: 10;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  z-index: 10; }
-  .navbar.affix .navbar-inner {
+  margin-bottom: 0;
+  width: 100%; }
+  .navbar .navbar-inner {
     border-radius: 0; }
-  .navbar.affix .song-progress {
+  .navbar .song-progress {
     height: 2px;
-    width: 30%;
     position: relative;
     bottom: 0;
-    background: #08c; }
+    background: #1B1B1B; }
+    .navbar .song-progress .fill {
+      background: #08c;
+      width: 30%; }
 
 #app-version {
   position: absolute;
