@@ -1,5 +1,5 @@
 html {
-  padding-top: 60px;
+  padding-top: 10px;
   padding-bottom: 60px; }
 
 .navbar {
@@ -27,8 +27,7 @@ html {
   color: rgba(0, 0, 0, 0.1); }
 
 .playlist {
-  font-size: 80%;
-  text-align: center; }
+  font-size: 80%; }
   .playlist .list {
     text-align: left; }
     .playlist .list li {
