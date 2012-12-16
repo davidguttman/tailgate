@@ -13,6 +13,12 @@ DirectoryView = Backbone.View.extend
     'click .directories th.sort': 'sort'
     'click .files th.sort': 'sort'
 
+    'click .directories .window-collapse': 'collapseDirectories'
+    'click .directories .window-expand': 'expandDirectories'
+
+    'click .files .window-collapse': 'collapseFiles'
+    'click .files .window-expand': 'expandFiles'
+
   initialize: (@opts) ->
     _.bindAll this
 
@@ -110,6 +116,14 @@ DirectoryView = Backbone.View.extend
   pathToUrl: (path) ->
     path = '/' if path is ''
     "#/directory/#{JSON.stringify {path: path}}"
+
+  collapseFiles: -> @windowState.set 'files': false
+
+  expandFiles: -> @windowState.set 'files': true
+
+  collapseDirectories: -> @windowState.set 'directories': false
+
+  expandDirectories: -> @windowState.set 'directories': true
 
 
 module.exports = (opts) ->

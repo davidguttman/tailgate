@@ -1,6 +1,18 @@
-if filesActive 
+.files
 
-  .files
+  .header
+    if filesActive
+      button.btn.window-collapse
+        i.icon-minus
+        | Files
+      
+    else
+      button.btn.window-expand
+        i.icon-plus
+        | Files
+
+  if filesActive 
+
     table.table
       thead
         tr

@@ -1,6 +1,18 @@
-if directoriesActive
+.directories
 
-  .directories
+  .header
+    if directoriesActive
+      button.btn.window-collapse
+        i.icon-minus
+        | Directories
+      
+    else
+      button.btn.window-expand
+        i.icon-plus
+        | Directories
+
+  if directoriesActive
+
     table.table
       thead
         tr
