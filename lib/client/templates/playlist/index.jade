@@ -1,10 +1,21 @@
-h4 Playlist
+.header
+  if active
+    button.window-collapse.pull-left
+      i.icon-minus
+    
+  else
+    button.window-expand.pull-left
+      i.icon-plus
 
-.list
-  ul.nav.nav-stacked.nav-list
-    for item in items
-      li(class=selected === item.cid ? 'active' : '')
+  h4 Playlist
 
-        a(data-cid=item.cid, class=item.cid)
-          i.icon-remove-circle(data-cid=item.cid)
-          = item.get('name').replace(/_/g, ' ')
+
+if active
+  .list
+    ul.nav.nav-stacked.nav-list
+      for item in items
+        li(class=selected === item.cid ? 'active' : '')
+
+          a(data-cid=item.cid, class=item.cid)
+            i.icon-remove-circle(data-cid=item.cid)
+            = item.get('name').replace(/_/g, ' ')

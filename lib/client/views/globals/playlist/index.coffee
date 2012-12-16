@@ -1,3 +1,4 @@
+windowState = require '../../../models/window_state'
 player = require '../../../models/player'
 playlist = require '../../../collections/playlist'
 template = require '../../../templates/playlist'
@@ -8,9 +9,15 @@ Playlist = Backbone.View.extend
   events:
     'click .list a': 'select'
     'click .list a i.icon-remove-circle': 'removeItem'
+
+    'click .window-collapse': 'collapse'
+    'click .window-expand': 'expand'
   
   initialize: ->
     _.bindAll this
+
+    @windowState = windowState()
+    @windowState.on 'change:playlist', @render
 
     @collection = playlist()
     @collection.on 'add', @render
@@ -24,10 +31,12 @@ Playlist = Backbone.View.extend
     @render()
 
   render: ->
-    console.log '@player.selected()', @player.selected()
+    active = @windowState.get 'playlist'
+
     @$el.html template
       items: @collection.models
       selected: @player.selected()
+      active: active
 
   removeItem: (e) ->
     cid = $(e.target).data 'cid'
@@ -39,6 +48,12 @@ Playlist = Backbone.View.extend
     cid = $(e.target).data 'cid'
     @player.select cid
     e.preventDefault()
+
+  collapse: ->
+    @windowState.set 'playlist': false
+
+  expand: ->
+    @windowState.set 'playlist': true
 
 cache = null
 

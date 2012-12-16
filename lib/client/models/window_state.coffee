@@ -1,6 +1,6 @@
-storageKey = 'tailgate:windowManager'
+storageKey = 'tailgate:windowState'
 
-WindowManager = Backbone.Model.extend
+WindowState = Backbone.Model.extend
   defaults:
     playlist: true
     directories: true
@@ -26,4 +26,4 @@ WindowManager = Backbone.Model.extend
 cache = null
 
 module.exports = ->
-  cache = cache or new WindowManager
+  cache = cache or new WindowState

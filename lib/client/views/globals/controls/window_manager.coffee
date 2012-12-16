@@ -1,5 +1,5 @@
 template = require '../../../templates/controls/window_manager'
-windowState = require '../../../models/window_manager'
+windowState = require '../../../models/window_state'
 
 WindowManager = Backbone.View.extend
   
