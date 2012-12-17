@@ -54,8 +54,6 @@ DirectoryView = Backbone.View.extend
 
     @$el.html template locals
 
-    if locals.directories.length is 0
-      @$('.directories').hide()
 
   getLocals: (opts) ->
     locals = _.extend {}, opts

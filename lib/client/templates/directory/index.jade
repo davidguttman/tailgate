@@ -1,26 +1,12 @@
+.location
+  p.small
+    = path
 
-.row
-  .location
-    p.small
-      = path
-
-    .page-header
-      h4
-        = dirName
-
-    .buttons
-      .add-all.pull-right
-        a.btn.btn-small
-          | Add All
-
-      if upLink
-        .up.pull-right
-          a.btn.btn-small(href=upLink)
-            | Up One Directory
-
+  .page-header
+    h4
+      = dirName
       
-.row
 
-  include directories
+include directories
 
-  include files
+include files

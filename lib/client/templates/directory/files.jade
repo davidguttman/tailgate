@@ -2,14 +2,18 @@
 
   .header
     if filesActive
-      button.btn.window-collapse
-        i.icon-minus
+      button.btn.btn-link.window-collapse
         | Files
+        i.icon-chevron-down
       
     else
-      button.btn.window-expand
-        i.icon-plus
+      button.btn.btn-link.window-expand
         | Files
+        i.icon-chevron-right
+
+    .add-all.pull-right
+      a.btn.btn-small
+        | Add All
 
   if filesActive 
 

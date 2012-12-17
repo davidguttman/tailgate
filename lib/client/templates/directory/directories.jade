@@ -2,29 +2,39 @@
 
   .header
     if directoriesActive
-      button.btn.window-collapse
-        i.icon-minus
+      button.btn.btn-link.window-collapse
         | Directories
+        i.icon-chevron-down
       
     else
-      button.btn.window-expand
-        i.icon-plus
+      button.btn.btn-link.window-expand
         | Directories
+        i.icon-chevron-right
+
+    if upLink
+      .up.pull-right
+        a.btn.btn-small(href=upLink)
+          | Up One Directory
 
   if directoriesActive
 
-    table.table
-      thead
-        tr
-          th.sort(data-sort-property='name', data-sort-type='directories')
-            | Name
-          th.sort(data-sort-property='ctime', data-sort-type='directories')
-            | Created
-      tbody
-        for directory in directories
-          tr.dir
-            td
-              a.name(href=directory.get('url'))
-                = directory.get('name').replace(/_/g, ' ')
-            td
-              = directory.created()
+    if directories.length <= 0
+      hr
+
+    else
+
+      table.table
+        thead
+          tr
+            th.sort(data-sort-property='name', data-sort-type='directories')
+              | Name
+            th.sort(data-sort-property='ctime', data-sort-type='directories')
+              | Created
+        tbody
+          for directory in directories
+            tr.dir
+              td
+                a.name(href=directory.get('url'))
+                  = directory.get('name').replace(/_/g, ' ')
+              td
+                = directory.created()
