@@ -21,7 +21,8 @@ button i {
     background: #1B1B1B; }
     .navbar .song-progress .fill {
       background: #08c;
-      width: 30%; }
+      width: 0%;
+      height: 2px; }
 
 #app-version {
   position: absolute;
