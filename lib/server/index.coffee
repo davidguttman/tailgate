@@ -28,11 +28,11 @@ app.configure ->
     store: new RedisStore
   app.use setUser
   app.use express.bodyParser()
-  app.use express.static './public'
+  app.use express.static __dirname + '/../../public'
   app.use bundle
   app.use express.logger 'dev'
 
-app.set 'views', './views'
+app.set 'views', __dirname + '/../../views'
 
 app.get '/', (req, res) ->
   if req.session.currentUser

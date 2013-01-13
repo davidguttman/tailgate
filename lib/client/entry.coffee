@@ -1,6 +1,3 @@
-window._ = require 'underscore'
-window.Backbone = require 'backbone'
-
 globalViews  = require './views/globals'
 
 router       = require 'directify'

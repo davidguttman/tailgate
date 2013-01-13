@@ -1,12 +1,13 @@
 {
-  "name": "intraviewer",
+  "name": "tailgate",
   "version": "0.0.0",
-  "description": "An even more internal dashboard",
+  "description": "Serve your music collection",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "supervisor -n exit -e js,coffee,jade index"
   },
@@ -27,6 +28,10 @@
     "request": "~2.12.0",
     "async": "~0.1.22",
     "send": "~0.1.0",
-    "directify": "~0.1.1"
+    "directify": "~0.1.1",
+    "simple-jadeify": "~1.0.0"
+  },
+  "bin": {
+    "tailgate": "./bin/tailgate"
   }
 }
