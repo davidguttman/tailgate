@@ -3,8 +3,8 @@ Entry = require '../models/entry'
 Directory = Backbone.Collection.extend
   model: Entry
 
-  initialize: (path) ->
-    @path = path
+  initialize: (opts) ->
+    @path = opts.path
 
   url: ->
     '/api/get?path='+@path
@@ -33,4 +33,4 @@ Directory = Backbone.Collection.extend
       (not entry.get 'isDirectory') and (entry.get('ext') is 'mp3')
 
 module.exports = (path) ->
-  new Directory path
+  new Directory path:path
