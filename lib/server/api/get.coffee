@@ -1,5 +1,4 @@
-config = require '../../../config/tailgate.json'
-root = config.directory
+root = process.cwd()
 
 fs = require 'fs'
 parse = require('url').parse
@@ -11,7 +10,7 @@ join = path.join
 directory = require './directory'
 file = require './file'
 
-module.exports = (req, res) ->
+module.exports = (req, res, next) ->
   url = parse(req.url)
   dir = decodeURIComponent(req.query.path)
   path = normalize(join(root, dir))
