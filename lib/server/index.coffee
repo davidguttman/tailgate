@@ -18,6 +18,8 @@ get = require './api/get'
 app = express()
 
 createUser = (email) ->
+  console.log "[TAILGATE] #{email} added to users".green
+  console.log "[TAILGATE] Running in 'closed mode'".green
   config.data.users.push email
   config.save()
   
@@ -72,6 +74,7 @@ app.post "/login", (req, res) ->
       req.session.currentUser = body.email
       res.send req.session.desiredUrl or "/"
     else
+      console.log "[TAILGATE] Not Authorized: #{body.email} ".red
       res.send '/'
 
   request reqOpts, onResponse
@@ -80,4 +83,4 @@ app.post "/login", (req, res) ->
 port = process.env.PORT or 3000
 
 app.listen port, ->
-  console.log "[TAILGATE] Running on port #{port}".yellow
+  console.log "[TAILGATE] Running on port #{port}".green
