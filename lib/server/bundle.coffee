@@ -37,6 +37,8 @@ for js in includes.reverse()
 bundle.prepend 'window.t0 = Date.now();'
 bundle.append 'window.t1 = Date.now();'
 
+e = console.error; console.error = ->
 bundle.addEntry __dirname + '/../client/entry.coffee'
+console.error = e
 
 module.exports = bundle
