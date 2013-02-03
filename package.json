@@ -29,7 +29,10 @@
     "async": "~0.1.22",
     "send": "~0.1.0",
     "directify": "~0.1.1",
-    "simple-jadeify": "~1.0.0"
+    "simple-jadeify": "~1.0.0",
+    "mkdirp": "~0.3.4",
+    "uuid": "0.0.2",
+    "colors": "~0.6.0-1"
   },
   "bin": {
     "tailgate": "./bin/tailgate"

@@ -3,7 +3,8 @@ request         = require 'request'
 express         = require 'express'
 RedisStore      = (require 'connect-redis') express
 
-config = require '../../config/tailgate.json'
+config = require './config'
+
 authorizedUsers = config.users.map (user) -> user.email
 
 bundle = require './bundle'
