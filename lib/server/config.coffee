@@ -9,18 +9,20 @@ configFile = home + '/.config/tailgate/config.json'
 
 mkdirp.sync (path.dirname configFile), 0o0700
 
+save = (data) ->
+  fs.writeFileSync configFile, (JSON.stringify data, null, '  ')
+
+
 makeNewConfig = ->
   console.log ("[TAILGATE] No config found.").yellow
   console.log ("[TAILGATE] Creating new config file at #{configFile}").yellow
   console.log ("[TAILGATE] Tailgate will be in 'open mode' until first login.").yellow
 
-
   config =
     secret: getRandomString()
     users: []
 
-  fs.writeFileSync configFile, (JSON.stringify config, null, '  ')
-
+  save config
   return config
 
 try 
@@ -36,5 +38,8 @@ catch e
   else
     throw e
 
-module.exports = config
+module.exports = 
+  data: config
+  save: ->
+    save config
 

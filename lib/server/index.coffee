@@ -1,16 +1,26 @@
 fs              = require 'fs'
+colors          = require 'colors'
 request         = require 'request'
 express         = require 'express'
 RedisStore      = (require 'connect-redis') express
 
 config = require './config'
 
-authorizedUsers = config.users.map (user) -> user.email
+authorizedUsers = config.data.users
+isOpenMode = authorizedUsers.length is 0
+if isOpenMode
+  console.log "[TAILGATE] Running in 'open mode'".yellow
+
 
 bundle = require './bundle'
 get = require './api/get'
 
 app = express()
+
+createUser = (email) ->
+  config.data.users.push email
+  config.save()
+  
 
 setUser = (req, res, next) ->
   app.locals.currentUser = req.session.currentUser
@@ -26,7 +36,7 @@ app.configure ->
   app.use express.cookieParser()
   app.use express.session
     secret: "the linguistic cyclist fusses beneath an overloaded assistant"
-    store: new RedisStore
+    # store: new RedisStore
   app.use setUser
   app.use express.bodyParser()
   app.use express.static __dirname + '/../../public'
@@ -54,7 +64,11 @@ app.post "/login", (req, res) ->
       audience: audience
 
   onResponse = (err, resp, body) ->
-    if body.email in authorizedUsers
+    if isOpenMode and body.email
+      createUser body.email
+      req.session.currentUser = body.email
+      res.send "/"
+    else if body.email in authorizedUsers
       req.session.currentUser = body.email
       res.send req.session.desiredUrl or "/"
     else
@@ -66,4 +80,4 @@ app.post "/login", (req, res) ->
 port = process.env.PORT or 3000
 
 app.listen port, ->
-  console.log "Express running on port #{port}"
+  console.log "[TAILGATE] Running on port #{port}".yellow
