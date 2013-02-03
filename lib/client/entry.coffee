@@ -1,3 +1,4 @@
+Fastclick    = require 'fastclick'
 globalViews  = require './views/globals'
 
 router       = require 'directify'
@@ -20,6 +21,8 @@ kickoff = ->
     window.location.hash = '/'
 
 $(document).ready ->
+  new Fastclick document.body
+
   soundManager.setup
     url: '/swf'
     preferFlash: false
