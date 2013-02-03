@@ -35,7 +35,7 @@ auth = (req, res, next) ->
 app.configure ->
   app.use express.cookieParser()
   app.use express.session
-    secret: "the linguistic cyclist fusses beneath an overloaded assistant"
+    secret: config.data.secret
     # store: new RedisStore
   app.use setUser
   app.use express.bodyParser()
