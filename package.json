@@ -31,7 +31,6 @@
     "directify": "~0.1.1",
     "simple-jadeify": "~1.0.0",
     "mkdirp": "~0.3.4",
-    "uuid": "0.0.2",
     "colors": "~0.6.0-1",
     "redis": "~0.8.2",
     "fastclick": "~0.5.4"
