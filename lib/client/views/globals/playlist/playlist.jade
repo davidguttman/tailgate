@@ -3,23 +3,17 @@
     button.btn.btn-link.window-collapse
       | Playlist
       i.icon-chevron-down
-      
-      
     
   else
     button.btn.btn-link.window-expand
       | Playlist
       i.icon-chevron-right
-      
-      
-
 
 if active
-  .list
-    ul.nav.nav-stacked.nav-list
-      for item in items
-        li(class=selected === item.cid ? 'active' : '')
-
+  table.table
+    for item in items
+      tr(class=selected === item.cid ? 'active' : '')
+        td
           a(data-cid=item.cid, class=item.cid)
             i.icon-remove-circle(data-cid=item.cid)
             = item.get('name').replace(/_/g, ' ')

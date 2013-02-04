@@ -1,7 +1,7 @@
 windowState = require '../../../models/window_state'
 player = require '../../../models/player'
 playlist = require '../../../collections/playlist'
-template = require '../../../templates/playlist'
+template = require './playlist.jade'
 
 Playlist = Backbone.View.extend
   className: 'playlist'
