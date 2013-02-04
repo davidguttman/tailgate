@@ -32,20 +32,20 @@ button i {
 
 .playlist {
   font-size: 80%; }
-  .playlist .list {
+  .playlist table {
     text-align: left; }
-    .playlist .list li {
+    .playlist table li {
       margin: 3px 0; }
-    .playlist .list a {
+    .playlist table tr {
       line-height: 1em;
       cursor: pointer; }
-      .playlist .list a i {
+      .playlist table tr i {
         opacity: 0;
         margin-left: -15px;
         margin-top: -1px; }
-    .playlist .list a:hover i {
+    .playlist table tr:hover i {
       opacity: 0.7; }
-    .playlist .list a:hover i:hover {
+    .playlist table tr:hover i:hover {
       opacity: 1; }
   .playlist .player {
     position: relative;

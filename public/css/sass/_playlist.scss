@@ -2,12 +2,12 @@
   font-size: 80%;
   // text-align: center;
   
-  .list {
+  table {
     text-align: left;
     li {
       margin: 3px 0;
     }
-    a {
+    tr {
       line-height: 1em;
       cursor: pointer;
       i {
@@ -16,7 +16,7 @@
         margin-top: -1px;
       }
     }
-    a:hover {
+    tr:hover {
       i {
         opacity: 0.7;
       }
