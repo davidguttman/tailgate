@@ -1,7 +1,7 @@
 windowState = require '../../models/window_state'
 
 collection = require '../../collections/directory'
-template = require '../../templates/directory'
+template = require './index.jade'
 playlist = require '../../collections/playlist'
 
 DirectoryView = Backbone.View.extend
