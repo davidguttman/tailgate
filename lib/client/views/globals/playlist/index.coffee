@@ -8,7 +8,10 @@ Playlist = Backbone.View.extend
 
   events:
     'click .list tr': 'select'
-    'click .list a i.icon-remove-circle': 'removeItem'
+    
+    'click .actions .remove': 'removeItem'
+    'click .actions .vote-up': 'voteUp'
+    'click .actions .vote-down': 'voteDown'
 
     'click .window-collapse': 'collapse'
     'click .window-expand': 'expand'
@@ -38,8 +41,17 @@ Playlist = Backbone.View.extend
       selected: @player.selected()
       active: active
 
+  voteUp: (e) ->
+    console.log 'voted up'
+    console.log '@collection', @collection
+    e.stopPropagation()
+
+  voteDown: (e) ->
+    console.log 'voted down'
+    e.stopPropagation()
+
   removeItem: (e) ->
-    cid = $(e.target).data 'cid'
+    cid = $(e.currentTarget).data 'cid'
     @player.remove cid
     e.stopPropagation()
 

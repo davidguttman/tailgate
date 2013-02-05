@@ -13,7 +13,15 @@ if active
   table.table.list
     for item in items
       tr(data-cid=item.cid, class=selected === item.cid ? 'info' : '')
-        td
+        td.name
           a(data-cid=item.cid, class=item.cid)
-            i.icon-remove-circle(data-cid=item.cid)
             = item.get('name').replace(/_/g, ' ')
+        
+        td
+          .actions.pull-right
+            button.vote-up.btn.btn-link(data-cid=item.cid)
+              i.icon-plus
+            button.vote-down.btn.btn-link(data-cid=item.cid)
+              i.icon-minus
+            button.remove.btn.btn-link(data-cid=item.cid)
+              i.icon-remove
