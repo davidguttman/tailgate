@@ -30,39 +30,39 @@ button i {
   right: 10px;
   color: rgba(0, 0, 0, 0.1); }
 
-.playlist {
-  font-size: 80%; }
-  .playlist table {
-    text-align: left; }
-    .playlist table li {
-      margin: 3px 0; }
-    .playlist table tr {
-      line-height: 1em;
-      cursor: pointer; }
-      .playlist table tr i {
-        opacity: 0; }
+.playlist table {
+  text-align: left; }
+  .playlist table li {
+    margin: 3px 0; }
+  .playlist table tr {
+    line-height: 1em;
+    cursor: pointer; }
+    .playlist table tr i {
+      opacity: 0; }
+  .playlist table tr:hover {
+    background: #eee; }
     .playlist table tr:hover i {
-      opacity: 0.7; }
+      opacity: 0.5; }
     .playlist table tr:hover i:hover {
       opacity: 1; }
-  .playlist .player {
-    position: relative;
-    margin-left: 0px;
-    margin-right: 15px; }
-    .playlist .player .controls {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      margin: 0 auto;
-      margin-bottom: 10px; }
-      .playlist .player .controls i {
-        opacity: 0.7;
-        margin: 15px;
-        margin-top: -2px;
-        cursor: pointer; }
-      .playlist .player .controls i:hover {
-        opacity: 1; }
+.playlist .player {
+  position: relative;
+  margin-left: 0px;
+  margin-right: 15px; }
+  .playlist .player .controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10px; }
+    .playlist .player .controls i {
+      opacity: 0.7;
+      margin: 15px;
+      margin-top: -2px;
+      cursor: pointer; }
+    .playlist .player .controls i:hover {
+      opacity: 1; }
 
 .directory-view {
   font-size: 85%;
