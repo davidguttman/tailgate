@@ -1,13 +1,28 @@
-mongoose = require 'mongoose'
+redis = require('redis').createClient()
 
-db = mongoose.createConnection 'localhost', 'logs'
+Votes = 
+  ns: 'tailgate:votes'
 
-interviewerSchema = mongoose.Schema {}, 
-  collection: 'interviewer'
+  fnkey: (filename) -> "#{@ns}:#{filename}"
 
-interviewerSchema.index {timestamp: -1}
+  get: (filename, callback) ->
+    key = @fnkey filename
+    redis.get key, (err, value) ->
+      return callback err if err
 
-Interviewer = db.model 'interviewer', interviewerSchema
+      callback null, (value or "0")
 
-module.exports =
-  Interviewer: Interviewer
+  upvote: (filename) ->
+    key = @fnkey filename
+    redis.set key, "1"
+
+  downvote: (filename) ->
+    key = @fnkey filename
+    redis.set key, "-1"
+
+  clearvote: (filename) ->
+    key = @fnkey filename
+    redis.del key
+
+module.exports = 
+  Votes: Votes

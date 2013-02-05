@@ -13,6 +13,7 @@ if isOpenMode
 
 bundle = require './bundle'
 get = require './api/get'
+vote = require './api/vote'
 
 app = express()
 
@@ -55,6 +56,9 @@ module.exports = (opts) ->
       res.render 'login.jade'
 
   app.get '/api/get', auth, get
+  app.get '/api/upvote', auth, vote.up
+  app.get '/api/downvote', auth, vote.down
+
 
   app.post "/login", (req, res) ->
     token = req.body.token
