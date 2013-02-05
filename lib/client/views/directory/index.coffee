@@ -97,10 +97,12 @@ DirectoryView = Backbone.View.extend
     $el = $(el)
     name = $el.data "name"
     url = $el.data "url"
+    path = $el.data "path"
 
     @playlist.add
       name: name
       url: url
+      path: path
 
   addAllToPlaylist: ->
     addFromElement = @addFromElement

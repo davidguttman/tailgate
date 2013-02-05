@@ -28,7 +28,11 @@
         for file in files
           tr.file(class=file.get('ext'))
             td
-              a.name(href=file.get('url'), data-name=file.get('name'), data-url=file.get('url'))
+              a.name(href=file.get('url'), 
+                data-name=file.get('name'), 
+                data-url=file.get('url'), 
+                data-path=file.get('path'))
+
                 = file.get('name').replace(/_/g, ' ')
             td
               = file.created()
