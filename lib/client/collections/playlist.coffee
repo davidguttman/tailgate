@@ -1,4 +1,7 @@
-PlaylistItem = require '../models/playlist_item'
+PlaylistItem = Backbone.Model.extend
+  upvote: ->
+    path = @get 'path'
+    $.get "/api/upvote?path=#{escape path}"
 
 Playlist = Backbone.Collection.extend
   model: PlaylistItem
@@ -22,6 +25,9 @@ Playlist = Backbone.Collection.extend
       return (JSON.parse localStorage[@storageKey])
     else
       return []
+
+  byCid: (cid) ->
+    @find (model) -> model.cid is cid
 
 
 cache = null
