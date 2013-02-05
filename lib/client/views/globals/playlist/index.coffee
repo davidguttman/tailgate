@@ -42,8 +42,10 @@ Playlist = Backbone.View.extend
       active: active
 
   voteUp: (e) ->
-    console.log 'voted up'
-    console.log '@collection', @collection
+    cid = $(e.currentTarget).data 'cid'
+    item = @collection.byCid cid
+    item?.upvote()
+
     e.stopPropagation()
 
   voteDown: (e) ->
