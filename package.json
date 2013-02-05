@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "supervisor -n exit -e js,coffee,jade index"
+    "dev": "supervisor -n exit -e js,coffee,jade -- index ~/Music"
   },
   "repository": "",
   "author": "David Guttman",

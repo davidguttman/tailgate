@@ -1,4 +1,4 @@
-root = process.cwd()
+root = process.argv[2] or process.cwd()
 
 fs = require 'fs'
 parse = require('url').parse
