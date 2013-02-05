@@ -12,7 +12,7 @@
 if active
   table.table.list
     for item in items
-      tr(class=selected === item.cid ? 'info' : '')
+      tr(data-cid=item.cid, class=selected === item.cid ? 'info' : '')
         td
           a(data-cid=item.cid, class=item.cid)
             i.icon-remove-circle(data-cid=item.cid)

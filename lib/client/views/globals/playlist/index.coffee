@@ -7,7 +7,7 @@ Playlist = Backbone.View.extend
   className: 'playlist'
 
   events:
-    'click .list a': 'select'
+    'click .list tr': 'select'
     'click .list a i.icon-remove-circle': 'removeItem'
 
     'click .window-collapse': 'collapse'
@@ -45,7 +45,8 @@ Playlist = Backbone.View.extend
 
   select: (e) ->
     console.log 'select...'
-    cid = $(e.target).data 'cid'
+    cid = $(e.currentTarget).data 'cid'
+    console.log 'cid', cid
     @player.select cid
     e.preventDefault()
 
