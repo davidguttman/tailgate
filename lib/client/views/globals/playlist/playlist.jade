@@ -18,7 +18,13 @@ if active
             = item.get('name').replace(/_/g, ' ')
         
         td
-          .actions.pull-right
+          if item.get('vote') > 0
+            - voteClass = 'upvoted'
+          else if item.get('vote') < 0
+            - voteClass = 'downvoted'
+          else
+            - voteClass = ''
+          .actions.pull-right(class=voteClass)
             button.vote-up.btn.btn-link(data-cid=item.cid)
               i.icon-plus
             button.vote-down.btn.btn-link(data-cid=item.cid)

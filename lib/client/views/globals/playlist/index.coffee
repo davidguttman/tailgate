@@ -26,6 +26,7 @@ Playlist = Backbone.View.extend
     @collection.on 'add', @render
     @collection.on 'remove', @render
     @collection.on 'reset', @render
+    @collection.on 'change', @render
 
     @player = player()
 
@@ -44,12 +45,25 @@ Playlist = Backbone.View.extend
   voteUp: (e) ->
     cid = $(e.currentTarget).data 'cid'
     item = @collection.byCid cid
-    item?.upvote()
+    if item?
+      curVote = item.get 'vote'
+      if curVote is 1
+        item.clearvote()
+      else
+        item.upvote()
 
     e.stopPropagation()
 
   voteDown: (e) ->
-    console.log 'voted down'
+    cid = $(e.currentTarget).data 'cid'
+    item = @collection.byCid cid
+    if item?
+      curVote = item.get 'vote'
+      if curVote is -1
+        item.clearvote()
+      else
+        item.downvote()
+
     e.stopPropagation()
 
   removeItem: (e) ->

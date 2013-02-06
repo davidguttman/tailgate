@@ -39,6 +39,10 @@ button i {
     cursor: pointer; }
     .playlist table tr i {
       opacity: 0; }
+    .playlist table tr .upvoted .vote-up i {
+      opacity: 0.5; }
+    .playlist table tr .downvoted .vote-down i {
+      opacity: 0.5; }
   .playlist table tr:hover {
     background: #eee; }
     .playlist table tr:hover i {

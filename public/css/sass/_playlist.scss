@@ -10,8 +10,20 @@
       cursor: pointer;
       i {
         opacity: 0;
-        // margin-left: -15px;
-        // margin-top: -1px;
+      }
+      .upvoted {
+        .vote-up {
+          i {
+            opacity: 0.5;
+          }
+        }
+      }
+      .downvoted {
+        .vote-down {
+          i {
+            opacity: 0.5;
+          }
+        }
       }
     }
     tr:hover {
@@ -49,6 +61,7 @@
       i:hover {
         opacity: 1;
       }
+
     }
   }
   
