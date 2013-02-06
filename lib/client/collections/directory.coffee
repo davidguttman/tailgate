@@ -9,6 +9,9 @@ Directory = Backbone.Collection.extend
   url: ->
     '/api/get?path='+@path
 
+  byCid: (cid) ->
+    @find (model) -> model.cid is cid
+
   parse: (data) ->
     path = @path
     data.map (entry) -> 
