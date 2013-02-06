@@ -1,28 +1,36 @@
 async = require 'async'
 fs = require 'fs'
-
 path = require 'path'
 normalize = path.normalize
 extname = path.extname
 join = path.join
 
+{Votes} = require '../db'
+
 fileStat = (dirPath, file, cb) ->
-  path = normalize(join(dirPath, file))
+  filepath = normalize(join(dirPath, file))
 
-  fs.stat path, (err, results) ->
-    return cb err if err
+  Votes.get filepath, (err, vote) ->
 
-    cb null,
-      name: file
-      isDirectory: results.isDirectory()
-      size: results.size
-      atime: results.atime
-      mtime: results.mtime
-      ctime: results.ctime
-      ext: extname(file).replace '.', ''
+    fs.stat filepath, (err, results) ->
+      return cb err if err
 
-sendStats = (req, res, path, files) ->
-  fn = async.apply fileStat, path
+      info = 
+        name: file
+        isDirectory: results.isDirectory()
+        size: results.size
+        atime: results.atime
+        mtime: results.mtime
+        ctime: results.ctime
+        ext: extname(file).replace '.', ''
+      
+      info.vote = vote unless info.isDirectory
+
+      cb null, info
+        
+
+sendStats = (req, res, filepath, files) ->
+  fn = async.apply fileStat, filepath
   async.map files, fn, (err, stats) ->
     return res.send 500, err.message if err
 
@@ -32,10 +40,10 @@ removeHidden = (files) ->
   files.filter (file) ->
     "." isnt file[0]
 
-module.exports = directory = (req, res, path) ->
-  fs.readdir path, (err, files) ->
+module.exports = directory = (req, res, filepath) ->
+  fs.readdir filepath, (err, files) ->
     return next(err)  if err
     files = removeHidden(files)
     files.sort()
-    sendStats req, res, path, files
+    sendStats req, res, filepath, files
 

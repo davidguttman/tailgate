@@ -9,8 +9,8 @@ Votes =
     key = @fnkey filename
     redis.get key, (err, value) ->
       return callback err if err
-
-      callback null, (value or "0")
+      vote = (parseInt value, 10) or 0
+      callback null, vote
 
   upvote: (filename) ->
     key = @fnkey filename
