@@ -1,6 +1,14 @@
 normalize = require '../normalize_path'
 {Votes} = require '../db'
 
+unNormalizePaths = (paths) ->
+  unNormalized = []
+  for item in paths
+    re = new RegExp "^#{normalize.root}"
+    if item.match re
+      unNormalized.push (item.replace re, '')
+  return unNormalized
+
 up = (req, res, next) ->
   filepath = normalize req.query.path
   Votes.upvote filepath
@@ -18,11 +26,13 @@ clear = (req, res, next) ->
 
 upvotes = (req, res, next) ->
   Votes.upvotes (err, upvotes) ->
-    res.send upvotes
+    paths = unNormalizePaths upvotes
+    res.send paths
 
 downvotes = (req, res, next) ->
   Votes.downvotes (err, downvotes) ->
-    res.send downvotes
+    paths = unNormalizePaths downvotes
+    res.send paths
 
 module.exports =
   up: up
