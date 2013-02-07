@@ -1,3 +1,7 @@
+0.3.0 / 2013-02-07
+==================
+  - Added /upvotes and /downvotes API endpoints
+
 0.2.0 / 2013-02-06
 ==================
   - Added upvote and downvotes for playlist items
