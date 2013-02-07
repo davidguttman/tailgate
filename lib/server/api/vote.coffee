@@ -16,10 +16,20 @@ clear = (req, res, next) ->
   Votes.clearvote filepath
   res.send 200
 
+upvotes = (req, res, next) ->
+  Votes.upvotes (err, upvotes) ->
+    res.send upvotes
+
+downvotes = (req, res, next) ->
+  Votes.downvotes (err, downvotes) ->
+    res.send downvotes
+
 module.exports =
   up: up
   down: down
   clear: clear
+  upvotes: upvotes
+  downvotes: downvotes
 
 
 

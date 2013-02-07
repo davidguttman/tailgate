@@ -59,6 +59,8 @@ module.exports = (opts) ->
   app.get '/api/upvote', auth, vote.up
   app.get '/api/downvote', auth, vote.down
   app.get '/api/clearvote', auth, vote.clear
+  app.get '/api/upvotes', auth, vote.upvotes
+  app.get '/api/downvotes', auth, vote.downvotes
 
 
   app.post "/login", (req, res) ->

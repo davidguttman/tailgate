@@ -32,6 +32,12 @@ Votes =
   clearvote: (filename) ->
     redis.srem @upkey, filename
     redis.srem @downkey, filename
+
+  upvotes: (callback) ->
+    redis.smembers @upkey, callback
+
+  downvotes: (callback) ->
+    redis.smembers @downkey, callback
     
 module.exports = 
   Votes: Votes
