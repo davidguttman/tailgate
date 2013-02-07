@@ -3,26 +3,35 @@ redis = require('redis').createClient()
 Votes = 
   ns: 'tailgate:votes'
 
-  fnkey: (filename) -> "#{@ns}:#{filename}"
+  upkey: 'tailgate:upvotes'
+  downkey: 'tailgate:downvotes'
 
   get: (filename, callback) ->
-    key = @fnkey filename
-    redis.get key, (err, value) ->
+    upkey = @upkey
+    downkey = @downkey
+
+    redis.sismember upkey, filename, (err, hasUp) ->
       return callback err if err
-      vote = (parseInt value, 10) or 0
-      callback null, vote
+
+      redis.sismember downkey, filename, (err, hasDown) ->
+        return callback err if err
+
+        vote = hasUp + (-1 * hasDown)
+        console.log filename, vote
+        
+        callback null, vote
 
   upvote: (filename) ->
-    key = @fnkey filename
-    redis.set key, "1"
+    redis.sadd @upkey, filename
+    redis.srem @downkey, filename
 
   downvote: (filename) ->
-    key = @fnkey filename
-    redis.set key, "-1"
+    redis.sadd @downkey, filename
+    redis.srem @upkey, filename
 
   clearvote: (filename) ->
-    key = @fnkey filename
-    redis.del key
-
+    redis.srem @upkey, filename
+    redis.srem @downkey, filename
+    
 module.exports = 
   Votes: Votes
