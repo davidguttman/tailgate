@@ -17,7 +17,6 @@ Votes =
         return callback err if err
 
         vote = hasUp + (-1 * hasDown)
-        console.log filename, vote
         
         callback null, vote
 
