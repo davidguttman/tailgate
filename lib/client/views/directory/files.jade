@@ -26,7 +26,15 @@
             | Created
       tbody
         for file in files
-          tr.file(class=file.get('ext'))
+          
+          if file.get('vote') > 0
+            - voteClass = 'upvoted'
+          else if file.get('vote') < 0
+            - voteClass = 'downvoted'
+          else
+            - voteClass = ''
+
+          tr.file(class=file.get('ext') + ' ' + voteClass )
             td
               a.name(href=file.get('url'), data-cid=file.cid)
 

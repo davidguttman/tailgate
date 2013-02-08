@@ -83,3 +83,6 @@ button i {
     right: 0px; }
     .directory-view .buttons .btn {
       margin: 5px; }
+
+tr.upvoted {
+  border-left: 5px solid #22aaee; }

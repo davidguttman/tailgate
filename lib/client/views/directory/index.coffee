@@ -36,6 +36,7 @@ DirectoryView = Backbone.View.extend
 
     @collection = collection @opts.path
     @collection.on 'reset', @render
+    @collection.on 'change', @render
     @collection.fetch()
 
     @playlist = playlist()
