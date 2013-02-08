@@ -1,7 +1,7 @@
-Entry = require '../models/entry'
+File = require './file'
 
 Directory = Backbone.Collection.extend
-  model: Entry
+  model: File
 
   initialize: (opts) ->
     @path = opts.path

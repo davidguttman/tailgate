@@ -1,22 +1,7 @@
-PlaylistItem = Backbone.Model.extend
-  upvote: ->
-    path = @get 'path'
-    $.get "/api/upvote?path=#{escape path}"
-    @set vote: 1
-
-  downvote: ->
-    path = @get 'path'
-    $.get "/api/downvote?path=#{escape path}"
-    @set vote: -1
-
-  clearvote: ->
-    path = @get 'path'
-    $.get "/api/clearvote?path=#{escape path}"
-    @set vote: 0
-
+File = require './file'
 
 Playlist = Backbone.Collection.extend
-  model: PlaylistItem
+  model: File
   
   storageKey: 'tailgate:playlist'
   
