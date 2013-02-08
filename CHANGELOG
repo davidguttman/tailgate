@@ -1,3 +1,8 @@
+
+0.3.1 / 2013-02-08 
+==================
+  - show upvoted state in file view
+
 0.3.0 / 2013-02-07
 ==================
   - Added /upvotes and /downvotes API endpoints
