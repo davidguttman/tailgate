@@ -2,12 +2,17 @@ html {
   padding-top: 10px;
   padding-bottom: 60px; }
 
+body {
+  background: url(/img/ricepaper2.png); }
+
 button i {
   margin-left: 10px; }
 
-.table td {
-  line-height: 28px;
-  font-size: 14px; }
+.login {
+  font-size: 400%;
+  text-align: center;
+  padding-top: 3em;
+  cursor: pointer; }
 
 .navbar {
   position: fixed;
@@ -34,6 +39,8 @@ button i {
   right: 10px;
   color: rgba(0, 0, 0, 0.1); }
 
+.playlist .actions .btn {
+  padding: 0; }
 .playlist table {
   text-align: left; }
   .playlist table li {
@@ -86,3 +93,6 @@ button i {
 
 tr.upvoted {
   border-left: 5px solid #22aaee; }
+
+td.created {
+  font-size: 80%; }
