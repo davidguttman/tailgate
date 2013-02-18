@@ -3,7 +3,7 @@ moment = require 'moment'
 module.exports = Backbone.Model.extend
   created: ->
     ctime = @get 'ctime'
-    moment(ctime).fromNow()
+    moment(ctime).format 'MM/YY'
 
   upvote: ->
     path = @get 'path'
