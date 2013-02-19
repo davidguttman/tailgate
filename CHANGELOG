@@ -1,4 +1,20 @@
 
+0.4.1 / 2013-02-19 
+==================
+
+  * selected song highlight tweak
+  * playlist header tweak
+  * playlist font-size tweak
+
+0.4.0 / 2013-02-18
+==================
+  
+  * playlist actions styling
+  * created_date styling
+  * using fluid 50% for playlist/directory-file
+  * added subtle bg image
+  * big login button
+
 0.3.1 / 2013-02-08 
 ==================
   
