@@ -23,8 +23,7 @@ body:before {
   z-index: -1; }
 
 html {
-  padding-top: 10px;
-  padding-bottom: 60px; }
+  padding: 10px 10px 60px 10px; }
 
 body {
   background: url(/img/ricepaper2.png); }
@@ -78,74 +77,74 @@ button i {
   right: 10px;
   color: rgba(0, 0, 0, 0.1); }
 
-.playlist {
+div.playlist {
   display: block;
   float: left;
   margin-right: 2.35765%;
   width: 48.82117%;
   font-size: 85%; }
-  .playlist:last-child {
+  div.playlist:last-child {
     margin-right: 0; }
   @media screen and (max-width: 481px) {
-    .playlist {
+    div.playlist {
       display: block;
       float: left;
       margin-right: 2.35765%;
       width: 100%; }
-      .playlist:last-child {
+      div.playlist:last-child {
         margin-right: 0; } }
-  .playlist .header {
+  div.playlist .header {
     background: rgba(255, 255, 255, 0.5);
     text-align: center; }
-    .playlist .header button {
+    div.playlist .header button {
       color: #999;
       text-shadow: none;
       letter-spacing: 0.1em; }
-    .playlist .header button:hover {
+    div.playlist .header button:hover {
       text-decoration: none; }
-  .playlist a {
+  div.playlist a {
     color: #666;
     letter-spacing: 0.1em; }
-  .playlist a:hover {
+  div.playlist a:hover {
     text-decoration: none; }
-  .playlist .actions .btn {
+  div.playlist .actions .btn {
     padding: 0; }
-  .playlist table {
+  div.playlist table {
     text-align: left; }
-    .playlist table li {
+    div.playlist table li {
       margin: 3px 0; }
-    .playlist table tr {
+    div.playlist table tr {
       line-height: 1em;
       cursor: pointer; }
-      .playlist table tr i {
+      div.playlist table tr i {
         opacity: 0; }
-      .playlist table tr .upvoted .vote-up i {
+      div.playlist table tr .upvoted .vote-up i {
         opacity: 0.5; }
-      .playlist table tr .downvoted .vote-down i {
+      div.playlist table tr .downvoted .vote-down i {
         opacity: 0.5; }
-    .playlist table tr:hover {
+    div.playlist table tr:hover {
       background: #eee; }
-      .playlist table tr:hover i {
+      div.playlist table tr:hover i {
         opacity: 0.5; }
-      .playlist table tr:hover i:hover {
+      div.playlist table tr:hover i:hover {
         opacity: 1; }
-  .playlist .player {
+  div.playlist .player {
     position: relative;
     margin-left: 0px;
     margin-right: 15px; }
-    .playlist .player .controls {
+    div.playlist .player .controls {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       margin: 0 auto;
       margin-bottom: 10px; }
-      .playlist .player .controls i {
+      div.playlist .player .controls i {
         opacity: 0.7;
         margin: 15px;
         margin-top: -2px;
         cursor: pointer; }
-      .playlist .player .controls i:hover {
+      div.playlist .player .controls i:hover {
         opacity: 1; }
 
 .directory-view {

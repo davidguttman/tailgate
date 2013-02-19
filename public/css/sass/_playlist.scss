@@ -1,4 +1,4 @@
-.playlist {
+div.playlist {
   @include span-columns(6);
   @include media(max-width 481px) {
     @include span-columns(12);
