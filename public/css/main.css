@@ -8,6 +8,10 @@ body {
 button i {
   margin-left: 10px; }
 
+.table tbody tr.info td {
+  background-color: #dbf3ff;
+  background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.8) 0%, #dbf3ff 10%, #dbf3ff 90%, rgba(255, 255, 255, 0.8) 100%); }
+
 .login {
   font-size: 400%;
   text-align: center;

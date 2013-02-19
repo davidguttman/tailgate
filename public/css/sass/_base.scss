@@ -10,3 +10,14 @@ body {
 button i {
   margin-left: 10px;
 }
+
+.table tbody tr.info td {
+  background-color: rgb(219, 243, 255);
+  background-image: -webkit-linear-gradient(
+    bottom, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgb(219, 243, 255) 10%, 
+    rgb(219, 243, 255) 90%,
+    rgba(255, 255, 255, 0.8) 100%
+  )
+}
