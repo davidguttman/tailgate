@@ -1,34 +1,33 @@
-.inner.span6
-  .header
-    if active
-      button.btn.btn-link.window-collapse
-        | Playlist
-        i.icon-chevron-down
-      
-    else
-      button.btn.btn-link.window-expand
-        | Playlist
-        i.icon-chevron-right
-
+.header
   if active
-    table.table.list
-      for item in items
-        tr(data-cid=item.cid, class=selected === item.cid ? 'info' : '')
-          td.name
-            a(data-cid=item.cid, class=item.cid)
-              = item.get('name').replace(/_/g, ' ')
-          
-          
-            if item.get('vote') > 0
-              - voteClass = 'upvoted'
-            else if item.get('vote') < 0
-              - voteClass = 'downvoted'
-            else
-              - voteClass = ''
-            .actions.pull-right(class=voteClass)
-              button.vote-up.btn.btn-link(data-cid=item.cid)
-                i.icon-plus
-              button.vote-down.btn.btn-link(data-cid=item.cid)
-                i.icon-minus
-              button.remove.btn.btn-link(data-cid=item.cid)
-                i.icon-remove
+    button.btn.btn-link.window-collapse
+      | Playlist
+      i.icon-chevron-down
+    
+  else
+    button.btn.btn-link.window-expand
+      | Playlist
+      i.icon-chevron-right
+
+if active
+  table.table.list
+    for item in items
+      tr(data-cid=item.cid, class=selected === item.cid ? 'info' : '')
+        td.name
+          a(data-cid=item.cid, class=item.cid)
+            = item.get('name').replace(/_/g, ' ')
+        
+        
+          if item.get('vote') > 0
+            - voteClass = 'upvoted'
+          else if item.get('vote') < 0
+            - voteClass = 'downvoted'
+          else
+            - voteClass = ''
+          .actions.pull-right(class=voteClass)
+            button.vote-up.btn.btn-link(data-cid=item.cid)
+              i.icon-plus
+            button.vote-down.btn.btn-link(data-cid=item.cid)
+              i.icon-minus
+            button.remove.btn.btn-link(data-cid=item.cid)
+              i.icon-remove

@@ -1,4 +1,9 @@
 .directory-view {
+  @include span-columns(6);
+  @include media(max-width 481px) {
+    @include span-columns(12);
+  }
+
   font-size: 85%;
   position: relative;
 

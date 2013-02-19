@@ -1,4 +1,9 @@
 .playlist {
+  @include span-columns(6);
+  @include media(max-width 481px) {
+    @include span-columns(12);
+  }
+
   .header {
     background: rgba(255,255,255,0.5);
     text-align: center;

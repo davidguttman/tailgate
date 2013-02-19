@@ -1,3 +1,5 @@
+
+
 html {
   padding-top: 10px;
   padding-bottom: 60px;
@@ -5,6 +7,10 @@ html {
 
 body {
   background: url(/img/ricepaper2.png)
+}
+
+#container {
+  @include outer-container;
 }
 
 button i {
