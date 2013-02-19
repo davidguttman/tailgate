@@ -1,6 +1,27 @@
 .playlist {
+  .header {
+    background: rgba(255,255,255,0.5);
+    text-align: center;
+    button {
+      color: #999;
+      text-shadow: none;
+      letter-spacing: 0.1em;
+    }
+    button:hover {
+      text-decoration: none;
+    }
+  }
 
   font-size: 85%;
+
+  a {
+    color: #666;
+    letter-spacing: 0.1em;
+    // font-weight: bold;
+  }
+  a:hover {
+    text-decoration: none;
+  }
 
   .actions {
     // float: left;

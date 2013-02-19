@@ -41,6 +41,20 @@ button i {
 
 .playlist {
   font-size: 85%; }
+  .playlist .header {
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center; }
+    .playlist .header button {
+      color: #999;
+      text-shadow: none;
+      letter-spacing: 0.1em; }
+    .playlist .header button:hover {
+      text-decoration: none; }
+  .playlist a {
+    color: #666;
+    letter-spacing: 0.1em; }
+  .playlist a:hover {
+    text-decoration: none; }
   .playlist .actions .btn {
     padding: 0; }
   .playlist table {
