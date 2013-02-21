@@ -7,6 +7,7 @@ Playlist = Backbone.Collection.extend
   
   initialize: ->
     @restore()
+    @on 'add', @getID3
     @on 'add', @save
     @on 'remove', @save
     @on 'reset', @save
@@ -27,6 +28,12 @@ Playlist = Backbone.Collection.extend
   byCid: (cid) ->
     @find (model) -> model.cid is cid
 
+  getID3: (model) ->
+    url = model.get 'url'
+    ID3.loadTags url, ->
+      id3 = ID3.getAllTags url
+      model.set
+        id3: id3
 
 cache = null
 

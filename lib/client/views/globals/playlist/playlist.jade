@@ -15,7 +15,11 @@ if active
       tr(data-cid=item.cid, class=selected === item.cid ? 'info' : '')
         td.name
           a(data-cid=item.cid, class=item.cid)
-            = item.get('name').replace(/_/g, ' ')
+            if item.has('id3')
+              - var id3 = item.get('id3')
+              = id3.artist + ' - ' + id3.title
+            else
+              = item.get('name').replace(/_/g, ' ')
         
         
           if item.get('vote') > 0
