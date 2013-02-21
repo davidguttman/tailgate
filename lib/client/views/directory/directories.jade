@@ -1,19 +1,23 @@
-.directories
+if directoriesActive
+  .directories
 
-  if directoriesActive && (directories.length > 0)
-    .directory-list
-      .controls
-        input.search.input-medium(placeholder='search')
+    if (directories.length > 0)
+      .directory-list
+        .controls
+          input.search.input-medium(placeholder='search')
 
-        button.btn.sort(data-sort='name')
-          i.icon-font
-        button.btn.sort(data-sort='created')
-          i.icon-calendar
+          button.btn.sort(data-sort='name')
+            i.icon-font
+          button.btn.sort(data-sort='created')
+            i.icon-calendar
 
-      ul.list
-        for directory in directories
-          li.dir
-            a.name(href=directory.get('url'))
-              = directory.get('name').replace(/_/g, ' ')
-            span.created
-              = directory.created()
+        ul.list
+          for directory in directories
+            li.dir
+              a.name(href=directory.get('url'))
+                = directory.get('name').replace(/_/g, ' ')
+              span.created
+                = directory.created()
+    else
+      .nothing
+        | No directories.
