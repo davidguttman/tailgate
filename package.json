@@ -1,6 +1,6 @@
 {
   "name": "tailgate",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Serve your music collection",
   "main": "index.js",
   "directories": {
