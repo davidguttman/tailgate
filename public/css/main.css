@@ -145,6 +145,15 @@ div.playlist {
         margin-right: 0; } }
   .directory-view th {
     cursor: pointer; }
+  .directory-view div.directories, .directory-view div.files {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dddddd;
+    background: rgba(255, 255, 255, 0.5); }
+  .directory-view .nothing {
+    text-align: center;
+    font-style: italic;
+    color: #666; }
   .directory-view .buttons {
     position: absolute;
     top: 0px;
@@ -180,4 +189,6 @@ div.playlist {
   text-align: center;
   color: #999;
   letter-spacing: 0.1em;
-  background: rgba(255, 255, 255, 0.5); }
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border: 1px solid #dddddd; }
