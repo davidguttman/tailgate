@@ -30,6 +30,7 @@ includes = [
   'underscore.js'
   'backbone.js'
   'list.js'
+  'id3.min.js'
 ]
 
 for js in includes.reverse()
