@@ -1,40 +1,23 @@
-.directories
+if directoriesActive
+  .directories
 
-  .header
-    if directoriesActive
-      button.btn.btn-link.window-collapse
-        | Directories
-        i.icon-chevron-down
-      
-    else
-      button.btn.btn-link.window-expand
-        | Directories
-        i.icon-chevron-right
+    if (directories.length > 0)
+      .directory-list
+        .controls
+          input.search.input-medium(placeholder='search')
 
-    if upLink
-      .up.pull-right
-        a.btn.btn-small(href=upLink)
-          | Up One Directory
+          button.btn.sort(data-sort='name')
+            i.icon-font
+          button.btn.sort(data-sort='created')
+            i.icon-calendar
 
-  if directoriesActive
-
-    if directories.length <= 0
-      hr
-
-    else
-
-      table.table
-        thead
-          tr
-            th.sort(data-sort-property='name', data-sort-type='directories')
-              | Name
-            th.sort(data-sort-property='ctime', data-sort-type='directories')
-              | Created
-        tbody
+        ul.list
           for directory in directories
-            tr.dir
-              td
-                a.name(href=directory.get('url'))
-                  = directory.get('name').replace(/_/g, ' ')
-              td
+            li.dir
+              a.name(href=directory.get('url'))
+                = directory.get('name').replace(/_/g, ' ')
+              span.created
                 = directory.created()
+    else
+      .nothing
+        | No directories.

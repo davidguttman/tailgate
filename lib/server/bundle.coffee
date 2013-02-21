@@ -29,6 +29,7 @@ includes = [
   'soundmanager2-nodebug-jsmin.js'
   'underscore.js'
   'backbone.js'
+  'list.js'
 ]
 
 for js in includes.reverse()

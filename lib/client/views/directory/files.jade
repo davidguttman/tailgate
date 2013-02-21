@@ -1,43 +1,39 @@
-.files
+if filesActive
+  .files    
 
-  .header
-    if filesActive
-      button.btn.btn-link.window-collapse
-        | Files
-        i.icon-chevron-down
-      
-    else
-      button.btn.btn-link.window-expand
-        | Files
-        i.icon-chevron-right
+    if (files.length > 0)
+      .files-list
+        
+        .add-all.pull-right
+          a.btn
+            | Add All
 
-    .add-all.pull-right
-      a.btn.btn-small
-        | Add All
+        .controls
+          input.search.input-medium(placeholder='search')
 
-  if filesActive 
+          button.btn.sort(data-sort='name')
+            i.icon-font
+          button.btn.sort(data-sort='created')
+            i.icon-calendar
 
-    table.table
-      thead
-        tr
-          th.sort(data-sort-property='name', data-sort-type='files')
-            | Name
-          th.sort(data-sort-property='ctime', data-sort-type='files')
-            | Created
-      tbody
-        for file in files
+        ul.list
+        
+          for file in files
           
-          if file.get('vote') > 0
-            - voteClass = 'upvoted'
-          else if file.get('vote') < 0
-            - voteClass = 'downvoted'
-          else
-            - voteClass = ''
+            if file.get('vote') > 0
+              - voteClass = 'upvoted'
+            else if file.get('vote') < 0
+              - voteClass = 'downvoted'
+            else
+              - voteClass = ''
 
-          tr.file(class=file.get('ext') + ' ' + voteClass )
-            td
+            li.file(class=file.get('ext') + ' ' + voteClass )
+              
               a.name(href=file.get('url'), data-cid=file.cid)
-
                 = file.get('name').replace(/_/g, ' ')
-            td.created
-              = file.created()
+
+              span.created
+                = file.created()
+    else
+      .nothing
+        | No files.

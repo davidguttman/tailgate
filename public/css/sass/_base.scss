@@ -12,10 +12,6 @@ body {
   @include outer-container;
 }
 
-button i {
-  margin-left: 10px;
-}
-
 .table tbody tr.info td {
   background-color: rgb(219, 243, 255);
   background-image: -webkit-linear-gradient(
