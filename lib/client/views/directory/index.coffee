@@ -52,8 +52,9 @@ DirectoryView = Backbone.View.extend
     locals.directories.reverse() if sortOpts.directories.reverse
 
     @$el.html template locals
-    dirList = @$('.directory-list')[0]
-    new List dirList, valueNames: ['name', 'created']
+    
+    new List @$('.directory-list')[0], valueNames: ['name', 'created']
+    new List @$('.files-list')[0], valueNames: ['name', 'created']
 
   getLocals: (opts) ->
     locals = _.extend {}, opts
@@ -102,7 +103,7 @@ DirectoryView = Backbone.View.extend
 
   addAllToPlaylist: ->
     addFromElement = @addFromElement
-    @$('tr.mp3 a').each (i, el) ->
+    @$('li.mp3 a').each (i, el) ->
       addFromElement el
 
   addToPlaylist: (event) ->
