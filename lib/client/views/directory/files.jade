@@ -3,18 +3,18 @@ if filesActive
 
     if (files.length > 0)
       .files-list
-        
-        .add-all.pull-right
-          a.btn
-            | Add All
 
         .controls
-          input.search.input-medium(placeholder='search')
+          input.search(placeholder='search')
 
           button.btn.sort(data-sort='name')
             i.icon-font
           button.btn.sort(data-sort='time')
             i.icon-calendar
+
+          .add-all
+            a.btn
+              i.icon-plus
 
         ul.list
         
