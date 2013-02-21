@@ -8,7 +8,7 @@ if directoriesActive
 
           button.btn.sort(data-sort='name')
             i.icon-font
-          button.btn.sort(data-sort='created')
+          button.btn.sort(data-sort='time')
             i.icon-calendar
 
         ul.list
@@ -18,6 +18,8 @@ if directoriesActive
                 = directory.get('name').replace(/_/g, ' ')
               span.created
                 = directory.created()
+              span.time.hide
+                = directory.get('ctime')
     else
       .nothing
         | No directories.

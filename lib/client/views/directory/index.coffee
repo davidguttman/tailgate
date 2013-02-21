@@ -53,8 +53,8 @@ DirectoryView = Backbone.View.extend
 
     @$el.html template locals
     
-    new List @$('.directory-list')[0], valueNames: ['name', 'created']
-    new List @$('.files-list')[0], valueNames: ['name', 'created']
+    new List @$('.directory-list')[0], valueNames: ['name', 'time']
+    new List @$('.files-list')[0], valueNames: ['name', 'time']
 
   getLocals: (opts) ->
     locals = _.extend {}, opts

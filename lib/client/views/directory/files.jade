@@ -13,7 +13,7 @@ if filesActive
 
           button.btn.sort(data-sort='name')
             i.icon-font
-          button.btn.sort(data-sort='created')
+          button.btn.sort(data-sort='time')
             i.icon-calendar
 
         ul.list
@@ -34,6 +34,9 @@ if filesActive
 
               span.created
                 = file.created()
+
+              span.time.hide
+                = file.get('ctime')
     else
       .nothing
         | No files.
