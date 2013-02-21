@@ -152,24 +152,26 @@ div.playlist {
     .directory-view .buttons .btn {
       margin: 5px; }
 
-.directory-list .controls button {
+.directory-list .controls button, .files-list .controls button {
   margin-left: 5px;
   float: right; }
-.directory-list .controls input {
+  .directory-list .controls button i, .files-list .controls button i {
+    pointer-events: none; }
+.directory-list .controls input, .files-list .controls input {
   text-align: center;
   float: left;
   margin-top: 4px; }
-.directory-list ul {
+.directory-list ul, .files-list ul {
   clear: both;
   list-style-type: none;
   margin: 0;
   padding: 10px 0; }
-  .directory-list ul li {
+  .directory-list ul li, .files-list ul li {
     padding: 0.5em 0 0.5em 0;
     border-bottom: 1px solid #dddddd; }
-  .directory-list ul li.upvoted {
+  .directory-list ul li.upvoted, .files-list ul li.upvoted {
     border-left: 5px solid #22aaee; }
-  .directory-list ul .created {
+  .directory-list ul .created, .files-list ul .created {
     font-size: 80%;
     margin-left: 10px;
     color: #999; }

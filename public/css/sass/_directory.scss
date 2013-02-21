@@ -22,12 +22,15 @@
   }
 }
 
-.directory-list {
+.directory-list, .files-list {
   .controls {
 
     button {
       margin-left: 5px;
       float: right;
+      i {
+        pointer-events: none;
+      }
     }
     input {
       text-align: center;
