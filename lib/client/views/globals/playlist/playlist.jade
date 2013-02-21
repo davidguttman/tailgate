@@ -1,7 +1,11 @@
 if active
   .header
-    button.btn.btn-link.window-collapse
-      | Playlist
+    | Playlist
+else
+  .header(class='hidden')
+    | Playlist
+
+if active
 
   if items.length > 0
     table.table.list

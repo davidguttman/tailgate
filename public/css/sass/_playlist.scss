@@ -4,20 +4,38 @@ div.playlist {
     @include span-columns(12);
   }
 
+  font-size: 85%;
+
   .header {
-    background: rgba(255,255,255,0.5);
     text-align: center;
+    color: #999;
+    letter-spacing: 0.1em;
+    background: rgba(255,255,255,0.5);
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    
     button {
-      color: #999;
+      color: #666;
       text-shadow: none;
       letter-spacing: 0.1em;
     }
+
     button:hover {
       text-decoration: none;
     }
   }
 
-  font-size: 85%;
+  .header.hidden {
+    border: 1px dashed #ddd;
+    font-style: italic;
+    color: #aaa;
+    opacity: 0.5;
+  }
+
+  .nothing {
+    padding: 10px 0;
+  }
 
   a {
     color: #666;
@@ -41,6 +59,12 @@ div.playlist {
     li {
       margin: 3px 0;
     }
+
+    td {
+      border-top: none;
+      border-bottom: 1px solid #ddd;
+    }
+
     tr {
       line-height: 1em;
       cursor: pointer;

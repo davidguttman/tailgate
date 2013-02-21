@@ -24,6 +24,11 @@ body {
   background-color: #dbf3ff;
   background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.8) 0%, #dbf3ff 10%, #dbf3ff 90%, rgba(255, 255, 255, 0.8) 100%); }
 
+.nothing {
+  text-align: center;
+  font-style: italic;
+  color: #666; }
+
 .login {
   font-size: 400%;
   text-align: center;
@@ -73,14 +78,26 @@ div.playlist {
       div.playlist:last-child {
         margin-right: 0; } }
   div.playlist .header {
+    text-align: center;
+    color: #999;
+    letter-spacing: 0.1em;
     background: rgba(255, 255, 255, 0.5);
-    text-align: center; }
+    padding: 10px;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px; }
     div.playlist .header button {
-      color: #999;
+      color: #666;
       text-shadow: none;
       letter-spacing: 0.1em; }
     div.playlist .header button:hover {
       text-decoration: none; }
+  div.playlist .header.hidden {
+    border: 1px dashed #dddddd;
+    font-style: italic;
+    color: #aaa;
+    opacity: 0.5; }
+  div.playlist .nothing {
+    padding: 10px 0; }
   div.playlist a {
     color: #666;
     letter-spacing: 0.1em; }
@@ -93,6 +110,9 @@ div.playlist {
     text-align: left; }
     div.playlist table li {
       margin: 3px 0; }
+    div.playlist table td {
+      border-top: none;
+      border-bottom: 1px solid #dddddd; }
     div.playlist table tr {
       line-height: 1em;
       cursor: pointer; }
@@ -151,10 +171,6 @@ div.playlist {
     margin: 10px 0;
     border: 1px solid #dddddd;
     background: rgba(255, 255, 255, 0.5); }
-  .directory-view .nothing {
-    text-align: center;
-    font-style: italic;
-    color: #666; }
   .directory-view .buttons {
     position: absolute;
     top: 0px;
