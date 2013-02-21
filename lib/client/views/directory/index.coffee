@@ -8,10 +8,8 @@ DirectoryView = Backbone.View.extend
   className: 'directory-view'
 
   events:
-    'click tr.mp3 a': 'addToPlaylist'
+    'click .mp3 a': 'addToPlaylist'
     'click .add-all a': 'addAllToPlaylist'
-    'click .directories th.sort': 'sort'
-    'click .files th.sort': 'sort'
 
     'click .directories .window-collapse': 'collapseDirectories'
     'click .directories .window-expand': 'expandDirectories'
@@ -54,7 +52,8 @@ DirectoryView = Backbone.View.extend
     locals.directories.reverse() if sortOpts.directories.reverse
 
     @$el.html template locals
-
+    dirList = @$('.directory-list')[0]
+    new List dirList, valueNames: ['name', 'created']
 
   getLocals: (opts) ->
     locals = _.extend {}, opts
