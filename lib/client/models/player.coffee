@@ -36,10 +36,11 @@ Player = Backbone.Model.extend
       soundManager.stopAll()
 
       soundId = item.cid + item.get 'name'
+      soundManager.unload soundId
 
       sounds[soundId] ?= soundManager.createSound
         id: soundId
-        url: item.get 'url'
+        url: decodeURI(item.get 'url')
         stream: true
         onfinish: @next
         whileplaying: ->
