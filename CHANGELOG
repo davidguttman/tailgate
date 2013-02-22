@@ -4,6 +4,7 @@
 
   * IOS: Should pause and auto-advance properly now
   * Server shouldn't crash if redis isn't available
+  * Only set ID3 tags if artist and title are available
 
 0.7.0 / 2013-02-21 
 ==================
