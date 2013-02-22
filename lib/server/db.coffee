@@ -1,4 +1,7 @@
+redisAvailable = true
 redis = require('redis').createClient()
+redis.on 'error', (err) ->
+  redisAvailable = false
 
 Votes = 
   ns: 'tailgate:votes'
@@ -9,6 +12,9 @@ Votes =
   get: (filename, callback) ->
     upkey = @upkey
     downkey = @downkey
+
+    unless redisAvailable
+      return callback null
 
     redis.sismember upkey, filename, (err, hasUp) ->
       return callback err if err
