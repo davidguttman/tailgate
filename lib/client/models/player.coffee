@@ -49,6 +49,11 @@ Player = Backbone.Model.extend
 
   stop: ->
     soundManager.stopAll()
+
+    item = @playlist().getByCid @selected()
+    soundId = item.cid + item.get 'name'
+    soundManager.stop soundId
+
     @set
       status: 'stopped'
 
@@ -79,6 +84,9 @@ Player = Backbone.Model.extend
   pause: ->
     if @status() is 'playing'
       soundManager.pauseAll()
+      item = @playlist().getByCid @selected()
+      soundId = item.cid + item.get 'name'
+      soundManager.pause soundId
       @set status: 'paused'
 
   prev: ->
