@@ -6,7 +6,7 @@ RedisStore      = (require 'connect-redis') express
 
 config = require './config'
 
-authorizedUsers = config.data.users
+authorizedUsers = config.data.users.map (email) -> email.toLowerCase()
 isOpenMode = authorizedUsers.length is 0
 if isOpenMode
   console.log "[TAILGATE] Running in 'open mode'".yellow
@@ -74,15 +74,17 @@ module.exports = (opts) ->
         audience: audience
 
     onResponse = (err, resp, body) ->
-      if isOpenMode and body.email
-        createUser body.email
-        req.session.currentUser = body.email
+      email = body.email?.toLowerCase()
+
+      if isOpenMode and email
+        createUser email
+        req.session.currentUser = email
         res.send "/"
-      else if body.email in authorizedUsers
-        req.session.currentUser = body.email
+      else if email in authorizedUsers
+        req.session.currentUser = email
         res.send req.session.desiredUrl or "/"
       else
-        console.log "[TAILGATE] Not Authorized: #{body.email} ".red
+        console.log "[TAILGATE] Not Authorized: #{email} ".red
         res.send '/'
 
     request reqOpts, onResponse
