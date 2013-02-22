@@ -32,8 +32,9 @@ Playlist = Backbone.Collection.extend
     url = model.get 'url'
     ID3.loadTags url, ->
       id3 = ID3.getAllTags url
-      model.set
-        id3: id3
+      if id3.title and id3.artist
+        model.set
+          id3: id3
 
 cache = null
 
