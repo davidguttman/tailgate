@@ -1,4 +1,10 @@
 
+0.7.1 / 2013-02-22 
+==================
+
+  * IOS: Should pause and auto-advance properly now
+  * Server shouldn't crash if redis isn't available
+
 0.7.0 / 2013-02-21 
 ==================
 
