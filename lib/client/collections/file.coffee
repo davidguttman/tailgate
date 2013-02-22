@@ -7,15 +7,15 @@ module.exports = Backbone.Model.extend
 
   upvote: ->
     path = @get 'path'
-    $.get "/api/upvote?path=#{escape path}"
+    $.get "/api/upvote?path=#{encodeURIComponent path}"
     @set vote: 1
 
   downvote: ->
     path = @get 'path'
-    $.get "/api/downvote?path=#{escape path}"
+    $.get "/api/downvote?path=#{encodeURIComponent path}"
     @set vote: -1
 
   clearvote: ->
     path = @get 'path'
-    $.get "/api/clearvote?path=#{escape path}"
+    $.get "/api/clearvote?path=#{encodeURIComponent path}"
     @set vote: 0

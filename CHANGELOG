@@ -1,4 +1,9 @@
 
+0.7.4 / 2013-02-22 
+==================
+
+  * fix: using encodeURIComponent instead of escape -- solves issue with utf-8 characters
+
 0.7.3 / 2013-02-22 
 ==================
 
