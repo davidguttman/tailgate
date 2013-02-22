@@ -36,7 +36,6 @@ Player = Backbone.Model.extend
       soundManager.stopAll()
 
       soundId = item.cid + item.get 'name'
-      soundManager.unload soundId
 
       sounds[soundId] ?= soundManager.createSound
         id: soundId
