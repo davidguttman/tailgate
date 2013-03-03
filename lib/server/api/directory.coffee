@@ -4,6 +4,7 @@ path = require 'path'
 normalize = path.normalize
 extname = path.extname
 join = path.join
+zip = require 'express-zip'
 
 {Votes} = require '../db'
 
@@ -40,10 +41,22 @@ removeHidden = (files) ->
   files.filter (file) ->
     "." isnt file[0]
 
+sendZip = (files, dirPath, res) ->
+  files = files.map (file) ->
+    name: file
+    path: normalize(join(dirPath, file))
+    
+  res.zip files
+
 module.exports = directory = (req, res, filepath) ->
   fs.readdir filepath, (err, files) ->
     return next(err)  if err
     files = removeHidden(files)
     files.sort()
-    sendStats req, res, filepath, files
+
+    if req.query.zip is 'true'
+      sendZip files, filepath, res
+    else
+      sendStats req, res, filepath, files
+
 
