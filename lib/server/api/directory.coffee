@@ -46,7 +46,7 @@ sendZip = (files, dirPath, res) ->
     name: file
     path: normalize(join(dirPath, file))
     
-  res.zip files
+  res.zip files, (path.basename dirPath) + '.zip'
 
 module.exports = directory = (req, res, filepath) ->
   fs.readdir filepath, (err, files) ->
