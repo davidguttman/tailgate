@@ -3,7 +3,9 @@
 Tailgate serves up your mp3s so you can listen to them at work or on your phone.
 
 ### Installation
-    
+
+Make sure [Node.js is installed](http://nodejs.org/), then:
+
     npm install -g tailgate
 
 ### Enjoyment
