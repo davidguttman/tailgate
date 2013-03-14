@@ -8,7 +8,7 @@ DirectoryView = Backbone.View.extend
   className: 'directory-view'
 
   events:
-    'click .mp3 a': 'addToPlaylist'
+    'click .file a': 'addToPlaylist'
     'click .add-all a': 'addAllToPlaylist'
 
     'click .directories .window-collapse': 'collapseDirectories'
@@ -103,7 +103,7 @@ DirectoryView = Backbone.View.extend
 
   addAllToPlaylist: ->
     addFromElement = @addFromElement
-    @$('li.mp3 a').each (i, el) ->
+    @$('li.file a').each (i, el) ->
       addFromElement el
 
   addToPlaylist: (event) ->

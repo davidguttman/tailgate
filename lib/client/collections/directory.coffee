@@ -33,7 +33,11 @@ Directory = Backbone.Collection.extend
 
   files: (sorter) ->
     filtered = @filter (entry) -> 
-      (not entry.get 'isDirectory') and (entry.get('ext') is 'mp3')
+      isFile = not entry.get 'isDirectory'
+      ext = entry.get 'ext'
+      audioExts = 'mp3 m4a ogg'.split ' '
+      isAudio = ext in audioExts
+      isFile and isAudio
 
 module.exports = (path) ->
   new Directory path:path
