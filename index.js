@@ -1,2 +1,2 @@
-require('coffee-script');
-require('./lib');
+require('coffee-script/register')
+require('./boot')
