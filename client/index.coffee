@@ -1,3 +1,4 @@
+Path = require 'path'
 moment = require 'moment'
 jsonist = require 'jsonist'
 directify = require 'directify'
@@ -10,12 +11,13 @@ columns = [
   title: 'Name'
   template: (sortName, stat) ->
     name = stat.name
+    path = if stat.path is '/' then '' else stat.path
     if stat.isDirectory
-      path = if stat.path is '/' then '' else stat.path
       url = '#' + path + '/' + name
-      return "<a href='#{url}'>#{name}</a>"
     else
-      return name
+      param = [path, name].map(encodeURIComponent).join '/'
+      url = '/api/get?path=' + param
+    return "<a href='#{url}'>#{name}</a>"
 ,
   property: 'mtime'
   title: 'Modified'
@@ -30,6 +32,12 @@ onPath = (path) ->
     document.body.innerHTML = ''
     document.body.appendChild ht.el
 
+    if path isnt '/'
+      ht.write
+        name: '..'
+        isDirectory: true
+        path: path
+
     for item in data
       item.sortName = item.name.toLowerCase()
       item.path = path
@@ -41,7 +49,10 @@ routes =
     onPath path
   '/.+': ->
     path = window.location.hash.replace /^#/, ''
-    onPath path
+    nPath = Path.normalize path
+    if path isnt nPath
+      return window.location.replace '#' + nPath
+    onPath nPath
 
 directify routes, document.body
 
