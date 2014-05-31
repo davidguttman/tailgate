@@ -2,7 +2,12 @@ Path = require 'path'
 directify = require 'directify'
 nav = require('./navigation.coffee')()
 
-document.body.appendChild nav.el
+template = require './index.jade'
+
+document.body.innerHTML = template()
+
+explorer = document.querySelector '.explorer'
+explorer.appendChild nav.el
 
 routes =
   '/': ->

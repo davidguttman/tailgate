@@ -1,5 +1,10 @@
 if path != '/'
-  a.btn.btn-default(href=window.location.hash + '/..')
+  a.btn.btn-default.pull-right(href=window.location.hash + '/..')
     | Up
+
+  a.add-folder.btn.btn-default.pull-left(data-path=path)
+    i.fa.fa-plus
+
+h1(style='text-align:center')= path
 
 .listing
