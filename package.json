@@ -27,7 +27,8 @@
     "sassify": "^0.5.0",
     "send": "^0.1.0",
     "uglify-js": "^2.4.13",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "bean": "^1.0.6"
   },
   "devDependencies": {
     "supervisor": "^0.6.0",
