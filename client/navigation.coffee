@@ -17,7 +17,7 @@ View = (@opts={}) ->
 
 View::setEvents = ->
   events = [
-    # ['click', '.box', @clickHandler]
+    ['click', '.add-folder', @addFolder]
   ]
 
   for event in events
@@ -40,10 +40,24 @@ View::renderPath = (path) ->
       item.path = path
       ht.write item
 
+View::addFolder = (evt) ->
+  path = evt.currentTarget.dataset.path
+  console.log 'path', path
+
 pathToUrl = (path) ->
   baseUrl + '/api/get?path=' + encodeURIComponent path
 
 columns = [
+  property: '_'
+  title: ''
+  template: (a, stat) ->
+    return '' unless stat.isDirectory
+    path = if stat.path is '/' then '' else stat.path
+    dirPath = path + '/' + stat.name
+    html = "<button class='btn btn-default add-folder' data-path='#{dirPath}'>"
+    html += "<i class='fa fa-plus'></i></button>"
+    return html
+,
   property: 'sortName'
   title: 'Name'
   template: (sortName, stat) ->
