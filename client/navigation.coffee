@@ -2,6 +2,7 @@ bean = require 'bean'
 moment = require 'moment'
 jsonist = require 'jsonist'
 hypnotable = require 'hypnotable'
+Emitter = require 'wildemitter'
 
 template = require './navigation.jade'
 
@@ -13,7 +14,10 @@ View = (@opts={}) ->
   @el = document.createElement 'div'
   @setEvents()
 
+  Emitter.call this
   return this
+
+View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
@@ -42,7 +46,7 @@ View::renderPath = (path) ->
 
 View::addFolder = (evt) ->
   path = evt.currentTarget.dataset.path
-  console.log 'path', path
+  @emit 'add', path
 
 pathToUrl = (path) ->
   baseUrl + '/api/get?path=' + encodeURIComponent path

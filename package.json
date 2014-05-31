@@ -28,7 +28,8 @@
     "send": "^0.1.0",
     "uglify-js": "^2.4.13",
     "underscore": "^1.6.0",
-    "bean": "^1.0.6"
+    "bean": "^1.0.6",
+    "wildemitter": "^1.0.1"
   },
   "devDependencies": {
     "supervisor": "^0.6.0",

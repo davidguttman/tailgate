@@ -9,6 +9,9 @@ document.body.innerHTML = template()
 explorer = document.querySelector '.explorer'
 explorer.appendChild nav.el
 
+nav.on 'add', (path) ->
+  console.log 'add path', path
+
 routes =
   '/': ->
     path = '/'
