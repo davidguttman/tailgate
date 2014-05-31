@@ -1,12 +1,10 @@
 bean = require 'bean'
 moment = require 'moment'
-jsonist = require 'jsonist'
 hypnotable = require 'hypnotable'
 Emitter = require 'wildemitter'
+api = require './api.coffee'
 
 template = require './navigation.jade'
-
-baseUrl = window.location.origin
 
 module.exports = -> new View arguments...
 
@@ -32,8 +30,7 @@ View::renderPath = (path) ->
   @el.innerHTML = template path: path
   listingEl = @el.querySelector '.listing'
 
-  url = pathToUrl path
-  jsonist.get url, (err, data, res) ->
+  api.getPath path, (err, data) ->
     ht = hypnotable columns
     ht.el.classList.add 'table'
     listingEl.innerHTML = ''
@@ -47,9 +44,6 @@ View::renderPath = (path) ->
 View::addFolder = (evt) ->
   path = evt.currentTarget.dataset.path
   @emit 'add', path
-
-pathToUrl = (path) ->
-  baseUrl + '/api/get?path=' + encodeURIComponent path
 
 columns = [
   property: '_'

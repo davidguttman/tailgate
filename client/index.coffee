@@ -1,6 +1,7 @@
 Path = require 'path'
 directify = require 'directify'
 nav = require('./navigation.coffee')()
+playlist = require('./playlist.coffee')()
 
 template = require './index.jade'
 
@@ -9,8 +10,11 @@ document.body.innerHTML = template()
 explorer = document.querySelector '.explorer'
 explorer.appendChild nav.el
 
+cPlaylist = document.querySelector '.playlist'
+cPlaylist.appendChild playlist.el
+
 nav.on 'add', (path) ->
-  console.log 'add path', path
+  playlist.addPath path
 
 routes =
   '/': ->
