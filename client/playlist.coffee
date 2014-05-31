@@ -1,4 +1,6 @@
+_ = require 'underscore'
 bean = require 'bean'
+Emitter = require 'wildemitter'
 api = require './api.coffee'
 
 template = require './playlist.jade'
@@ -12,11 +14,14 @@ View = (@opts={}) ->
   @items = []
 
   @render()
+  Emitter.call this
   return this
+
+View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
-    # ['click', '.box', @clickHandler]
+    ['click', '.media a', @playItem]
   ]
 
   for event in events
@@ -31,6 +36,7 @@ View::addPath = (path) ->
   api.getPath path, (err, files) =>
     folder =
       name: path.split('/')[-1..][0]
+      path: path
       size: 0
       files: []
 
@@ -48,3 +54,8 @@ View::addPath = (path) ->
     @items.push folder
 
     @render()
+
+View::playItem = (evt) ->
+  path = evt.currentTarget.dataset.path
+  folder = _.find @items, (item) -> item.path is path
+  @emit 'play', folder

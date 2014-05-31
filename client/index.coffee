@@ -2,6 +2,7 @@ Path = require 'path'
 directify = require 'directify'
 nav = require('./navigation.coffee')()
 playlist = require('./playlist.coffee')()
+player = require('./player.coffee')()
 
 template = require './index.jade'
 
@@ -13,8 +14,14 @@ explorer.appendChild nav.el
 cPlaylist = document.querySelector '.playlist'
 cPlaylist.appendChild playlist.el
 
+cPlayer = document.querySelector '.player'
+cPlayer.appendChild player.el
+
 nav.on 'add', (path) ->
   playlist.addPath path
+
+playlist.on 'play', (folder) ->
+  player.playFolder folder
 
 routes =
   '/': ->

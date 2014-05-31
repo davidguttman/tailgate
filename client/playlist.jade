@@ -1,10 +1,10 @@
 .playlist-view
-  h1 I'm the playlist
+  h3 Playlist
 
   .items
     for item in items
       .item.media
-        a.pull-left
+        a.pull-left(data-path=item.path, style='cursor:pointer')
           if item.cover
             - coverPath = '/api/get?path='+encodeURIComponent(item.cover.fullPath)
           else
@@ -12,4 +12,5 @@
           img.media-object(width='64px', height='64px', src=coverPath)
         .media-body
           h4.media-heading
-            = item.name
+            a(data-path=item.path, style='cursor:pointer')
+              = item.name
