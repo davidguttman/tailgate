@@ -2,6 +2,14 @@
   h1 I'm the playlist
 
   .items
-    ul
-      for item in items
-        li= item.name
+    for item in items
+      .item.media
+        a.pull-left
+          if item.cover
+            - coverPath = '/api/get?path='+encodeURIComponent(item.cover.fullPath)
+          else
+            - coverPath = '/img/no-cover.png'
+          img.media-object(width='64px', height='64px', src=coverPath)
+        .media-body
+          h4.media-heading
+            = item.name

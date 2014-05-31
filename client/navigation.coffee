@@ -42,7 +42,7 @@ View::renderPath = (path) ->
       ht.write item
 
 View::addFolder = (evt) ->
-  path = evt.currentTarget.dataset.path
+  path = unescape evt.currentTarget.dataset.path
   @emit 'add', path
 
 columns = [
@@ -51,7 +51,7 @@ columns = [
   template: (a, stat) ->
     return '' unless stat.isDirectory
     path = if stat.path is '/' then '' else stat.path
-    dirPath = path + '/' + stat.name
+    dirPath = escape(path + '/' + stat.name)
     html = "<button class='btn btn-default add-folder' data-path='#{dirPath}'>"
     html += "<i class='fa fa-plus'></i></button>"
     return html
@@ -62,7 +62,7 @@ columns = [
     name = stat.name
     path = if stat.path is '/' then '' else stat.path
     if stat.isDirectory
-      url = '#' + path + '/' + name
+      url = '#' + escape(path + '/' + name)
     else
       param = [path, name].map(encodeURIComponent).join '/'
       url = '/api/get?path=' + param

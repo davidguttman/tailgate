@@ -25,6 +25,8 @@ routes =
     nPath = Path.normalize path
     if path isnt nPath
       return window.location.replace '#' + nPath
+    if path isnt unescape(path)
+      return window.location.replace '#' + unescape(path)
     nav.renderPath nPath
 
 directify routes, document.body

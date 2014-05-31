@@ -34,13 +34,17 @@ View::addPath = (path) ->
       size: 0
       files: []
 
-    console.log 'folder', folder
-
     for file in files
+      file.fullPath = [path, file.name].join '/'
+      file.parent = path
+
       if file.ext in ['mp3', 'm4a']
-        file.fullPath = [path, file.name].join '/'
-        file.parent = path
-        console.log 'file', file
-        @items.push file
+        folder.files.push file
+        folder.size += file.size
+
+      if file.ext in ['png', 'jpg']
+        folder.cover = file
+
+    @items.push folder
 
     @render()
