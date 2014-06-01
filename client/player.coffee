@@ -29,6 +29,7 @@ View::setEvents = ->
     ['click', '.player-control .play', @play]
     ['click', '.player-control .pause', @pause]
     ['click', '.player-control .next', @playNextSong]
+    ['click', '.player-control .prev', @playPrevSong]
   ]
 
   for event in events
@@ -84,25 +85,42 @@ View::showInfo = (url) ->
   elTitle = @el.querySelector '.track-info .title'
   elArtist = @el.querySelector '.track-info .artist'
 
+  elTitle.innerHTML = ''
+  elArtist.innerHTML = ''
+  elArt.innerHTML = ''
+
   if @curFolder.cover
     elArt.innerHTML = "<img src='#{pathToUrl @curFolder.cover.fullPath}' />"
 
   id3 url, (err, tags) ->
-    elTitle.innerHTML = tags.title
-    elArtist.innerHTML = tags.artist
+    elTitle.innerHTML = tags.title if tags.title
+    elArtist.innerHTML = 'by ' + tags.artist if tags.artist
 
 View::firstPlay = (url) ->
   @player = playAudio(url, @el)
+  # @player.volume 0
   # @player.controls()
   @player.on 'ended', @onSongEnd.bind(this)
+  @player.on 'timeupdate', @onProgress.bind(this)
 
 View::playNextSong = ->
   @playing = false
   @loadSong @curFileIdx + 1
 
+View::playPrevSong = ->
+  @playing = false
+  if @curFileIdx > 0
+    @loadSong @curFileIdx - 1
+
 View::onSongEnd = (evt) ->
   @playing = false
   @playNextSong()
+
+View::onProgress = (evt) ->
+  audio = evt.srcElement
+  elProgress = @el.querySelector('.track-progress')
+  progress = (audio.currentTime / audio.duration)
+  elProgress.style.width = (progress * 100) + '%'
 
 pathToUrl = (path) ->
   '/api/get?path=' + encodeURIComponent path

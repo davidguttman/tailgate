@@ -8,12 +8,21 @@
 
   .fa { font-size: 2em; }
 
+  .track-progress {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #428BCA;
+  }
+
   .album-art {
     position: absolute;
     top: 0;
     left: 0;
     img {
-     width: 64px;
+     height: 64px;
    }
   }
 
@@ -25,6 +34,9 @@
 
     .title {
       font-weight: bold;
+    }
+    .artist {
+      margin-left: 5px;
     }
   }
 
@@ -65,7 +77,7 @@
       float: left;
       height: 100%;
       width: 6rem;
-      padding: 1.2rem 0 0 0;
+      padding: 1.8rem 0 0 0;
       border-left: 1px solid rgba(0,0,0,0.2);
       cursor: pointer;
       transition: background-color 0.2s;

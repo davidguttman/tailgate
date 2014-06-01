@@ -1,9 +1,9 @@
 if path != '/'
-  a.btn.btn-default.pull-right(href=window.location.hash + '/..')
-    | Up
-
-  a.add-folder.btn.btn-default.pull-left(data-path=path)
+  a.add-folder.btn.btn-default.pull-right(data-path=path)
     i.fa.fa-plus
+
+  a.btn.btn-default.pull-left(href=window.location.hash + '/..')
+    | Up
 
 h1(style='text-align:center')= path
 
