@@ -72,7 +72,9 @@ generateCode = (email, cb) ->
 
   console.log "[TAILGATE] Auth Code for #{email}: #{code} ".yellow
 
-  db.put key, auth, cb
+  db.put key, auth, (err) ->
+    return console.error err if err
+    cb null, code
 
 validateCode = (email, codeAssert, cb) ->
   key = ['auth', email].join '\xff'
