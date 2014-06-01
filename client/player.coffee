@@ -3,6 +3,7 @@ bean = require 'bean'
 Emitter = require 'wildemitter'
 playAudio = require 'play-audio'
 
+db = require './db.coffee'
 styles = require './player.scss'
 template = require './player.jade'
 
@@ -13,12 +14,18 @@ View = (@opts={}) ->
   @setEvents()
 
   @curFolder = null
-  @curPlaying = null
+  @curFileIdx = null
   @player = null
+  @curTime = 0
 
   @playing = false
 
+  @saveInterval = 3000
+  @lastSave = Date.now()
+
   @render()
+  @loadState()
+
   Emitter.call this
   return this
 
@@ -40,14 +47,14 @@ View::render = ->
   @el.innerHTML = template()
   return this
 
-View::playFolder = (folder) ->
+View::playFolder = (folder, songIdx = 0, time = 0) ->
   return if @curFolder is folder
 
   @curFolder = folder
 
-  @loadSong 0
+  @loadSong songIdx, time
 
-View::loadSong = (idx) ->
+View::loadSong = (idx, time = 0) ->
   @curFileIdx = idx
   file = @curFolder.files[idx]
 
@@ -63,7 +70,15 @@ View::loadSong = (idx) ->
     @firstPlay url
 
   @play()
+  @setTime time
   @showInfo file
+
+View::setTime = (time) ->
+  called = false
+  @player.on 'durationchange', =>
+    return if called
+    @player.currentTime time
+    called = true
 
 View::play = ->
   return @pause() if @playing
@@ -120,8 +135,31 @@ View::onSongEnd = (evt) ->
 View::onProgress = (evt) ->
   audio = evt.srcElement
   elProgress = @el.querySelector('.track-progress')
-  progress = (audio.currentTime / audio.duration)
+  @curTime = audio.currentTime
+  progress = (@curTime / audio.duration)
   elProgress.style.width = (progress * 100) + '%'
+  @saveState()
+
+View::saveState = ->
+  now = Date.now()
+  return unless now - @lastSave > @saveInterval
+  @lastSave = now
+
+  key = ['player', '_state'].join '\xff'
+  state =
+    curFolder: @curFolder
+    curFileIdx: @curFileIdx
+    curTime: @curTime
+
+  db.put key, state
+
+View::loadState = ->
+
+  key = ['player', '_state'].join '\xff'
+
+  db.get key, (err, state) =>
+    if state
+      @playFolder state.curFolder, state.curFileIdx, state.curTime
 
 pathToUrl = (path) ->
   '/api/get?path=' + encodeURIComponent path
