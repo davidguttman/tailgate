@@ -3,9 +3,11 @@ levelup = require 'levelup'
 
 dbName = 'tailgate'
 
-module.exports = levelup dbName,
+module.exports = db = levelup dbName,
   db: leveljs
   valueEncoding: 'json'
 
 module.exports.reset = ->
-  indexedDB.deleteDatabase dbName
+  setTimeout ->
+    db.createKeyStream().on 'data', db.del.bind(db)
+  , 1000
