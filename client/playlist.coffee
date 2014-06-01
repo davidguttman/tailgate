@@ -27,6 +27,7 @@ View::setEvents = ->
   events = [
     ['click', '.media a', @playItem]
     ['click', '.actions .clear', @clearPlaylist]
+    ['click', '.actions .save', @savePlaylist]
   ]
 
   for event in events
@@ -93,6 +94,12 @@ View::clearPlaylist = ->
   @items = []
   @curPlaying = {}
   @render()
+
+View::savePlaylist = ->
+  name = prompt 'Playlist Name?'
+  if name is '' or name.match /^_/
+    return @savePlaylist()
+  @save name
 
 View::load = (name = '_auto', cb = ->) ->
   key = ['playlist', name].join '\xff'
