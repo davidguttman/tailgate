@@ -1,6 +1,8 @@
 _ = require 'underscore'
 bean = require 'bean'
 Emitter = require 'wildemitter'
+
+db = require './db.coffee'
 api = require './api.coffee'
 
 styles = require './playlist.scss'
@@ -15,7 +17,7 @@ View = (@opts={}) ->
   @items = []
   @curPlaying = {}
 
-  @render()
+  @load '_auto', => @render()
   Emitter.call this
   return this
 
@@ -24,6 +26,7 @@ View.prototype = new Emitter
 View::setEvents = ->
   events = [
     ['click', '.media a', @playItem]
+    ['click', '.actions .clear', @clearPlaylist]
   ]
 
   for event in events
@@ -31,6 +34,7 @@ View::setEvents = ->
     bean.on @el, type, selector, handler.bind this
 
 View::render = ->
+  @save()
   @el.innerHTML = template
     items: @items
     curPlaying: @curPlaying
@@ -82,3 +86,25 @@ View::playNext = ->
 
   @emit 'play', @curPlaying if @curPlaying
   @render()
+
+View::clearPlaylist = ->
+  name = '_prev_' + Date.now()
+  @save name
+  @items = []
+  @curPlaying = {}
+  @render()
+
+View::load = (name = '_auto', cb = ->) ->
+  key = ['playlist', name].join '\xff'
+  db.get key, (err, playlist = {}) =>
+    @items = playlist.items if playlist.items
+    @curPlaying = playlist.curPlaying if playlist.curPlaying
+    cb()
+
+View::save = (name = '_auto', cb = ->) ->
+  state =
+    items: @items
+    curPlaying: @curPlaying
+
+  key = ['playlist', name].join '\xff'
+  db.put key, state, cb
