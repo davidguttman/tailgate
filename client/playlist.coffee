@@ -1,12 +1,15 @@
 _ = require 'underscore'
 bean = require 'bean'
+moment = require 'moment'
 Emitter = require 'wildemitter'
+simpleModal = require 'simple-modal'
 
 db = require './db.coffee'
 api = require './api.coffee'
 
 styles = require './playlist.scss'
 template = require './playlist.jade'
+loadPlaylistTemplate = require './load-playlist.jade'
 
 module.exports = -> new View arguments...
 
@@ -14,6 +17,7 @@ View = (@opts={}) ->
   @el = document.createElement 'div'
   @setEvents()
 
+  @name = 'Playlist'
   @items = []
   @curPlaying = {}
 
@@ -28,6 +32,10 @@ View::setEvents = ->
     ['click', '.media a', @playItem]
     ['click', '.actions .clear', @clearPlaylist]
     ['click', '.actions .save', @savePlaylist]
+    ['click', '.actions .load', @renderLoadPlaylist]
+
+    ['click', '.actions .cancel', @render]
+    ['click', 'a.load-playlist', @loadPlaylist]
   ]
 
   for event in events
@@ -39,6 +47,12 @@ View::render = ->
   @el.innerHTML = template
     items: @items
     curPlaying: @curPlaying
+
+  return this
+
+View::renderLoadPlaylist = ->
+  @getSavedPlaylists (err, playlists) =>
+    @el.innerHTML = loadPlaylistTemplate playlists: playlists
 
   return this
 
@@ -101,15 +115,73 @@ View::savePlaylist = ->
     return @savePlaylist()
   @save name
 
+View::loadPlaylist = (evt) ->
+  name = evt.currentTarget.dataset.name
+  @load name, => @render()
+
+View::formatSavedPlaylist = (playlist) ->
+  {name, items} = playlist
+
+  name ?= 'Unnamed Playlist'
+  return null if name.match /^_auto/
+
+  if name.match /^_prev_/
+    type = 'prev'
+    time = parseFloat name.split('_prev_')[1]
+
+    date = moment(time).format 'dddd, MMM Do hA'
+    name = date
+
+  n = items.length - 2
+
+  description = ' with '
+  description += items[0].name if items[0]
+  description += ', ' + items[1].name if items[1]
+  description += ", and #{n} others" if n > 0
+
+  playlist.displayName = name
+  playlist.description = description
+  playlist.type = type
+  return playlist
+
+View::getSavedPlaylists = (cb) ->
+  rs = db.createReadStream
+    start: 'playlist'
+    end: 'playlist' + '\xff\xff'
+
+  playlists = []
+  prevs = []
+
+  rs.on 'data', ({key, value}) =>
+    playlist = @formatSavedPlaylist value
+
+    if playlist
+      if playlist.type is 'prev'
+        prevs.push playlist
+      else
+        playlists.push playlist
+
+  rs.on 'error', cb
+
+  rs.on 'end', ->
+    playlists.push prev for prev in prevs[-4..].reverse()
+    cb null, playlists
+
 View::load = (name = '_auto', cb = ->) ->
   key = ['playlist', name].join '\xff'
   db.get key, (err, playlist = {}) =>
+    if playlist.name and not playlist.name.match /^_/
+      @name = playlist.name
+    else
+      @name = 'Playlist'
+
     @items = playlist.items if playlist.items
     @curPlaying = playlist.curPlaying if playlist.curPlaying
     cb()
 
 View::save = (name = '_auto', cb = ->) ->
   state =
+    name: name
     items: @items
     curPlaying: @curPlaying
 

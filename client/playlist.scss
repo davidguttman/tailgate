@@ -1,4 +1,4 @@
-.playlist-view {
+.playlist-view, .load-playlist-view {
   position: relative;
 
   .actions {
@@ -9,5 +9,17 @@
 
   .item.playing {
     background-color: rgba(255,255,0,0.2);
+  }
+}
+
+.load-playlist-view {
+  a.load-playlist {
+    cursor: pointer;
+  }
+  .name {
+    font-weight: bold;
+  }
+  .description {
+    font-size: 80%;
   }
 }
