@@ -19,7 +19,7 @@ module.exports =
       res.send 404
 
   login: (req, res) ->
-    email = req.body.email
+    email = req.body.email?.toLowerCase()
     code = req.body.code
 
     if email and code
@@ -38,7 +38,7 @@ module.exports =
       return res.json 400, {success: false}
 
   getCode: (req, res) ->
-    email = req.body.email
+    email = req.body.email?.toLowerCase()
     return res.send 400 unless email
 
     audience = 'http://' + req.headers.host
