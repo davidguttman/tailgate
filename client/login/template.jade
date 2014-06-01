@@ -4,11 +4,15 @@
 
     .form.col-md-4.col-md-offset-4
       if mode == 'request'
-        .step1
-          input.email.form-control(type='text', placeholder='email')
+        form.step1
+          .form-group
+            input.email.form-control(type='text', placeholder='email')
+
           button.request-code.btn.btn-primary(type='submit') Request Code
 
       if mode == 'enter'
-        .step2
-          input.code.form-control(type='text', placeholder='code')
+        form.step2
+          .form-group
+            input.code.form-control(type='text', placeholder='code')
+
           button.login.btn.btn-primary(type='submit') Login

@@ -2,6 +2,7 @@ bean = require 'bean'
 jsonist = require 'jsonist'
 
 api = require '../api.coffee'
+styles = require './style.scss'
 template = require './template.jade'
 
 module.exports = ->
@@ -19,8 +20,8 @@ View = (@opts={}) ->
 
 View::setEvents = ->
   events = [
-    ['click', '.request-code', @getCode]
-    ['click', '.login', @login]
+    ['submit', 'form.step1', @getCode]
+    ['submit', 'form.step2', @login]
   ]
 
   for event in events
@@ -31,7 +32,9 @@ View::render = ->
   @el.innerHTML = template mode: @mode
   return this
 
-View::getCode = ->
+View::getCode = (evt) ->
+  evt.preventDefault()
+
   email = @el.querySelector('.email').value
   @email = email
   api.getCode email, (err, res) =>
@@ -40,7 +43,9 @@ View::getCode = ->
       @mode = 'enter'
       @render()
 
-View::login = ->
+View::login = (evt) ->
+  evt.preventDefault()
+
   code = @el.querySelector('.code').value
   api.login @email, code, (err, res) =>
     console.error err if err
