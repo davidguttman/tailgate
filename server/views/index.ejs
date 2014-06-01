@@ -11,6 +11,11 @@
 </head>
 <body>
   <script>
+    <% if (currentUser) { %>
+      window.TG_CURRENT_USER = '<%= currentUser %>'
+    <% } %>
+  </script>
+  <script>
     window.onerror = function(err) {
       document.body.innerHTML = JSON.stringify(err) + document.body.innerHTML
     }
