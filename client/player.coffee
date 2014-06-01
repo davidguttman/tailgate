@@ -55,6 +55,7 @@ View::loadSong = (idx) ->
     return @emit 'ended', @curFolder
 
   url = pathToUrl file.fullPath
+  file.url = url
 
   if @player
     @player.src url
@@ -62,7 +63,7 @@ View::loadSong = (idx) ->
     @firstPlay url
 
   @play()
-  @showInfo url
+  @showInfo file
 
 View::play = ->
   return @pause() if @playing
@@ -80,19 +81,19 @@ View::pause = ->
   @el.querySelector('.player-control .pause').classList.add 'hide'
   @el.querySelector('.player-control .play').classList.remove 'hide'
 
-View::showInfo = (url) ->
+View::showInfo = (file) ->
   elArt = @el.querySelector '.album-art'
   elTitle = @el.querySelector '.track-info .title'
   elArtist = @el.querySelector '.track-info .artist'
 
-  elTitle.innerHTML = ''
+  elTitle.innerHTML = file.name.replace ".#{file.ext}", ''
   elArtist.innerHTML = ''
   elArt.innerHTML = ''
 
   if @curFolder.cover
     elArt.innerHTML = "<img src='#{pathToUrl @curFolder.cover.fullPath}' />"
 
-  id3 url, (err, tags) ->
+  id3 file.url, (err, tags) ->
     elTitle.innerHTML = tags.title if tags.title
     elArtist.innerHTML = 'by ' + tags.artist if tags.artist
 
