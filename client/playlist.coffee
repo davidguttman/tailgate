@@ -2,7 +2,6 @@ _ = require 'underscore'
 bean = require 'bean'
 moment = require 'moment'
 Emitter = require 'wildemitter'
-simpleModal = require 'simple-modal'
 
 db = require './db.coffee'
 api = require './api.coffee'
