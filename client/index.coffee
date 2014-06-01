@@ -1,3 +1,5 @@
+return require('./login/index.coffee')() unless window.TG_CURRENT_USER
+
 Path = require 'path'
 FastClick = require 'fastclick'
 directify = require 'directify'

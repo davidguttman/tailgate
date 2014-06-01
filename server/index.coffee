@@ -4,33 +4,17 @@ request         = require 'request'
 express         = require 'express'
 RedisStore      = (require 'connect-redis') express
 
+auth = require './auth'
 config = require './config'
-
-authorizedUsers = config.data.users.map (email) -> email.toLowerCase()
-isOpenMode = authorizedUsers.length is 0
-if isOpenMode
-  console.log "[TAILGATE] Running in 'open mode'".yellow
 
 get = require './api/get'
 vote = require './api/vote'
 
 app = express()
 
-createUser = (email) ->
-  console.log "[TAILGATE] #{email} added to users".green
-  console.log "[TAILGATE] Running in 'closed mode'".green
-  config.data.users.push email
-  config.save()
-
 setUser = (req, res, next) ->
   app.locals.currentUser = req.session.currentUser
   next()
-
-auth = (req, res, next) ->
-  if req.session.currentUser
-    next()
-  else
-    res.send 404
 
 module.exports = (opts) ->
   app.configure ->
@@ -43,49 +27,22 @@ module.exports = (opts) ->
     app.use express.static __dirname + '/../public'
     app.use express.logger 'dev'
 
-  console.log 'configure done'
-
   app.set 'views', __dirname + '/views'
 
-  app.get '/', (req, res) ->
-    if req.session.currentUser
-      res.render 'index.ejs'
-    else
-      res.render 'login.jade'
+  app.get  '/', (req, res) -> res.render 'index.ejs'
 
-  app.get '/api/get', auth, get
-  app.get '/api/upvote', auth, vote.up
-  app.get '/api/downvote', auth, vote.down
-  app.get '/api/clearvote', auth, vote.clear
-  app.get '/api/upvotes', auth, vote.upvotes
-  app.get '/api/downvotes', auth, vote.downvotes
+  app.post '/get-code', auth.getCode
+  app.post '/login', auth.login
+  app.get  '/logout', (req, res) ->
+    req.session.currentUser = null
+    res.redirect '/'
 
-  app.post "/login", (req, res) ->
-    token = req.body.token
-    audience = "http://" + req.headers.host
-    reqOpts =
-      url: "https://browserid.org/verify"
-      method: "POST"
-      json:
-        assertion: token
-        audience: audience
-
-    onResponse = (err, resp, body) ->
-      email = body.email?.toLowerCase()
-
-      if isOpenMode and email
-        createUser email
-        req.session.currentUser = email
-        res.send "/"
-      else if email in authorizedUsers
-        req.session.currentUser = email
-        res.send req.session.desiredUrl or "/"
-      else
-        console.log "[TAILGATE] Not Authorized: #{email} ".red
-        res.send '/'
-
-    request reqOpts, onResponse
-
+  app.get '/api/get', auth.check, get
+  app.get '/api/upvote', auth.check, vote.up
+  app.get '/api/downvote', auth.check, vote.down
+  app.get '/api/clearvote', auth.check, vote.clear
+  app.get '/api/upvotes', auth.check, vote.upvotes
+  app.get '/api/downvotes', auth.check, vote.downvotes
 
   port = process.env.PORT or 3000
   console.log 'port', port
