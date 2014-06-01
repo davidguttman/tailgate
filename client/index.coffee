@@ -7,6 +7,7 @@ nav = require('./navigation.coffee')()
 playlist = require('./playlist.coffee')()
 player = require('./player.coffee')()
 
+db = require './db.coffee'
 template = require './index.jade'
 
 document.body.innerHTML = template()
@@ -30,6 +31,7 @@ player.on 'ended', ->
   playlist.playNext()
 
 routes =
+  '/_reset': -> db.reset()
   '/': ->
     path = '/'
     nav.renderPath path

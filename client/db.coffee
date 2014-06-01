@@ -1,6 +1,11 @@
 leveljs = require 'level-js'
 levelup = require 'levelup'
 
-module.exports = levelup 'tailgate',
+dbName = 'tailgate'
+
+module.exports = levelup dbName,
   db: leveljs
   valueEncoding: 'json'
+
+module.exports.reset = ->
+  indexedDB.deleteDatabase dbName
