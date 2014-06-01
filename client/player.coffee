@@ -7,6 +7,8 @@ db = require './db.coffee'
 styles = require './player.scss'
 template = require './player.jade'
 
+isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1
+
 module.exports = -> new View arguments...
 
 View = (@opts={}) ->
@@ -108,9 +110,11 @@ View::showInfo = (file) ->
   if @curFolder.cover
     elArt.innerHTML = "<img src='#{pathToUrl @curFolder.cover.fullPath}' />"
 
-  id3 file.url, (err, tags) ->
-    elTitle.innerHTML = tags.title if tags.title
-    elArtist.innerHTML = 'by ' + tags.artist if tags.artist
+  if isChrome
+    id3 file.url, (err, tags) ->
+      return console.error err if err
+      elTitle.innerHTML = tags.title if tags.title
+      elArtist.innerHTML = 'by ' + tags.artist if tags.artist
 
 View::firstPlay = (url) ->
   @player = playAudio(url, @el)
