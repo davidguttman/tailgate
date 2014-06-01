@@ -30,7 +30,8 @@
     "underscore": "^1.6.0",
     "bean": "^1.0.6",
     "wildemitter": "^1.0.1",
-    "play-audio": "^0.1.0"
+    "play-audio": "^0.1.0",
+    "id3js": "^1.1.3"
   },
   "devDependencies": {
     "supervisor": "^0.6.0",

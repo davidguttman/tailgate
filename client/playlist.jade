@@ -3,7 +3,8 @@
 
   .items
     for item in items
-      .item.media
+      - playing = curPlaying.path == item.path ? 'playing' : ''
+      .item.media(class=playing)
         a.pull-left(data-path=item.path, style='cursor:pointer')
           if item.cover
             - coverPath = '/api/get?path='+encodeURIComponent(item.cover.fullPath)

@@ -23,6 +23,9 @@ nav.on 'add', (path) ->
 playlist.on 'play', (folder) ->
   player.playFolder folder
 
+player.on 'ended', ->
+  playlist.playNext()
+
 routes =
   '/': ->
     path = '/'

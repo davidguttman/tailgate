@@ -1,6 +1,9 @@
+id3 = require 'id3js'
 bean = require 'bean'
+Emitter = require 'wildemitter'
 playAudio = require 'play-audio'
 
+styles = require './player.scss'
 template = require './player.jade'
 
 module.exports = -> new View arguments...
@@ -10,14 +13,22 @@ View = (@opts={}) ->
   @setEvents()
 
   @curFolder = null
+  @curPlaying = null
   @player = null
 
+  @playing = false
+
   @render()
+  Emitter.call this
   return this
+
+View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
-    # ['click', '.box', @clickHandler]
+    ['click', '.player-control .play', @play]
+    ['click', '.player-control .pause', @pause]
+    ['click', '.player-control .next', @playNextSong]
   ]
 
   for event in events
@@ -32,25 +43,66 @@ View::playFolder = (folder) ->
   return if @curFolder is folder
 
   @curFolder = folder
-  @curFileIdx = 0
 
-  @play()
+  @loadSong 0
 
-View::play = ->
-  file = @curFolder.files[@curFileIdx]
+View::loadSong = (idx) ->
+  @curFileIdx = idx
+  file = @curFolder.files[idx]
+
+  if not file
+    return @emit 'ended', @curFolder
+
   url = pathToUrl file.fullPath
+
   if @player
     @player.src url
-    @player.play()
   else
     @firstPlay url
 
+  @play()
+  @showInfo url
+
+View::play = ->
+  return @pause() if @playing
+
+  @player.play()
+  @playing = true
+  @el.querySelector('.player-control .play').classList.add 'hide'
+  @el.querySelector('.player-control .pause').classList.remove 'hide'
+
+View::pause = ->
+  return @play() if not @playing
+
+  @player.pause()
+  @playing = false
+  @el.querySelector('.player-control .pause').classList.add 'hide'
+  @el.querySelector('.player-control .play').classList.remove 'hide'
+
+View::showInfo = (url) ->
+  elArt = @el.querySelector '.album-art'
+  elTitle = @el.querySelector '.track-info .title'
+  elArtist = @el.querySelector '.track-info .artist'
+
+  if @curFolder.cover
+    elArt.innerHTML = "<img src='#{pathToUrl @curFolder.cover.fullPath}' />"
+
+  id3 url, (err, tags) ->
+    elTitle.innerHTML = tags.title
+    elArtist.innerHTML = tags.artist
+
 View::firstPlay = (url) ->
-  @player = playAudio(url, @el).controls().play()
+  @player = playAudio(url, @el)
+  # @player.controls()
   @player.on 'ended', @onSongEnd.bind(this)
 
+View::playNextSong = ->
+  @playing = false
+  @loadSong @curFileIdx + 1
+
 View::onSongEnd = (evt) ->
-  console.log 'evt', evt
+  @playing = false
+  @playNextSong()
 
 pathToUrl = (path) ->
   '/api/get?path=' + encodeURIComponent path

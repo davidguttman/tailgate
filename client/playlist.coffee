@@ -3,6 +3,7 @@ bean = require 'bean'
 Emitter = require 'wildemitter'
 api = require './api.coffee'
 
+styles = require './playlist.scss'
 template = require './playlist.jade'
 
 module.exports = -> new View arguments...
@@ -12,6 +13,7 @@ View = (@opts={}) ->
   @setEvents()
 
   @items = []
+  @curPlaying = {}
 
   @render()
   Emitter.call this
@@ -29,7 +31,10 @@ View::setEvents = ->
     bean.on @el, type, selector, handler.bind this
 
 View::render = ->
-  @el.innerHTML = template items: @items
+  @el.innerHTML = template
+    items: @items
+    curPlaying: @curPlaying
+
   return this
 
 View::addPath = (path) ->
@@ -58,4 +63,22 @@ View::addPath = (path) ->
 View::playItem = (evt) ->
   path = evt.currentTarget.dataset.path
   folder = _.find @items, (item) -> item.path is path
-  @emit 'play', folder
+  @curPlaying = folder
+  @emit 'play', @curPlaying
+  @render()
+
+View::playNext = ->
+  curIndex = null
+  for folder, i in @items
+    if folder.path is @curPlaying.path
+      curIndex = i
+
+  nextIndex = curIndex + 1
+
+  if @items[nextIndex]
+    @curPlaying = @items[nextIndex]
+  else if @items[0]
+    @curPlaying = @items[0]
+
+  @emit 'play', @curPlaying if @curPlaying
+  @render()
