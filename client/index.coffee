@@ -1,4 +1,5 @@
 Path = require 'path'
+FastClick = require 'fastclick'
 directify = require 'directify'
 nav = require('./navigation.coffee')()
 playlist = require('./playlist.coffee')()
@@ -42,3 +43,7 @@ routes =
 directify routes, document.body
 
 window.location.hash = '/' if window.location.hash is ''
+
+window.addEventListener 'load', ->
+  new FastClick document.body
+, false

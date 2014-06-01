@@ -33,7 +33,8 @@
     "play-audio": "^0.1.0",
     "id3js": "^1.1.3",
     "level-js": "^2.1.5",
-    "levelup": "^0.18.3"
+    "levelup": "^0.18.3",
+    "fastclick": "^1.0.2"
   },
   "devDependencies": {
     "supervisor": "^0.6.0",
