@@ -191,7 +191,7 @@ View::save = (name = '_auto', cb = ->) ->
 
 View::findAlbumArt = (folder, cb) ->
   if folder.cover
-    cb null, '/api/get?path='+encodeURIComponent(item.cover.fullPath)
+    cb null, '/api/get?path='+encodeURIComponent(folder.cover.fullPath)
   else
     query = folder.name.replace /[\(|\)\[\]].+$/, ''
     api.albumArt query, (err, res) ->
