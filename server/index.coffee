@@ -7,6 +7,7 @@ RedisStore      = (require 'connect-redis') express
 auth = require './auth'
 config = require './config'
 
+art = require './api/art'
 get = require './api/get'
 vote = require './api/vote'
 
@@ -37,6 +38,7 @@ module.exports = (opts) ->
     req.session.currentUser = null
     res.redirect '/'
 
+  app.get '/api/art', auth.check, art
   app.get '/api/get', auth.check, get
   app.get '/api/upvote', auth.check, vote.up
   app.get '/api/downvote', auth.check, vote.down
