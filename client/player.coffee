@@ -21,6 +21,7 @@ View = (@opts={}) ->
   @curTime = 0
 
   @playing = false
+  @songLoaded = false
 
   @saveInterval = 3000
   @lastSave = Date.now()
@@ -35,10 +36,10 @@ View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
-    ['click', '.player-control .play', @play]
-    ['click', '.player-control .pause', @pause]
-    ['click', '.player-control .next', @playNextSong]
-    ['click', '.player-control .prev', @playPrevSong]
+    ['click', '.player-control.ready .play', @play]
+    ['click', '.player-control.ready .pause', @pause]
+    ['click', '.player-control.ready .next', @playNextSong]
+    ['click', '.player-control.ready .prev', @playPrevSong]
   ]
 
   for event in events
@@ -46,7 +47,7 @@ View::setEvents = ->
     bean.on @el, type, selector, handler.bind this
 
 View::render = ->
-  @el.innerHTML = template()
+  @el.innerHTML = template songLoaded: @songLoaded
   return this
 
 View::playFolder = (folder, songIdx = 0, time = 0) ->
@@ -70,6 +71,9 @@ View::loadSong = (idx, time = 0) ->
     @player.src url
   else
     @firstPlay url
+
+  @songLoaded = true
+  @render()
 
   @play()
   @setTime time
