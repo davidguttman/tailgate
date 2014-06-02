@@ -36,7 +36,8 @@
     "levelup": "^0.18.3",
     "fastclick": "^1.0.2",
     "level": "^0.18.0",
-    "emailjs": "^0.3.8"
+    "emailjs": "^0.3.8",
+    "cheerio": "^0.16.0"
   },
   "devDependencies": {
     "supervisor": "^0.6.0",

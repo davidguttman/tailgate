@@ -76,7 +76,9 @@ View::addPath = (path) ->
 
     @items.push folder
 
-    @render()
+    @findAlbumArt folder, (err, url) =>
+      folder.albumArtUrl = url
+      @render()
 
 View::playItem = (evt) ->
   path = evt.currentTarget.dataset.path
@@ -186,3 +188,14 @@ View::save = (name = '_auto', cb = ->) ->
 
   key = ['playlist', name].join '\xff'
   db.put key, state, cb
+
+View::findAlbumArt = (folder, cb) ->
+  if folder.cover
+    cb null, '/api/get?path='+encodeURIComponent(item.cover.fullPath)
+  else
+    query = folder.name.replace /[\(|\)\[\]].+$/, ''
+    api.albumArt query, (err, res) ->
+      if res.url
+        cb null, res.url
+      else
+        cb null, '/img/no-cover.png'
