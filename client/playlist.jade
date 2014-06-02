@@ -14,10 +14,13 @@
       for item in items
         - active = curPlaying.path == item.path ? 'active' : ''
 
-        a.item.list-group-item(data-path=item.path, class=active)
-          .media
-            img.media-object.pull-left(width='64px', height='64px', src=item.albumArtUrl)
+        a.item.list-group-item(class=active)
+          button.remove.btn.btn-danger.btn-xs(data-path=item.path)
+            i.fa.fa-times
+
+          .media(data-path=item.path)
+            img.media-object.pull-left(src=item.albumArtUrl)
 
             .media-body
-              h4.media-heading
+              h6.media-heading
                 = item.name

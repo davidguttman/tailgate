@@ -28,7 +28,9 @@ View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
-    ['click', 'a.item', @playItem]
+    ['click', 'a.item .media', @playItem]
+    ['click', '.item .remove', @removeItem]
+
     ['click', '.actions .clear', @clearPlaylist]
     ['click', '.actions .save', @savePlaylist]
     ['click', '.actions .load', @renderLoadPlaylist]
@@ -56,6 +58,9 @@ View::renderLoadPlaylist = ->
   return this
 
 View::addPath = (path) ->
+  existing = _.find @items, (item) -> item.path is path
+  return if existing
+
   api.getPath path, (err, files) =>
     folder =
       name: path.split('/')[-1..][0]
@@ -87,8 +92,21 @@ View::playItem = (evt) ->
   @emit 'play', @curPlaying
   @render()
 
+View::removeItem = (evt) ->
+  path = evt.currentTarget.dataset.path
+
+  newItems = []
+  for item in @items
+    newItems.push item unless item.path is path
+
+  if @curPlaying.path is path
+    @curPlaying = {}
+
+  @items = newItems
+  @render()
+
 View::playNext = ->
-  curIndex = null
+  curIndex = -1
   for folder, i in @items
     if folder.path is @curPlaying.path
       curIndex = i

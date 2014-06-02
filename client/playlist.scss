@@ -8,7 +8,28 @@
   }
 
   a.item {
+    position: relative;
     cursor: pointer;
+
+    button.remove {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: none;
+    }
+
+    .media {
+      margin: 0;
+      img {
+        height: 64px;
+      }
+    }
+  }
+
+  a.item:hover {
+    button.remove {
+      display: block;
+    }
   }
 }
 
