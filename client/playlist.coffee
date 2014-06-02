@@ -28,7 +28,7 @@ View.prototype = new Emitter
 
 View::setEvents = ->
   events = [
-    ['click', '.media a', @playItem]
+    ['click', 'a.item', @playItem]
     ['click', '.actions .clear', @clearPlaylist]
     ['click', '.actions .save', @savePlaylist]
     ['click', '.actions .load', @renderLoadPlaylist]

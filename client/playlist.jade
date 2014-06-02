@@ -10,20 +10,18 @@
       button.clear.btn.btn-default
         i.fa.fa-times
 
-    .items
+    .items.list-group
       for item in items
-        - playing = curPlaying.path == item.path ? 'playing' : ''
+        - active = curPlaying.path == item.path ? 'active' : ''
 
-        .item.media(class=playing)
-
-          a.pull-left(data-path=item.path, style='cursor:pointer')
+        a.item.list-group-item(data-path=item.path, class=active)
+          .media
             if item.cover
               - coverPath = '/api/get?path='+encodeURIComponent(item.cover.fullPath)
             else
               - coverPath = '/img/no-cover.png'
-            img.media-object(width='64px', height='64px', src=coverPath)
+            img.media-object.pull-left(width='64px', height='64px', src=coverPath)
 
-          .media-body
-            h4.media-heading
-              a(data-path=item.path, style='cursor:pointer')
+            .media-body
+              h4.media-heading
                 = item.name
