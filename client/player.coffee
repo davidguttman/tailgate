@@ -111,8 +111,8 @@ View::showInfo = (file) ->
   elArtist.innerHTML = ''
   elArt.innerHTML = ''
 
-  if @curFolder.cover
-    elArt.innerHTML = "<img src='#{pathToUrl @curFolder.cover.fullPath}' />"
+  if @curFolder.albumArtUrl
+    elArt.innerHTML = "<img src='#{@curFolder.albumArtUrl}' />"
 
   if isChrome
     id3 file.url, (err, tags) ->

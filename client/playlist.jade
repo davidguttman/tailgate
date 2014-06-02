@@ -16,11 +16,7 @@
 
         a.item.list-group-item(data-path=item.path, class=active)
           .media
-            if item.cover
-              - coverPath = '/api/get?path='+encodeURIComponent(item.cover.fullPath)
-            else
-              - coverPath = '/img/no-cover.png'
-            img.media-object.pull-left(width='64px', height='64px', src=coverPath)
+            img.media-object.pull-left(width='64px', height='64px', src=item.albumArtUrl)
 
             .media-body
               h4.media-heading

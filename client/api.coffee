@@ -14,5 +14,9 @@ module.exports =
     url = baseUrl + '/login'
     jsonist.post url, {email: email, code: code}, cb
 
+  albumArt: (query, cb) ->
+    url = baseUrl + '/api/art?q=' + encodeURIComponent query
+    jsonist.get url, cb
+
 pathToUrl = (path) ->
   baseUrl + '/api/get?path=' + encodeURIComponent path
