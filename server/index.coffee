@@ -23,7 +23,8 @@ module.exports = (opts) ->
     app.use express.session
       secret: config.data.secret
       store: new RedisStore if opts.redisEnabled
-      maxAge: 365 * 24 * 3600 * 1000
+      cookie:
+        maxAge: 60 * 24 * 3600 * 1000
     app.use setUser
     app.use express.bodyParser()
     app.use express.static __dirname + '/../public'
