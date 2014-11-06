@@ -1,4 +1,3 @@
-public/browserify.js
 db/
 config/deploy.rb
 config/opts.rb
