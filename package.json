@@ -1,7 +1,7 @@
 {
   "name": "tailgate",
   "author": "David Guttman",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Serve your music collection",
   "main": "index.js",
   "dependencies": {
