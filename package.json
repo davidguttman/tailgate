@@ -46,6 +46,7 @@
   "scripts": {
     "start": "node index.js",
     "prestart": "npm run build",
+    "prepublish": "npm run build",
     "build": "browserify client/index.coffee | uglifyjs -mc > public/browserify.js",
     "watch-client": "watchify client/index.coffee -o public/browserify.js -dv",
     "watch-server": "supervisor -n exit -i public,client -e js,coffee index.js",
