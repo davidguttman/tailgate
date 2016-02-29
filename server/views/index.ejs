@@ -10,16 +10,6 @@
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-  <script>
-    <% if (currentUser) { %>
-      window.TG_CURRENT_USER = '<%= currentUser %>'
-    <% } %>
-  </script>
-  <script>
-    window.onerror = function(err) {
-      document.body.innerHTML = JSON.stringify(err) + document.body.innerHTML
-    }
-  </script>
   <script src='/js/IndexedDBShim.min.js'></script>
   <script src='/browserify.js'></script>
 </body>

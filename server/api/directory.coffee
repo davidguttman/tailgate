@@ -6,28 +6,22 @@ extname = path.extname
 join = path.join
 zip = require 'express-zip'
 
-{Votes} = require '../db'
-
 fileStat = (dirPath, file, cb) ->
   filepath = normalize(join(dirPath, file))
 
-  Votes.get filepath, (err, vote) ->
+  fs.stat filepath, (err, results) ->
+    return cb err if err
 
-    fs.stat filepath, (err, results) ->
-      return cb err if err
+    info =
+      name: file
+      isDirectory: results.isDirectory()
+      size: results.size
+      atime: results.atime
+      mtime: results.mtime
+      ctime: results.ctime
+      ext: extname(file).replace '.', ''
 
-      info =
-        name: file
-        isDirectory: results.isDirectory()
-        size: results.size
-        atime: results.atime
-        mtime: results.mtime
-        ctime: results.ctime
-        ext: extname(file).replace '.', ''
-
-      info.vote = vote unless info.isDirectory
-
-      cb null, info
+    cb null, info
 
 
 sendStats = (req, res, filepath, files) ->

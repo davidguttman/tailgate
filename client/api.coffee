@@ -1,22 +1,22 @@
+URL = require 'url'
 jsonist = require 'jsonist'
 baseUrl = window.location.origin
+{auth} = require './auth.coffee'
 
 module.exports =
   getPath: (path, cb) ->
     url = pathToUrl path
-    jsonist.get url, cb
-
-  getCode: (email, cb) ->
-    url = baseUrl + '/get-code'
-    jsonist.post url, {email: email}, cb
-
-  login: (email, code, cb) ->
-    url = baseUrl + '/login'
-    jsonist.post url, {email: email, code: code}, cb
+    auth.auth.get url, cb
 
   albumArt: (query, cb) ->
     url = baseUrl + '/api/art?q=' + encodeURIComponent query
-    jsonist.get url, cb
+    auth.auth.get url, cb
+
+  authenticateUrl: (url) ->
+    parsed = URL.parse url, true
+    parsed.query._authToken = auth.authToken()
+    parsed.search = undefined
+    URL.format parsed
 
 pathToUrl = (path) ->
   baseUrl + '/api/get?path=' + encodeURIComponent path

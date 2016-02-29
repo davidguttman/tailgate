@@ -1,11 +1,10 @@
-return require('./login/index.coffee')() unless window.TG_CURRENT_USER
-
 Path = require 'path'
 FastClick = require 'fastclick'
 directify = require 'directify'
 nav = require('./navigation.coffee')()
 playlist = require('./playlist.coffee')()
 player = require('./player.coffee')()
+auth = require './auth.coffee'
 
 db = require './db.coffee'
 template = require './index.jade'
@@ -31,11 +30,24 @@ player.on 'ended', ->
   playlist.playNext()
 
 routes =
+  '/login': auth.routes.login
+  '/signup': auth.routes.signup
+  '/logout': auth.routes.logout
+  '/confirm/.+': auth.routes.confirm
+  '/change-password/.+': auth.routes.changePassword
+  '/change-password-request': auth.routes.changePasswordRequest
+
   '/_reset': -> db.reset()
+
   '/': ->
+    return window.location.hash = '/login' unless auth.auth.authToken()
+
     path = '/'
     nav.renderPath path
+
   '/.+': ->
+    return window.location.hash = '/login' unless auth.auth.authToken()
+
     path = window.location.hash.replace /^#/, ''
     nPath = Path.normalize path
     if path isnt nPath

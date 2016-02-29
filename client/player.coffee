@@ -4,6 +4,7 @@ Emitter = require 'wildemitter'
 playAudio = require 'play-audio'
 
 db = require './db.coffee'
+api = require './api.coffee'
 styles = require './player.scss'
 template = require './player.jade'
 
@@ -65,6 +66,7 @@ View::loadSong = (idx, time = 0) ->
     return @emit 'ended', @curFolder
 
   url = pathToUrl file.fullPath
+  console.log 'url', url
   file.url = url
 
   if @player
@@ -169,4 +171,5 @@ View::loadState = ->
       @playFolder state.curFolder, state.curFileIdx, state.curTime
 
 pathToUrl = (path) ->
-  '/api/get?path=' + encodeURIComponent path
+  url = '/api/get?path=' + encodeURIComponent path
+  api.authenticateUrl(url)
