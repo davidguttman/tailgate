@@ -75,7 +75,6 @@ View::loadSong = (idx, time = 0) ->
   @songLoaded = true
   @render()
 
-  @play()
   @setTime time
   @showInfo file
 
