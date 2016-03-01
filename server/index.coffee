@@ -13,8 +13,6 @@ config = require './config'
 art = require './api/art'
 get = require './api/get'
 
-app = express()
-
 checkAuth = (req, res, next) ->
   if req.query._authToken
     req.headers.authorization = 'Bearer ' + req.query._authToken
@@ -29,7 +27,14 @@ checkAuth = (req, res, next) ->
 
     next()
 
-module.exports = (opts) ->
+module.exports = (opts={}) ->
+  app = express()
+
+  if opts.skipAuth
+    authFn = (req, res, next) -> next()
+  else
+    authFn = checkAuth
+
   app.configure ->
     app.use express.static __dirname + '/../public'
     app.use express.logger 'dev'
@@ -39,13 +44,7 @@ module.exports = (opts) ->
   app.get '/health', healthRoute
   app.get '/', (req, res) -> res.render 'index.ejs'
 
-  app.get '/api/art', checkAuth, art
-  app.get '/api/get', checkAuth, get
-
-  port = process.env.PORT or 3000
-  console.log 'port', port
-
-  app.listen port, ->
-    console.log "[TAILGATE] Running on port #{port}".green
+  app.get '/api/art', authFn, art
+  app.get '/api/get', authFn, get
 
   return app

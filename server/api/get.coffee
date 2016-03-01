@@ -8,8 +8,8 @@ directory = require './directory'
 file = require './file'
 
 module.exports = (req, res, next) ->
-  url = parse(req.url)
-  dir = decodeURIComponent(req.query.path)
+  url = parse(req.url, true)
+  dir = url.query.path
   filepath = normalize dir
 
   originalUrl = parse(req.originalUrl)

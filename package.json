@@ -43,7 +43,9 @@
     "wildemitter": "^1.0.1"
   },
   "devDependencies": {
+    "servertest": "^1.2.1",
     "supervisor": "^0.6.0",
+    "tape": "^4.4.0",
     "watchify": "^0.8.3"
   },
   "scripts": {
@@ -53,7 +55,8 @@
     "build": "browserify client/index.coffee | uglifyjs -mc > public/browserify.js",
     "watch-client": "watchify client/index.coffee -o public/browserify.js -dv",
     "watch-server": "supervisor -n exit -i public,client -e js,coffee index.js",
-    "dev": "npm run watch-client & TAILGATE_DIR=~/Music npm run watch-server"
+    "dev": "npm run watch-client & TAILGATE_DIR=~/Music npm run watch-server",
+    "test": "node test/index.js"
   },
   "license": "MIT",
   "browserify": {
