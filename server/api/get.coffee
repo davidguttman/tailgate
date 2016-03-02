@@ -1,31 +1,39 @@
 fs = require 'fs'
 parse = require('url').parse
 extname = (require 'path').extname
+sendJson = require('send-data/json')
+
 normalize = require '../normalize_path'
 root = normalize.root
 
 directory = require './directory'
 file = require './file'
 
-module.exports = (req, res, next) ->
+module.exports = (req, res, opts, next) ->
   url = parse(req.url, true)
   dir = url.query.path
   filepath = normalize dir
 
-  originalUrl = parse(req.originalUrl)
-  originalDir = decodeURIComponent(originalUrl.pathname)
-  showUp = filepath isnt root and filepath isnt root + "/"
-
   # null byte(s), bad request
-  return res.send 400 if ~filepath.indexOf("\u0000")
+  if ~filepath.indexOf("\u0000")
+    err = new Error 'Bad Request'
+    err.statusCode = 400
+    return cb err
 
   # malicious path, forbidden
-  return res.send 403 unless 0 is filepath.indexOf(root)
+  unless 0 is filepath.indexOf(root)
+    err = new Error 'Forbidden'
+    err.statusCode = 403
+    return cb err
 
   # check if we have a directory
   fs.stat filepath, (err, stat) ->
-    return (if "ENOENT" is err.code then next() else next(err))  if err
-    if stat.isDirectory()
-      directory req, res, filepath
-    else
-      file req, res, filepath
+    if err
+      err.statusCode = 404 if "ENOENT" is err.code
+      return next err
+
+    return file req, res, filepath unless stat.isDirectory()
+
+    directory filepath, (err, dir) ->
+      return cb err if err
+      sendJson req, res, dir

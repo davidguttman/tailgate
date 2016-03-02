@@ -5,7 +5,7 @@ var createServer = require('../server')
 
 tape('it should get root dir listing', function (t) {
   servertest(
-    createServer({skipAuth: true}),
+    createServer({authData: {email: 'music@fan.com'}}),
     '/api/get?path=/',
     { encoding: 'json' },
     function (err, res) {
@@ -29,7 +29,7 @@ tape('it should get root dir listing', function (t) {
 
 tape('it should get a sub directory listing', function (t) {
   servertest(
-    createServer({skipAuth: true}),
+    createServer({authData: {email: 'music@fan.com'}}),
     '/api/get?path=/somedir',
     { encoding: 'json' },
     function (err, res) {
@@ -48,7 +48,7 @@ tape('it should get a sub directory listing', function (t) {
 
 tape('it should get a file', function (t) {
   servertest(
-    createServer({skipAuth: true}),
+    createServer({authData: {email: 'music@fan.com'}}),
     '/api/get?path=/somedir/another-text.txt',
     { encoding: 'utf8' },
     function (err, res) {
