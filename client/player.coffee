@@ -66,11 +66,11 @@ View::loadSong = (idx, time = 0) ->
     return @emit 'ended', @curFolder
 
   url = pathToUrl file.fullPath
-  console.log 'url', url
   file.url = url
 
   if @player
     @player.src url
+    @play()
   else
     @firstPlay url
 
@@ -89,16 +89,12 @@ View::setTime = (time) ->
     called = true
 
 View::play = ->
-  return @pause() if @playing
-
   @player.play()
   @playing = true
   @el.querySelector('.player-control .play').classList.add 'hide'
   @el.querySelector('.player-control .pause').classList.remove 'hide'
 
 View::pause = ->
-  return @play() if not @playing
-
   @player.pause()
   @playing = false
   @el.querySelector('.player-control .pause').classList.add 'hide'

@@ -1,3 +1,4 @@
 db/
 config/deploy.rb
 config/opts.rb
+public/.browserify.js

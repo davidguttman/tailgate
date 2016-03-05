@@ -1,10 +1,10 @@
-async = require 'async'
 fs = require 'fs'
 path = require 'path'
+map = require 'map-async'
+
 normalize = path.normalize
 extname = path.extname
 join = path.join
-zip = require 'express-zip'
 
 fileStat = (dirPath, file, cb) ->
   filepath = normalize(join(dirPath, file))
@@ -23,34 +23,16 @@ fileStat = (dirPath, file, cb) ->
 
     cb null, info
 
-
-sendStats = (req, res, filepath, files) ->
-  fn = async.apply fileStat, filepath
-  async.map files, fn, (err, stats) ->
-    return res.send 500, err.message if err
-
-    res.json stats
-
 removeHidden = (files) ->
   files.filter (file) ->
     "." isnt file[0]
 
-sendZip = (files, dirPath, res) ->
-  files = files.map (file) ->
-    name: file
-    path: normalize(join(dirPath, file))
-
-  res.zip files, (path.basename dirPath) + '.zip'
-
-module.exports = directory = (req, res, filepath) ->
+module.exports = directory = (filepath, cb) ->
   fs.readdir filepath, (err, files) ->
-    return next(err)  if err
+    return cb(err) if err
     files = removeHidden(files)
     files.sort()
 
-    if req.query.zip is 'true'
-      sendZip files, filepath, res
-    else
-      sendStats req, res, filepath, files
+    map files, fileStat.bind(null, filepath), cb
 
 
