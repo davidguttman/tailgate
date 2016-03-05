@@ -1,11 +1,10 @@
-sendJson = require 'send-data/json'
-async = require 'async'
 fs = require 'fs'
 path = require 'path'
+map = require 'map-async'
+
 normalize = path.normalize
 extname = path.extname
 join = path.join
-zip = require 'express-zip'
 
 fileStat = (dirPath, file, cb) ->
   filepath = normalize(join(dirPath, file))
@@ -34,6 +33,6 @@ module.exports = directory = (filepath, cb) ->
     files = removeHidden(files)
     files.sort()
 
-    async.map files, fileStat.bind(null, filepath), cb
+    map files, fileStat.bind(null, filepath), cb
 
 

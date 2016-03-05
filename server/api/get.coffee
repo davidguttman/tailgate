@@ -1,6 +1,5 @@
 fs = require 'fs'
 parse = require('url').parse
-extname = (require 'path').extname
 sendJson = require('send-data/json')
 
 normalize = require '../normalize_path'

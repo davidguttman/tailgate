@@ -5,7 +5,6 @@
   "description": "Serve your music collection",
   "main": "index.js",
   "dependencies": {
-    "async": "^0.9.0",
     "authentic-service": "^0.1.0",
     "authentic-ui": "0.0.1",
     "bean": "^1.0.6",
@@ -14,13 +13,7 @@
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
     "colors": "^0.6.2",
-    "connect-redis": "1.4.7",
     "directify": "^0.1.2",
-    "ecstatic": "^0.5.1",
-    "ejs": "^1.0.0",
-    "emailjs": "^0.3.8",
-    "express": "~3.0.6",
-    "express-zip": "^1.0.1",
     "fastclick": "^1.0.2",
     "health-route": "^3.0.2",
     "http-hash-router": "^1.1.0",
@@ -32,10 +25,10 @@
     "level": "^0.18.0",
     "level-js": "^2.1.5",
     "levelup": "^0.18.3",
+    "map-async": "^0.1.1",
     "mkdirp": "^0.5.0",
     "moment": "^2.6.0",
     "play-audio": "^0.1.0",
-    "redis": "^0.10.3",
     "req-logger": "^1.1.0",
     "request": "^2.36.0",
     "sassify": "^0.5.0",
@@ -50,7 +43,7 @@
     "servertest": "^1.2.1",
     "supervisor": "^0.6.0",
     "tape": "^4.4.0",
-    "watchify": "^0.8.3"
+    "watchify": "^3.7.0"
   },
   "scripts": {
     "start": "node index.js",
