@@ -160,27 +160,48 @@ var Player = module.exports = React.createClass({
       padding: 20
     }
 
-    var styleButton = {
-      outline: 0
-    }
+    var styleButton = { outline: 0 }
 
     return (
       <div style={styleActions}>
-        <ButtonCircle title='Previous' style={styleButton} size={48} onClick={this._prev}>
+        <ButtonCircle title='Previous'
+          style={styleButton}
+          size={48}
+          color='white'
+          backgroundColor='#666'
+          onClick={this._prev} >
           <Icon name={'previous'} width={'2em'} height={'2em'}/>
         </ButtonCircle>
 
         { this.state.isPlaying ?
-          <ButtonCircle title='Pause' style={styleButton} size={48} onClick={this._pause}>
+          <ButtonCircle
+            title='Pause'
+            style={styleButton}
+            size={48}
+            color='white'
+            backgroundColor='#666'
+            onClick={this._pause}>
             <Icon name={'pause'} width={'2em'} height={'2em'}/>
           </ButtonCircle>
         :
-          <ButtonCircle title='Play' style={styleButton} size={48} onClick={this._play}>
+          <ButtonCircle
+            title='Play'
+            style={styleButton}
+            size={48}
+            color='white'
+            backgroundColor='#666'
+            onClick={this._play}>
             <Icon name={'play'} width={'2em'} height={'2em'}/>
           </ButtonCircle>
         }
 
-        <ButtonCircle title='Next' style={styleButton} size={48} onClick={this._next}>
+        <ButtonCircle
+          title='Next'
+          style={styleButton}
+          size={48}
+          color='white'
+          backgroundColor='#666'
+          onClick={this._next}>
           <Icon name={'next'} width={'2em'} height={'2em'}/>
         </ButtonCircle>
       </div>
