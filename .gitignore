@@ -3,3 +3,4 @@ config/deploy.rb
 config/opts.rb
 public/.browserify.js
 public/browserify.js
+old-client/*
