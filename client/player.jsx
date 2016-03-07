@@ -2,6 +2,7 @@ var React = require('react')
 var rebass = require('rebass')
 var moment = require('moment')
 var Icon = require('react-geomicons')
+var api = require('./api')
 
 var Text = rebass.Text
 var Card = rebass.Card
@@ -14,22 +15,56 @@ var Player = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       width: 256,
-      trackTitle: '01 - Israel',
-      artist: 'Bill Evans Trio',
-      album: 'Explorations',
+      albumPath: '/Firefly - OST',
       time: 50,
-      duration: 180,
-      coverArt: 'http://dgshare.objects.dreamhost.com/music/Bill%20Evans%20Trio%20-%20Explorations%20-%201961%20%28Mono%20Vinyl%20MP3%20V0%29/folder.jpg'
+      duration: 180
     }
   },
 
   getInitialState: function() {
     return {
-      isPlaying: false
+      albumName: null,
+      isPlaying: false,
+      tracks: [],
+      coverArt: null,
+      idxTrack: 0
     }
   },
 
+  componentWillMount: function() {
+    var self = this
+    var albumPath = this.props.albumPath
+    var albumName = albumPath.split('/').slice(-1)[0]
+
+    api.getPath(albumPath, function (err, files) {
+      if (err) return console.error(err)
+
+      var tracks = []
+      var images = []
+
+      files.forEach(function (file) {
+        if (['mp3', 'm4a'].indexOf(file.ext) >= 0) tracks.push(file)
+        if (['png', 'jpg'].indexOf(file.ext) >= 0) images.push(file)
+      })
+
+      var coverArt
+      for (var i = images.length - 1; i >= 0; i--) {
+        coverArt = images[i].url
+        if (images[i].name === 'folder.jpg') break
+      }
+
+      self.setState({
+        tracks: tracks,
+        coverArt: coverArt,
+        albumName: albumName
+      })
+    })
+  },
+
   render: function () {
+    var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
+    var trackName = track.name.replace('.' + track.ext, '')
+
     var fmtString = this.props.duration > 3600 ? 'H:mm:ss' : 'mm:ss'
     var progress = this.props.time / this.props.duration
     var duration = moment(this.props.duration * 1000).utc().format(fmtString)
@@ -46,17 +81,17 @@ var Player = module.exports = React.createClass({
       <div>
         <Card width={this.props.width}>
 
-          <CardImage src={this.props.coverArt} />
+          {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
 
           <div style={{textAlign: 'center', padding: 20}}>
             <Heading
               level={2}
               size={3} >
-              {this.props.trackTitle}
+              {trackName}
             </Heading>
 
             <Text>
-              {this.props.artist}
+              {this.state.albumName}
             </Text>
           </div>
 
@@ -85,7 +120,7 @@ var Player = module.exports = React.createClass({
 
     return (
       <div style={styleActions}>
-        <ButtonCircle title='Previous' size={48}>
+        <ButtonCircle title='Previous' size={48} onClick={this._prev}>
           <Icon name={'previous'} width={'2em'} height={'2em'}/>
         </ButtonCircle>
 
@@ -99,7 +134,7 @@ var Player = module.exports = React.createClass({
           </ButtonCircle>
         }
 
-        <ButtonCircle title='Next' size={48}>
+        <ButtonCircle title='Next' size={48} onClick={this._next}>
           <Icon name={'next'} width={'2em'} height={'2em'}/>
         </ButtonCircle>
       </div>
@@ -112,5 +147,16 @@ var Player = module.exports = React.createClass({
 
   _play: function () {
     this.setState({isPlaying: true})
+  },
+
+  _prev: function () {
+    var idx = this.state.idxTrack - 1
+    if (idx < 0) idx = this.state.tracks.length - 1
+    this.setState({idxTrack: idx})
+  },
+
+  _next: function () {
+    var idx = (this.state.idxTrack + 1) % this.state.tracks.length
+    this.setState({idxTrack: idx})
   }
 })
