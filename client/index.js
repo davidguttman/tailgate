@@ -1,16 +1,19 @@
 var h = require('hyperscript')
+var React = require('react')
+var ReactDOM = require('react-dom')
+
 var auth = require('./auth')
-var directory = require('./directory')
+var Main = require('./main.jsx')
 
 init()
 
 function init () {
-  var main = h('.main')
-  document.body.appendChild(main)
+  var app = h('.app')
+  document.body.appendChild(app)
 
-  window.addEventListener('hashchange', runRoutes.bind(null, main))
+  window.addEventListener('hashchange', runRoutes.bind(null, app))
 
-  runRoutes(main)
+  runRoutes(app)
 }
 
 function runRoutes (el) {
@@ -28,5 +31,11 @@ function runRoutes (el) {
 
   if (!auth.auth.authToken()) return window.location.hash = '/login'
 
-  directory(el, appState)
+  mainRoute(el, appState)
+}
+
+function mainRoute (el, appState) {
+  var main = h('.main')
+  el.appendChild(main)
+  ReactDOM.render(React.createElement(Main, {path: appState}), main)
 }

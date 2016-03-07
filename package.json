@@ -6,10 +6,14 @@
   "main": "index.js",
   "dependencies": {
     "authentic-ui": "0.0.1",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
     "hyperscript": "^1.4.7",
     "jsonist": "^0.1.1",
     "moment": "^2.6.0",
-    "play-audio": "^0.1.0"
+    "play-audio": "^0.1.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "browserify": "^3.46.0",
@@ -22,12 +26,12 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "dev": "budo client/index.js:browserify.js -d public -l",
-    "build": "browserify client/index.js | uglifyjs -mc > public/browserify.js",
+    "dev": "budo client/index.js:browserify.js -d public -l -- -t [ babelify --presets [ react ] ]",
+    "build": "browserify -t [ babelify --presets [ react ] ] client/index.js | uglifyjs -mc > public/browserify.js",
     "deploy": "npm run build && surge public"
   },
   "license": "MIT",
   "browserify": {
-    "transform": [ ]
+    "transform": []
   }
 }
