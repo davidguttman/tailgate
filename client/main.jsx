@@ -14,7 +14,7 @@ var Main = module.exports = React.createClass({
     return (
       <div style={mainStyle}>
         <Directory path={this.props.path} />
-        <Player />
+        <Player albumPath={this.props.path} />
       </div>
     )
   }
