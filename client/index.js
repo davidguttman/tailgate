@@ -34,8 +34,12 @@ function runRoutes (el) {
   mainRoute(el, appState)
 }
 
+var loaded
 function mainRoute (el, appState) {
+  if (loaded) return el.appendChild(loaded)
+
   var main = h('.main')
   el.appendChild(main)
-  ReactDOM.render(React.createElement(Main, {path: appState}), main)
+  ReactDOM.render(React.createElement(Main), main)
+  loaded = main
 }
