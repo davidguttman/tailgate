@@ -65,8 +65,7 @@ View::loadSong = (idx, time = 0) ->
   if not file
     return @emit 'ended', @curFolder
 
-  url = pathToUrl file.fullPath
-  file.url = url
+  url = file.url
 
   if @player
     @player.src url
@@ -166,7 +165,3 @@ View::loadState = ->
   db.get key, (err, state) =>
     if state
       @playFolder state.curFolder, state.curFileIdx, state.curTime
-
-pathToUrl = (path) ->
-  url = '/api/get?path=' + encodeURIComponent path
-  api.authenticateUrl(url)

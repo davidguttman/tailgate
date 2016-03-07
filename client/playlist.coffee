@@ -208,14 +208,10 @@ View::save = (name = '_auto', cb = ->) ->
   db.put key, state, cb
 
 View::findAlbumArt = (folder, cb) ->
-  if folder.cover
-    urlCover = '/api/get?path='+encodeURIComponent(folder.cover.fullPath)
-    url = api.authenticateUrl(urlCover)
-    cb null, url
-  else
-    query = folder.name.replace /[\(|\)\[\]].+$/, ''
-    api.albumArt query, (err, res) ->
-      if res.url
-        cb null, res.url
-      else
-        cb null, '/img/no-cover.png'
+  return cb null, folder.cover.url if folder.cover
+
+  query = folder.name.replace /[\(|\)\[\]].+$/, ''
+  api.albumArt query, (err, res) ->
+    return cb err if err
+    return cb null, res.url if res.url
+    cb null, '/img/no-cover.png'

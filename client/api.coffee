@@ -1,6 +1,6 @@
 URL = require 'url'
 jsonist = require 'jsonist'
-baseUrl = window.location.origin
+baseUrl = 'https://music.thhis.com'
 {auth} = require './auth.coffee'
 
 module.exports =

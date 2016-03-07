@@ -1,59 +1,44 @@
 {
-  "name": "tailgate",
+  "name": "thhis-music-client",
   "author": "David Guttman",
   "version": "1.0.2",
   "description": "Serve your music collection",
   "main": "index.js",
   "dependencies": {
-    "authentic-service": "^0.1.0",
     "authentic-ui": "0.0.1",
     "bean": "^1.0.6",
     "browserify": "^3.46.0",
-    "cheerio": "^0.16.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
-    "colors": "^0.6.2",
     "directify": "^0.1.2",
     "fastclick": "^1.0.2",
-    "health-route": "^3.0.2",
-    "http-hash-router": "^1.1.0",
     "hypnotable": "^0.6.0",
     "id3js": "^1.1.3",
     "jade": "^1.3.1",
     "jadeify": "^2.1.1",
     "jsonist": "^0.1.1",
-    "level": "^0.18.0",
     "level-js": "^2.1.5",
     "levelup": "^0.18.3",
     "map-async": "^0.1.1",
-    "mkdirp": "^0.5.0",
     "moment": "^2.6.0",
     "play-audio": "^0.1.0",
-    "req-logger": "^1.1.0",
-    "request": "^2.36.0",
     "sassify": "^0.5.0",
-    "send": "^0.1.0",
-    "send-data": "^8.0.0",
-    "st": "^1.1.0",
     "uglify-js": "^2.4.13",
     "underscore": "^1.6.0",
     "wildemitter": "^1.0.1"
   },
   "devDependencies": {
+    "budo": "^8.0.4",
     "servertest": "^1.2.1",
     "supervisor": "^0.6.0",
+    "surge": "^0.17.7",
     "tape": "^4.4.0",
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "prestart": "npm run build",
-    "prepublish": "npm run build",
+    "dev": "budo client/index.coffee:browserify.js -d public -l",
     "build": "browserify client/index.coffee | uglifyjs -mc > public/browserify.js",
-    "watch-client": "watchify client/index.coffee -o public/browserify.js -dv",
-    "watch-server": "supervisor -n exit -i public,client -e js,coffee index.js",
-    "dev": "npm run watch-client & TAILGATE_DIR=~/storage/music npm run watch-server",
-    "test": "node test/index.js"
+    "deploy": "npm run build && surge public"
   },
   "license": "MIT",
   "browserify": {
@@ -62,8 +47,5 @@
       "jadeify",
       "sassify"
     ]
-  },
-  "bin": {
-    "tailgate": "./bin/tailgate"
   }
 }
