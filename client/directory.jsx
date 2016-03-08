@@ -8,7 +8,9 @@ var api = require('./api')
 
 var Text = rebass.Text
 var Card = rebass.Card
+var Radio = rebass.Radio
 var Heading = rebass.Heading
+var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 
 var Directory = module.exports = React.createClass({
@@ -26,8 +28,7 @@ var Directory = module.exports = React.createClass({
       _error: false,
       files: [],
       directories: [],
-      sortBy: 'mtime',
-      reverse: true
+      sortBy: 'mtime'
     }
   },
 
@@ -58,6 +59,7 @@ var Directory = module.exports = React.createClass({
     var style = {
       height: this.props.height,
       width: this.props.width,
+      padding: 40,
       overflow: 'auto'
     }
 
@@ -69,12 +71,40 @@ var Directory = module.exports = React.createClass({
       alignContent: 'center'
     }
 
+    var styleButton = { outline: 0 }
+
     var directories = _.sortBy(this.state.directories, this.state.sortBy)
-    if (this.state.reverse) directories.reverse()
+    if (this.state.sortBy === 'mtime') directories.reverse()
 
     return (
       <div style={style}>
-        { parentDir ? <a href={'#/' + parentDir}>Up</a> : '' }
+        { !parentDir ? '' :
+          <ButtonCircle
+            title='Up'
+            style={styleButton}
+            size={48}
+            color='white'
+            backgroundColor='#666'
+            onClick={this._navigate.bind(this, parentDir)} >
+            <Icon name={'chevronUp'} width={'2em'} height={'2em'}/>
+          </ButtonCircle>
+        }
+
+        <Container style={{width: 200, marginBottom: 20}}>
+          <Radio
+            name='sortBy'
+            value='name'
+            checked={this.state.sortBy === 'name'}
+            onChange={this._changeSort}
+            label='By Name' />
+
+          <Radio
+            name='sortBy'
+            value='mtime'
+            checked={this.state.sortBy === 'mtime'}
+            onChange={this._changeSort}
+            label='By Time' />
+        </Container>
 
         <div style={styleList}>
           { this.state.files.map(function (file) {
@@ -116,7 +146,6 @@ var Directory = module.exports = React.createClass({
 
     var styleButton = { outline: 0 }
 
-    // <a href={'#/' + dir.path}>
     return (
       <div
         key={dir.name}
@@ -200,5 +229,11 @@ var Directory = module.exports = React.createClass({
   _add: function (dir) {
     this._select(dir)
     this.props.onAdd(dir)
+  },
+
+  _changeSort: function (evt) {
+    var change = {}
+    change[evt.target.name] = evt.target.value
+    this.setState(change)
   }
 })
