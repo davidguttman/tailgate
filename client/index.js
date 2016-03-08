@@ -1,3 +1,4 @@
+require('fastclick')(document.body)
 var h = require('hyperscript')
 var React = require('react')
 var ReactDOM = require('react-dom')

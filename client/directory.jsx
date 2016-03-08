@@ -107,7 +107,7 @@ var Directory = module.exports = React.createClass({
         style={style}
         onClick={this._select.bind(this, dir)} >
 
-        <Card width={256} style={{position: 'relative'}}>
+        <Card width={256} style={{position: 'relative', minHeight: 74}}>
           <Heading
             level={2}
             size={4} >
