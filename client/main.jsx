@@ -18,6 +18,8 @@ var Main = module.exports = React.createClass({
       var path = window.location.hash.replace('#/', '')
       self.setState({path: path})
     })
+    var playlist = JSON.parse(window.localStorage.tgPlaylist || '[]')
+    this.setState({playlist: playlist})
   },
 
   render: function () {
@@ -41,7 +43,10 @@ var Main = module.exports = React.createClass({
 
         <div style={{marginRight: 20}}>
           <Player albumPath={albumPath} onFinish={this._onAlbumFinish} />
-          <Playlist playlist={this.state.playlist} onSelect={this._selectAlbum} />
+          <Playlist
+            playlist={this.state.playlist}
+            onSelect={this._selectAlbum}
+            onRemove={this._removeAlbum} />
         </div>
       </div>
     )
@@ -55,6 +60,7 @@ var Main = module.exports = React.createClass({
 
     playlist.push(dir)
     this.setState({playlist: playlist})
+    window.localStorage.tgPlaylist = JSON.stringify(playlist)
   },
 
   _selectAlbum: function (selected) {
@@ -63,6 +69,22 @@ var Main = module.exports = React.createClass({
       if (dir.path === selected.path) idxSelected = i
     })
     this.setState({idxSelected: idxSelected})
+  },
+
+  _removeAlbum: function (dir) {
+    var playlist = []
+    var iRem = 0
+    this.state.playlist.forEach(function (item, i) {
+      if (dir.path !== item.path) return playlist.push(item)
+      iRem = i
+    })
+
+    var idxSelected = this.state.idxSelected
+    if (iRem <= idxSelected) idxSelected -= 1
+    if (idxSelected < 0) idxSelected = 0
+
+    this.setState({playlist: playlist, idxSelected: idxSelected})
+    window.localStorage.tgPlaylist = JSON.stringify(playlist)
   },
 
   _onAlbumFinish: function () {
