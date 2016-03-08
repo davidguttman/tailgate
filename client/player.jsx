@@ -91,7 +91,7 @@ var Player = module.exports = React.createClass({
 
   render: function () {
     if (this.state._isLoading) return this.renderLoading()
-    if (!this.state.tracks.length) return <div />
+    if (!this.state.tracks.length) return <div style={{height: 256}} />
 
     var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
     var trackName = track.name.replace('.' + track.ext, '')

@@ -29,7 +29,7 @@ var Playlist = module.exports = React.createClass({
   },
 
   render: function () {
-    if (!this.props.playlist.length) return <div />
+    if (!this.props.playlist.length) return this.renderEmpty()
 
     var self = this
 
@@ -66,6 +66,17 @@ var Playlist = module.exports = React.createClass({
           </ButtonCircle>
         </div>
       </Container>
+    )
+  },
+
+  renderEmpty: function () {
+    return (
+      <div style={{textAlign: 'center'}}>
+        <p>Your playlist is empty</p>
+        <br />
+        <p>Please add an album</p>
+        
+      </div>
     )
   },
 

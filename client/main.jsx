@@ -1,7 +1,11 @@
 var React = require('react')
-var Directory = require('./directory.jsx')
+var rebass = require('rebass')
+
 var Player = require('./player.jsx')
+var Directory = require('./directory.jsx')
 var Playlist = require('./playlist.jsx')
+
+var Container = rebass.Container
 
 var Main = module.exports = React.createClass({
   getInitialState: function() {
@@ -52,7 +56,7 @@ var Main = module.exports = React.createClass({
           height={totalHeight}
           onAdd={this._addAlbum} />
 
-        <div style={{height: totalHeight, paddingTop: 10}}>
+        <Container style={{height: totalHeight, paddingTop: 10}}>
           <Player
             width={playerWidth}
             albumPath={albumPath}
@@ -62,7 +66,7 @@ var Main = module.exports = React.createClass({
             playlist={this.state.playlist}
             onSelect={this._selectAlbum}
             onRemove={this._removeAlbum} />
-        </div>
+        </Container>
       </div>
     )
   },

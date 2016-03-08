@@ -106,7 +106,7 @@ var Directory = module.exports = React.createClass({
       alignItems: 'center',
       justifyContent: 'space-around',
       position: 'absolute',
-      background: 'rgba(255,255,255,0.8)',
+      background: 'rgba(0,0,0,0.5)',
       color: 'white',
       top: 0,
       left: 0,
@@ -135,25 +135,25 @@ var Directory = module.exports = React.createClass({
           </Text>
 
           { !isSelected ? '' :
-            <div style={styleSelect}>
+            <div style={styleSelect} onClick={this._select.bind(this, dir)} >
               <ButtonCircle
-                title='Go'
+                title='Navigate'
                 style={styleButton}
                 size={48}
                 color='white'
                 backgroundColor='#666'
                 onClick={this._navigate.bind(this, dir.path)} >
-                <Icon name={'link'} width={'2em'} height={'2em'}/>
+                <Icon name={'external'} width={'2em'} height={'2em'}/>
               </ButtonCircle>
 
               <ButtonCircle
-                title='Play'
+                title='Add To Playlist'
                 style={styleButton}
                 color='white'
                 backgroundColor='#666'
-                onClick={this.props.onAdd.bind(null, dir)}
+                onClick={this._add.bind(null, dir)}
                 size={48} >
-                <Icon name={'play'} width={'2em'} height={'2em'}/>
+                <Icon name={'list'} width={'2em'} height={'2em'}/>
               </ButtonCircle>
             </div>
           }
@@ -186,10 +186,19 @@ var Directory = module.exports = React.createClass({
   },
 
   _select: function (dir) {
-    this.setState({selected: dir.name})
+    if (this.state.selected === dir.name) {
+      this.setState({selected: null})
+    } else {
+      this.setState({selected: dir.name})
+    }
   },
 
   _navigate: function (path) {
     window.location.hash = '#/' + path
+  },
+
+  _add: function (dir) {
+    this._select(dir)
+    this.props.onAdd(dir)
   }
 })
