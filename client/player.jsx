@@ -17,7 +17,8 @@ var Player = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       width: 256,
-      albumPath: '/Bitchin Bajas - Bitchin Bajas (2014) [MP3 V0]'
+      albumPath: null,
+      onFinish: function () {}
     }
   },
 
@@ -35,9 +36,19 @@ var Player = module.exports = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (!nextProps.albumPath) return
+    if (nextProps.albumPath === this.props.albumPath) return
+    this.loadAlbum(nextProps.albumPath)
+  },
+
   componentWillMount: function() {
+    if (!this.props.albumPath) return
+    this.loadAlbum(this.props.albumPath)
+  },
+
+  loadAlbum: function (albumPath) {
     var self = this
-    var albumPath = this.props.albumPath
     var albumName = albumPath.split('/').slice(-1)[0]
 
     this._startLoading()
@@ -62,11 +73,16 @@ var Player = module.exports = React.createClass({
       self.setState({
         tracks: tracks,
         coverArt: coverArt,
-        albumName: albumName
+        albumName: albumName,
+        idxTrack: 0,
+        idxLoaded: null,
+        currentTime: null,
+        duration: null
       })
       self._stopLoading()
 
       self._loadIdx(0)
+      if (self.state.isPlaying) self._play()
     })
   },
 
@@ -257,6 +273,10 @@ var Player = module.exports = React.createClass({
   },
 
   trackEnded: function (evt) {
+    if ( (this.state.idxTrack + 1) >= this.state.tracks.length ) {
+      this.props.onFinish()
+    }
+
     this._next()
   },
 

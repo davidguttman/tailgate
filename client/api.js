@@ -1,6 +1,7 @@
 var URL = require('url')
 var jsonist = require('jsonist')
 var join = require('path').join
+var xtend = require('xtend')
 
 var baseUrl = 'https://music.thhis.com'
 var auth = require('./auth').auth
@@ -12,6 +13,7 @@ module.exports = {
       if (err) return cb(err)
       cb(null, files.map(function (file) {
         file.path = join(path, file.name)
+        if (file.isDirectory) { file = xtend(file, parseName(file.name)) }
         return file
       }))
     })
@@ -32,4 +34,35 @@ module.exports = {
 
 function pathToUrl (path) {
   return baseUrl + '/api/get?path=' + encodeURIComponent(path)
+}
+
+function parseName (name) {
+  var metaStart = name.length
+  for (var i = 0; i < name.length; i++) {
+    if (name[i] === '(' || name[i] === '[' ) {
+      metaStart = i
+      break
+    }
+  }
+
+  var artistAlbum = name.slice(0, metaStart)
+  var meta = name.slice(metaStart)
+
+  var artist = (artistAlbum.split(' - ')[0] || '').replace(/_/g, ' ')
+  var album = (artistAlbum.split(' - ')[1] || '').replace(/_/g, ' ')
+  var year = (meta.match(/\d{4}/) || [])[0]
+
+  if (!artist) {
+    artist = name
+    album = ''
+    meta = ''
+  }
+
+  return {
+    artist: artist,
+    album: album,
+    meta: meta,
+    year: year
+  }
+
 }

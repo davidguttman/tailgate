@@ -16,7 +16,8 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-geomicons": "^2.0.4",
-    "rebass": "^0.2.0"
+    "rebass": "^0.2.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "browserify": "^3.46.0",

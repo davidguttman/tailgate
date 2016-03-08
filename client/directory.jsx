@@ -2,16 +2,19 @@ var React = require('react')
 var rebass = require('rebass')
 var resolve = require('path').resolve
 var normalize = require('path').normalize
+var Icon = require('react-geomicons')
 var api = require('./api')
 
 var Text = rebass.Text
 var Card = rebass.Card
 var Heading = rebass.Heading
+var ButtonCircle = rebass.ButtonCircle
 
 var Directory = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
-      path: '/'
+      path: '/',
+      onAdd: function () {}
     }
   },
 
@@ -73,26 +76,70 @@ var Directory = module.exports = React.createClass({
   },
 
   renderDirectory: function (dir) {
-    var info = parseName(dir.name)
-    var albumText = info.album
-    if (info.year) albumText += ' (' + info.year + ')'
+    var albumText = dir.album
+    if (dir.year) albumText += ' (' + dir.year + ')'
+    var isSelected = dir.name === this.state.selected
+
+    var style = {
+      margin: 5,
+      cursor: 'pointer'
+    }
+
+    var styleSelect = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      position: 'absolute',
+      background: 'rgba(255,255,255,0.8)',
+      color: 'white',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    }
+
+    var styleButton = { outline: 0 }
 
     // <a href={'#/' + dir.path}>
     return (
       <div
         key={dir.name}
-        style={{padding: 5, cursor: 'pointer'}}
-        onClick={this._changeDir.bind(this, dir)} >
+        style={style}
+        onClick={this._select.bind(this, dir)} >
 
-        <Card width={256}>
+        <Card width={256} style={{position: 'relative'}}>
           <Heading
             level={2}
-            size={3} >
-            {info.artist}
+            size={4} >
+            {dir.artist}
           </Heading>
           <Text>
             {albumText}
           </Text>
+
+          { !isSelected ? '' :
+            <div style={styleSelect}>
+              <ButtonCircle
+                title='Go'
+                style={styleButton}
+                size={48}
+                color='white'
+                backgroundColor='#666'
+                onClick={this._navigate.bind(this, dir.path)} >
+                <Icon name={'link'} width={'2em'} height={'2em'}/>
+              </ButtonCircle>
+
+              <ButtonCircle
+                title='Play'
+                style={styleButton}
+                color='white'
+                backgroundColor='#666'
+                onClick={this.props.onAdd.bind(null, dir)}
+                size={48} >
+                <Icon name={'play'} width={'2em'} height={'2em'}/>
+              </ButtonCircle>
+            </div>
+          }
         </Card>
       </div>
     )
@@ -102,7 +149,7 @@ var Directory = module.exports = React.createClass({
     return (
       <div
         key={file.name}
-        style={{padding: 5, cursor: 'pointer'}} >
+        style={{paddingBottom: 10, paddingRigth: 10, cursor: 'pointer'}} >
 
         <Card>
           <Heading
@@ -121,38 +168,11 @@ var Directory = module.exports = React.createClass({
     )
   },
 
-  _changeDir: function (dir) {
-    window.location.hash = '#/' + dir.path
+  _select: function (dir) {
+    this.setState({selected: dir.name})
+  },
+
+  _navigate: function (path) {
+    window.location.hash = '#/' + path
   }
 })
-
-function parseName (name) {
-  var metaStart = name.length
-  for (var i = 0; i < name.length; i++) {
-    if (name[i] === '(' || name[i] === '[' ) {
-      metaStart = i
-      break
-    }
-  }
-
-  var artistAlbum = name.slice(0, metaStart)
-  var meta = name.slice(metaStart)
-
-  var artist = (artistAlbum.split(' - ')[0] || '').replace(/_/g, ' ')
-  var album = (artistAlbum.split(' - ')[1] || '').replace(/_/g, ' ')
-  var year = (meta.match(/\d{4}/) || [])[0]
-
-  if (!artist) {
-    artist = name
-    album = ''
-    meta = ''
-  }
-
-  return {
-    artist: artist,
-    album: album,
-    meta: meta,
-    year: year
-  }
-
-}

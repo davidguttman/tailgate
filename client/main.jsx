@@ -1,11 +1,14 @@
 var React = require('react')
 var Directory = require('./directory.jsx')
 var Player = require('./player.jsx')
+var Playlist = require('./playlist.jsx')
 
 var Main = module.exports = React.createClass({
   getInitialState: function() {
     return {
-      path: window.location.hash.replace('#/', '')
+      path: window.location.hash.replace('#/', ''),
+      playlist: [],
+      idxSelected: 0
     }
   },
 
@@ -26,11 +29,45 @@ var Main = module.exports = React.createClass({
       padding: 20
     }
 
+    var album = this.state.playlist[this.state.idxSelected]
+    var albumPath = album ? album.path : null
+
     return (
       <div style={mainStyle}>
-        <Directory key={'d' + this.state.path} path={this.state.path} />
-        <Player albumPath={'Brian Eno & Karl Hyde - Someday World (2014) [MP3 320]'} />
+        <Directory
+          key={'d' + this.state.path}
+          path={this.state.path}
+          onAdd={this._addAlbum} />
+
+        <div style={{marginRight: 20}}>
+          <Player albumPath={albumPath} onFinish={this._onAlbumFinish} />
+          <Playlist playlist={this.state.playlist} onSelect={this._selectAlbum} />
+        </div>
       </div>
     )
+  },
+
+  _addAlbum: function (dir) {
+    var playlist = []
+    this.state.playlist.forEach(function (item) {
+      if (dir.path !== item.path) playlist.push(item)
+    })
+
+    playlist.push(dir)
+    this.setState({playlist: playlist})
+  },
+
+  _selectAlbum: function (selected) {
+    var idxSelected = 0
+    this.state.playlist.forEach(function (dir, i) {
+      if (dir.path === selected.path) idxSelected = i
+    })
+    this.setState({idxSelected: idxSelected})
+  },
+
+  _onAlbumFinish: function () {
+    var idx = (this.state.idxSelected + 1) % this.state.playlist.length
+    this.setState({idxSelected: idx})
   }
+
 })
