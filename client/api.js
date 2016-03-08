@@ -29,7 +29,9 @@ module.exports = {
     parsed.query._authToken = auth.authToken()
     parsed.search = void 0
     return URL.format(parsed)
-  }
+  },
+
+  parseName: parseName
 }
 
 function pathToUrl (path) {

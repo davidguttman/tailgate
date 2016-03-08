@@ -50,6 +50,7 @@ var Player = module.exports = React.createClass({
   loadAlbum: function (albumPath) {
     var self = this
     var albumName = albumPath.split('/').slice(-1)[0]
+    var info = api.parseName(albumPath)
 
     this._startLoading()
     api.getPath(albumPath, function (err, files) {
@@ -73,7 +74,8 @@ var Player = module.exports = React.createClass({
       self.setState({
         tracks: tracks,
         coverArt: coverArt,
-        albumName: albumName,
+        albumName: info.album,
+        artist: info.artist,
         idxTrack: 0,
         idxLoaded: null,
         currentTime: null,
@@ -100,13 +102,15 @@ var Player = module.exports = React.createClass({
           {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
 
           <div style={{textAlign: 'center', padding: 20}}>
-            <Heading
-              level={2}
-              size={3} >
+            <Text style={{fontWeight: 'bold', marginBottom: 10}}>
               {trackName}
-            </Heading>
+            </Text>
 
-            <Text>
+            <Text style={{marginBottom: 10}}>
+              {this.state.artist}
+            </Text>
+
+            <Text style={{fontStyle: 'italic', fontSize: '80%'}}>
               {this.state.albumName}
             </Text>
           </div>
