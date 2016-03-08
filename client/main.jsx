@@ -52,7 +52,7 @@ var Main = module.exports = React.createClass({
           height={totalHeight}
           onAdd={this._addAlbum} />
 
-        <div>
+        <div style={{height: totalHeight, paddingTop: 10}}>
           <Player
             width={playerWidth}
             albumPath={albumPath}

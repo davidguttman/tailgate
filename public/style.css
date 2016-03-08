@@ -1,8 +1,30 @@
 @import url("/sanitize.css");
 
-/* overwrite defaults in sanitize.css */
 :root {
-    --root-box-sizing: border-box;
-    --root-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    --root-color: #333;
+  background-color: #121314;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #858689;
+}
+
+h2 {
+  color: #dfe0e6;
+}
+
+.Card {
+  background-color: #222326;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #1c1c1f;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #1c1c1f;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid #1c1c1f;
+  border-radius: 10px;
+  background-color: #323438;
 }

@@ -60,7 +60,7 @@ var Playlist = module.exports = React.createClass({
         <div style={{textAlign: 'center'}}>
           <ButtonCircle
             onClick={this._toggleRemoveMode}
-            backgroundColor={ this.state._removeMode ? '#444' : '#aaa'}
+            backgroundColor={ this.state._removeMode ? '#aaa' : '#444'}
             style={{outline: 0}} >
             <Icon name='cog' />
           </ButtonCircle>
@@ -77,7 +77,7 @@ var Playlist = module.exports = React.createClass({
       alignItems: 'center',
       justifyContent: 'space-around',
       position: 'absolute',
-      background: 'rgba(255,255,255,0.8)',
+      background: 'rgba(0,0,0,0.5)',
       color: 'white',
       top: 0,
       left: 0,
