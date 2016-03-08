@@ -1,3 +1,4 @@
+var _ = require('lodash')
 var React = require('react')
 var rebass = require('rebass')
 var resolve = require('path').resolve
@@ -14,7 +15,9 @@ var Directory = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       path: '/',
-      onAdd: function () {}
+      onAdd: function () {},
+      height: 500,
+      width: 500
     }
   },
 
@@ -22,7 +25,9 @@ var Directory = module.exports = React.createClass({
     return {
       _error: false,
       files: [],
-      directories: []
+      directories: [],
+      sortBy: 'mtime',
+      reverse: true
     }
   },
 
@@ -50,14 +55,25 @@ var Directory = module.exports = React.createClass({
       normalize(resolve(this.props.path, '..')) :
       null
 
+    var style = {
+      height: this.props.height,
+      width: this.props.width,
+      overflow: 'auto'
+    }
+
     var styleList = {
       display: 'flex',
       flexWrap: 'wrap',
-      alignContent: 'flex-start'
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignContent: 'center'
     }
 
+    var directories = _.sortBy(this.state.directories, this.state.sortBy)
+    if (this.state.reverse) directories.reverse()
+
     return (
-      <div>
+      <div style={style}>
         { parentDir ? <a href={'#/' + parentDir}>Up</a> : '' }
 
         <div style={styleList}>
@@ -67,7 +83,7 @@ var Directory = module.exports = React.createClass({
         </div>
 
         <div style={styleList}>
-          { this.state.directories.map(function (file) {
+          { directories.map(function (file) {
             return self.renderDirectory(file)
           }) }
         </div>
@@ -104,6 +120,7 @@ var Directory = module.exports = React.createClass({
     return (
       <div
         key={dir.name}
+        title={dir.name}
         style={style}
         onClick={this._select.bind(this, dir)} >
 

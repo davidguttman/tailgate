@@ -10,6 +10,7 @@ var Card = rebass.Card
 var Heading = rebass.Heading
 var Progress = rebass.Progress
 var CardImage = rebass.CardImage
+var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 var DotIndicator = rebass.DotIndicator
 
@@ -95,13 +96,17 @@ var Player = module.exports = React.createClass({
     var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
     var trackName = track.name.replace('.' + track.ext, '')
 
+    var padding = 10
+    var fullWidth = this.props.width
+    var cardWidth = fullWidth - (padding * 2)
+
     return (
-      <div>
-        <Card width={this.props.width}>
+      <Container width={fullWidth}>
+        <Card width={cardWidth}>
 
           {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
 
-          <div style={{textAlign: 'center', padding: 20}}>
+          <div style={{textAlign: 'center'}}>
             <Text style={{fontWeight: 'bold', marginBottom: 10}}>
               {trackName}
             </Text>
@@ -119,7 +124,7 @@ var Player = module.exports = React.createClass({
           { this.renderActions() }
 
         </Card>
-      </div>
+      </Container>
     )
   },
 

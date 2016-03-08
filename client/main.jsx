@@ -8,6 +8,8 @@ var Main = module.exports = React.createClass({
     return {
       path: window.location.hash.replace('#/', ''),
       playlist: [],
+      width: window.innerWidth,
+      height: window.innerHeight,
       idxSelected: 0
     }
   },
@@ -20,16 +22,23 @@ var Main = module.exports = React.createClass({
     })
     var playlist = JSON.parse(window.localStorage.tgPlaylist || '[]')
     this.setState({playlist: playlist})
+
+    window.addEventListener('resize', function () {
+      self.setState({width: window.innerWidth, height: window.innerHeight})
+    })
   },
 
   render: function () {
     var mainStyle = {
-      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
       display: 'flex',
-      color: '#111',
-      justifyContent: 'space-between',
-      padding: 20
+      justifyContent: 'space-between'
     }
+
+    var totalWidth = this.state.width
+    var totalHeight = this.state.height
+
+    var playerWidth = 300
+    var dirWidth = totalWidth - playerWidth
 
     var album = this.state.playlist[this.state.idxSelected]
     var albumPath = album ? album.path : null
@@ -39,11 +48,17 @@ var Main = module.exports = React.createClass({
         <Directory
           key={'d' + this.state.path}
           path={this.state.path}
+          width={dirWidth}
+          height={totalHeight}
           onAdd={this._addAlbum} />
 
-        <div style={{marginRight: 20}}>
-          <Player albumPath={albumPath} onFinish={this._onAlbumFinish} />
+        <div>
+          <Player
+            width={playerWidth}
+            albumPath={albumPath}
+            onFinish={this._onAlbumFinish} />
           <Playlist
+            width={playerWidth}
             playlist={this.state.playlist}
             onSelect={this._selectAlbum}
             onRemove={this._removeAlbum} />

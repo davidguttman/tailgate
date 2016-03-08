@@ -3,6 +3,7 @@ var rebass = require('rebass')
 var Icon = require('react-geomicons')
 
 var Card = rebass.Card
+var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 
 var Playlist = module.exports = React.createClass({
@@ -32,8 +33,12 @@ var Playlist = module.exports = React.createClass({
 
     var self = this
 
+    var padding = 10
+    var fullWidth = this.props.width
+    var cardWidth = fullWidth - (padding * 2)
+
     return (
-      <div>
+      <Container width={fullWidth} style={{marginBottom: 20}}>
         { this.props.playlist.map(function (dir) {
           var isSelected = dir.path === self.state.selected
 
@@ -41,7 +46,7 @@ var Playlist = module.exports = React.createClass({
             <Card
               key={dir.path}
               style={{cursor: 'pointer', position: 'relative'}}
-              width={self.props.width}
+              width={cardWidth}
               backgroundColor={ isSelected ? '#666' : undefined}
               color={ isSelected ? 'white' : undefined}
               onClick={self._select.bind(null, dir)}>
@@ -60,7 +65,7 @@ var Playlist = module.exports = React.createClass({
             <Icon name='cog' />
           </ButtonCircle>
         </div>
-      </div>
+      </Container>
     )
   },
 

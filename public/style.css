@@ -1,0 +1,8 @@
+@import url("/sanitize.css");
+
+/* overwrite defaults in sanitize.css */
+:root {
+    --root-box-sizing: border-box;
+    --root-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    --root-color: #333;
+}
