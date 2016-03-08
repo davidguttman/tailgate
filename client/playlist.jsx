@@ -72,7 +72,7 @@ var Playlist = module.exports = React.createClass({
       alignItems: 'center',
       justifyContent: 'space-around',
       position: 'absolute',
-      background: 'rgba(255,255,255,0.6)',
+      background: 'rgba(255,255,255,0.8)',
       color: 'white',
       top: 0,
       left: 0,
@@ -86,7 +86,7 @@ var Playlist = module.exports = React.createClass({
           title='Remove'
           style={styleButton}
           color='white'
-          backgroundColor='rgba(187,51,51,0.8)'
+          backgroundColor='#666'
           onClick={this._remove.bind(null, dir)} >
           <Icon name={'close'} />
         </ButtonCircle>
