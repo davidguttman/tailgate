@@ -33,7 +33,7 @@ var Playlist = module.exports = React.createClass({
     var self = this
 
     return (
-      <Container style={{marginBottom: 20}}>
+      <Container style={{paddingBottom: 50}}>
         { this.props.playlist.map(function (dir) {
           var isSelected = dir.path === self.state.selected
 
