@@ -49,6 +49,7 @@ var Main = module.exports = React.createClass({
 
     return (
       <div style={mainStyle}>
+
         <Directory
           key={'d' + this.state.path}
           path={this.state.path}
@@ -56,7 +57,7 @@ var Main = module.exports = React.createClass({
           height={totalHeight}
           onAdd={this._addAlbum} />
 
-        <Container style={{height: totalHeight, paddingTop: 10}}>
+        <Container style={{height: totalHeight}}>
           <Player
             width={playerWidth}
             albumPath={albumPath}

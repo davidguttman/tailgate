@@ -101,7 +101,7 @@ var Player = module.exports = React.createClass({
     var cardWidth = fullWidth - (padding * 2)
 
     return (
-      <Container width={fullWidth}>
+      <Container style={{paddingTop: 25}}>
         <Card width={cardWidth}>
 
           {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
@@ -115,7 +115,10 @@ var Player = module.exports = React.createClass({
               {this.state.artist}
             </Text>
 
-            <Text style={{fontStyle: 'italic', fontSize: '80%'}}>
+            <Text style={{
+              fontStyle: 'italic',
+              fontSize: '80%',
+              marginBottom: 20 }} >
               {this.state.albumName}
             </Text>
           </div>

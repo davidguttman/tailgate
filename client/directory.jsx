@@ -59,8 +59,8 @@ var Directory = module.exports = React.createClass({
     var style = {
       height: this.props.height,
       width: this.props.width,
-      padding: 40,
-      overflow: 'auto'
+      overflow: 'auto',
+      paddingTop: 25
     }
 
     var styleList = {
