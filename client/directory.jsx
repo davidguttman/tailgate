@@ -35,7 +35,7 @@ var Directory = module.exports = React.createClass({
       _isLoading: false,
       files: [],
       directories: [],
-      sortBy: 'mtime',
+      sortBy: 'name',
       search: ''
     }
   },
@@ -125,14 +125,14 @@ var Directory = module.exports = React.createClass({
             value='name'
             checked={this.state.sortBy === 'name'}
             onChange={this._onInput}
-            label='By Name' />
+            label='Sort by Name' />
 
           <Radio
             name='sortBy'
             value='mtime'
             checked={this.state.sortBy === 'mtime'}
             onChange={this._onInput}
-            label='By Time' />
+            label='Sort by Time' />
 
         </Container>
 
