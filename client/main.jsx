@@ -28,7 +28,8 @@ var Main = module.exports = React.createClass({
       self.setState({path: path})
     })
     var playlist = JSON.parse(window.localStorage.tgPlaylist || '[]')
-    this.setState({playlist: playlist})
+    var idxSelected = JSON.parse(window.localStorage.tgIdxSelected || '0')
+    this.setState({playlist: playlist, idxSelected: idxSelected})
 
     window.addEventListener('resize', function () {
       self.setState({width: window.innerWidth, height: window.innerHeight})
@@ -134,6 +135,7 @@ var Main = module.exports = React.createClass({
       if (dir.path === selected.path) idxSelected = i
     })
     this.setState({idxSelected: idxSelected})
+    window.localStorage.tgIdxSelected = JSON.stringify(idxSelected)
   },
 
   _removeAlbum: function (dir) {
@@ -150,11 +152,13 @@ var Main = module.exports = React.createClass({
 
     this.setState({playlist: playlist, idxSelected: idxSelected})
     window.localStorage.tgPlaylist = JSON.stringify(playlist)
+    window.localStorage.tgIdxSelected = JSON.stringify(idxSelected)
   },
 
   _onAlbumFinish: function () {
     var idx = (this.state.idxSelected + 1) % this.state.playlist.length
     this.setState({idxSelected: idx})
+    window.localStorage.tgIdxSelected = JSON.stringify(idx)
   },
 
   _setUIPlayer: function () {
