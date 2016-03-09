@@ -3,7 +3,9 @@ var rebass = require('rebass')
 var moment = require('moment')
 var Icon = require('react-geomicons')
 var playAudio = require('play-audio')
+
 var api = require('./api')
+var Loading = require('./loading.jsx')
 
 var Text = rebass.Text
 var Card = rebass.Card
@@ -52,7 +54,7 @@ var Player = module.exports = React.createClass({
     var albumName = albumPath.split('/').slice(-1)[0]
     var info = api.parseName(albumPath)
 
-    this._startLoading()
+    this.setState({_isLoading: true})
     api.getPath(albumPath, function (err, files) {
       if (err) return console.error(err)
 
@@ -79,9 +81,9 @@ var Player = module.exports = React.createClass({
         idxTrack: 0,
         idxLoaded: null,
         currentTime: null,
-        duration: null
+        duration: null,
+        _isLoading: false
       })
-      self._stopLoading()
 
       self._loadIdx(0)
       if (self.state.isPlaying) self._play()
@@ -89,53 +91,45 @@ var Player = module.exports = React.createClass({
   },
 
   render: function () {
-    if (this.state._isLoading) return this.renderLoading()
     if (!this.state.tracks.length) return <div style={{height: 256}} />
-
-    var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
-    var trackName = track.name.replace('.' + track.ext, '')
 
     return (
       <Container style={{paddingTop: 25}}>
-        <Card>
-
-          {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
-
-          <div style={{textAlign: 'center'}}>
-            <Text style={{fontWeight: 'bold', marginBottom: 10}}>
-              {trackName}
-            </Text>
-
-            <Text style={{marginBottom: 10}}>
-              {this.state.artist}
-            </Text>
-
-            <Text style={{
-              fontStyle: 'italic',
-              fontSize: '80%',
-              marginBottom: 20 }} >
-              {this.state.albumName}
-            </Text>
-          </div>
-
-          { this.renderProgress() }
-          { this.renderActions() }
-
-        </Card>
+        { this.state._isLoading ? <Loading /> : this.renderPlayer() }
       </Container>
     )
   },
 
-  renderLoading: function () {
-    var active = Math.floor(this.state._loadingTime / 250) % 3
+  renderPlayer: function () {
+    var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
+    var trackName = track.name.replace('.' + track.ext, '')
+
     return (
-      <div>
-        <Card>
-          <div style={{textAlign: 'center'}}>
-            <DotIndicator length={3} active={active}/>
-          </div>
-        </Card>
-      </div>
+      <Card>
+
+        {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
+
+        <div style={{textAlign: 'center'}}>
+          <Text style={{fontWeight: 'bold', marginBottom: 10}}>
+            {trackName}
+          </Text>
+
+          <Text style={{marginBottom: 10}}>
+            {this.state.artist}
+          </Text>
+
+          <Text style={{
+            fontStyle: 'italic',
+            fontSize: '80%',
+            marginBottom: 20 }} >
+            {this.state.albumName}
+          </Text>
+        </div>
+
+        { this.renderProgress() }
+        { this.renderActions() }
+
+      </Card>
     )
   },
 
@@ -293,19 +287,5 @@ var Player = module.exports = React.createClass({
       currentTime: audio.currentTime,
       duration: audio.duration
     })
-  },
-
-  _startLoading: function () {
-    var self = this
-    this.setState({_isLoading: true})
-    var tsStart = Date.now()
-    this.loadingInterval = setInterval(function () {
-      self.setState({_loadingTime: Date.now() - tsStart})
-    }, 250)
-  },
-
-  _stopLoading: function () {
-    this.setState({_isLoading: false})
-    clearInterval(this.loadingInterval)
   }
 })

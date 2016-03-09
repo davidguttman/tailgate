@@ -5,7 +5,9 @@ var resolve = require('path').resolve
 var normalize = require('path').normalize
 var fuzzysearch = require('fuzzysearch')
 var Icon = require('react-geomicons')
+
 var api = require('./api')
+var Loading = require('./loading.jsx')
 
 var Text = rebass.Text
 var Card = rebass.Card
@@ -30,6 +32,7 @@ var Directory = module.exports = React.createClass({
   getInitialState: function() {
     return {
       _error: false,
+      _isLoading: false,
       files: [],
       directories: [],
       sortBy: 'mtime',
@@ -40,6 +43,7 @@ var Directory = module.exports = React.createClass({
   componentWillMount: function() {
     var self = this
 
+    this.setState({_isLoading: true})
     api.getPath(this.props.path, function (err, items) {
       if (err) return self.setState({_error: err})
 
@@ -51,7 +55,7 @@ var Directory = module.exports = React.createClass({
         files.push(item)
       })
 
-      self.setState({files: files, directories: dirs})
+      self.setState({files: files, directories: dirs, _isLoading: false})
     })
   },
 
@@ -129,11 +133,13 @@ var Directory = module.exports = React.createClass({
           }) }
         </div>
 
-        <div style={styleList}>
-          { directories.map(function (file) {
-            return self.renderDirectory(file)
-          }) }
-        </div>
+        { this.state._isLoading ? <Loading /> :
+          <div style={styleList}>
+            { directories.map(function (file) {
+              return self.renderDirectory(file)
+            }) }
+          </div>
+        }
       </div>
     )
   },
