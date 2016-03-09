@@ -44,7 +44,7 @@ var Main = module.exports = React.createClass({
     var dirHeight = totalHeight
 
     var isMobile = false
-    if (dirWidth < playerWidth) {
+    if (totalWidth < 700) {
       isMobile = true
       dirWidth = totalWidth
       dirHeight = undefined
@@ -97,6 +97,7 @@ var Main = module.exports = React.createClass({
               key={'d' + this.state.path}
               path={this.state.path}
               width={dirWidth}
+              dirWidth={isMobile ? dirWidth - 20 : undefined}
               height={dirHeight}
               onAdd={this._addAlbum} />
           </div>

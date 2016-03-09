@@ -19,6 +19,7 @@ var Directory = module.exports = React.createClass({
       path: '/',
       onAdd: function () {},
       height: undefined,
+      dirWidth: 320,
       width: 500
     }
   },
@@ -127,8 +128,16 @@ var Directory = module.exports = React.createClass({
     var isSelected = dir.name === this.state.selected
 
     var style = {
-      margin: 5,
+      marginLeft: 5,
+      marginRight: 5,
       cursor: 'pointer'
+    }
+
+    var styleDir = {
+      position: 'relative',
+      marginBottom: 5,
+      marginTop: 5,
+      minHeight: 74
     }
 
     var styleSelect = {
@@ -153,7 +162,7 @@ var Directory = module.exports = React.createClass({
         style={style}
         onClick={this._select.bind(this, dir)} >
 
-        <Card width={256} style={{position: 'relative', minHeight: 74}}>
+        <Card width={this.props.dirWidth} style={styleDir}>
           <Heading
             level={2}
             size={4} >
