@@ -5,7 +5,7 @@
   "description": "Serve your music collection",
   "main": "index.js",
   "dependencies": {
-    "authentic-ui": "0.0.1",
+    "authentic-ui": "^0.1.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
