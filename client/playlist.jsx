@@ -10,7 +10,6 @@ var Playlist = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       playlist: [],
-      width: 256,
       onSelect: function () {},
       onRemove: function () {}
     }
@@ -33,12 +32,8 @@ var Playlist = module.exports = React.createClass({
 
     var self = this
 
-    var padding = 10
-    var fullWidth = this.props.width
-    var cardWidth = fullWidth - (padding * 2)
-
     return (
-      <Container width={fullWidth} style={{marginBottom: 20}}>
+      <Container style={{marginBottom: 20}}>
         { this.props.playlist.map(function (dir) {
           var isSelected = dir.path === self.state.selected
 
@@ -46,7 +41,6 @@ var Playlist = module.exports = React.createClass({
             <Card
               key={dir.path}
               style={{cursor: 'pointer', position: 'relative'}}
-              width={cardWidth}
               backgroundColor={ isSelected ? '#666' : undefined}
               color={ isSelected ? 'white' : undefined}
               onClick={self._select.bind(null, dir)}>

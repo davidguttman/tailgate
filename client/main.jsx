@@ -46,7 +46,6 @@ var Main = module.exports = React.createClass({
     var isMobile = false
     if (dirWidth < playerWidth) {
       isMobile = true
-      playerWidth = totalWidth - 60
       dirWidth = totalWidth
       dirHeight = undefined
     }
@@ -104,16 +103,13 @@ var Main = module.exports = React.createClass({
 
           <Container style={playerStyle}>
             <Player
-              width={playerWidth}
               albumPath={albumPath}
               onFinish={this._onAlbumFinish} />
             <Playlist
-              width={playerWidth}
               playlist={this.state.playlist}
               onSelect={this._selectAlbum}
               onRemove={this._removeAlbum} />
           </Container>
-          
         </div>
       </div>
     )

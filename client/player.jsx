@@ -17,7 +17,6 @@ var DotIndicator = rebass.DotIndicator
 var Player = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
-      width: 256,
       albumPath: null,
       onFinish: function () {}
     }
@@ -96,13 +95,9 @@ var Player = module.exports = React.createClass({
     var track = this.state.tracks[this.state.idxTrack] || {name: '', ext: 'mp3'}
     var trackName = track.name.replace('.' + track.ext, '')
 
-    var padding = 10
-    var fullWidth = this.props.width
-    var cardWidth = fullWidth - (padding * 2)
-
     return (
       <Container style={{paddingTop: 25}}>
-        <Card width={cardWidth}>
+        <Card>
 
           {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
 
@@ -135,7 +130,7 @@ var Player = module.exports = React.createClass({
     var active = Math.floor(this.state._loadingTime / 250) % 3
     return (
       <div>
-        <Card width={this.props.width}>
+        <Card>
           <div style={{textAlign: 'center'}}>
             <DotIndicator length={3} active={active}/>
           </div>
