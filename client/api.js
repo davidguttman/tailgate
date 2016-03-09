@@ -62,6 +62,8 @@ function parseName (name) {
     meta = ''
   }
 
+  if (artist === 'VA') artist = 'Various Artists'
+
   return {
     artist: artist,
     album: album,
