@@ -75,7 +75,6 @@ var Playlist = module.exports = React.createClass({
         <p>Your playlist is empty</p>
         <br />
         <p>Please add an album</p>
-        
       </div>
     )
   },

@@ -18,7 +18,7 @@ var Directory = module.exports = React.createClass({
     return {
       path: '/',
       onAdd: function () {},
-      height: 500,
+      height: undefined,
       width: 500
     }
   },

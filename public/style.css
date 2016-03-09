@@ -28,3 +28,7 @@ h2 {
   border-radius: 10px;
   background-color: #323438;
 }
+
+button {
+  outline: 0;
+}

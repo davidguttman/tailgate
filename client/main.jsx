@@ -1,11 +1,13 @@
 var React = require('react')
 var rebass = require('rebass')
+var Icon = require('react-geomicons')
 
 var Player = require('./player.jsx')
 var Directory = require('./directory.jsx')
 var Playlist = require('./playlist.jsx')
 
 var Container = rebass.Container
+var ButtonCircle = rebass.ButtonCircle
 
 var Main = module.exports = React.createClass({
   getInitialState: function() {
@@ -14,7 +16,8 @@ var Main = module.exports = React.createClass({
       playlist: [],
       width: window.innerWidth,
       height: window.innerHeight,
-      idxSelected: 0
+      idxSelected: 0,
+      _ui: 'player'
     }
   },
 
@@ -33,41 +36,85 @@ var Main = module.exports = React.createClass({
   },
 
   render: function () {
-    var mainStyle = {
-      display: 'flex',
-      justifyContent: 'space-between'
-    }
-
     var totalWidth = this.state.width
     var totalHeight = this.state.height
 
     var playerWidth = 300
     var dirWidth = totalWidth - playerWidth
+    var dirHeight = totalHeight
+
+    var isMobile = false
+    if (dirWidth < playerWidth) {
+      isMobile = true
+      playerWidth = totalWidth - 60
+      dirWidth = totalWidth
+      dirHeight = undefined
+    }
 
     var album = this.state.playlist[this.state.idxSelected]
     var albumPath = album ? album.path : null
 
+    var mainStyle = {
+      display: 'flex',
+      justifyContent: 'space-between'
+    }
+
+    var styleUISelect = {
+      display: 'flex',
+      justifyContent: 'space-around',
+      paddingTop: 25
+    }
+
+    var dirStyle = {}
+    var playerStyle = {height: totalHeight}
+
+    if (isMobile) {
+      if (this.state._ui !== 'directory') dirStyle.display = 'none'
+      if (this.state._ui !== 'player') playerStyle.display = 'none'
+    }
+
     return (
-      <div style={mainStyle}>
+      <div>
+        { !isMobile ? '' :
+          <div style={styleUISelect}>
+            <ButtonCircle title='Albums' onClick={this._setUIDirectory}
+              color='white'
+              backgroundColor={this.state._ui == 'directory' ? '#aaa' : '#444'}>
+              <Icon name={'folder'} />
+            </ButtonCircle>
 
-        <Directory
-          key={'d' + this.state.path}
-          path={this.state.path}
-          width={dirWidth}
-          height={totalHeight}
-          onAdd={this._addAlbum} />
+            <ButtonCircle title='Music Player' onClick={this._setUIPlayer}
+              color='white'
+              backgroundColor={ this.state._ui === 'player' ? '#aaa' : '#444'} >
+              <Icon name={'musicNote'} />
+            </ButtonCircle>
+          </div>
+        }
 
-        <Container style={{height: totalHeight}}>
-          <Player
-            width={playerWidth}
-            albumPath={albumPath}
-            onFinish={this._onAlbumFinish} />
-          <Playlist
-            width={playerWidth}
-            playlist={this.state.playlist}
-            onSelect={this._selectAlbum}
-            onRemove={this._removeAlbum} />
-        </Container>
+        <div style={mainStyle}>
+
+          <div style={dirStyle}>
+            <Directory
+              key={'d' + this.state.path}
+              path={this.state.path}
+              width={dirWidth}
+              height={dirHeight}
+              onAdd={this._addAlbum} />
+          </div>
+
+          <Container style={playerStyle}>
+            <Player
+              width={playerWidth}
+              albumPath={albumPath}
+              onFinish={this._onAlbumFinish} />
+            <Playlist
+              width={playerWidth}
+              playlist={this.state.playlist}
+              onSelect={this._selectAlbum}
+              onRemove={this._removeAlbum} />
+          </Container>
+          
+        </div>
       </div>
     )
   },
@@ -110,6 +157,14 @@ var Main = module.exports = React.createClass({
   _onAlbumFinish: function () {
     var idx = (this.state.idxSelected + 1) % this.state.playlist.length
     this.setState({idxSelected: idx})
+  },
+
+  _setUIPlayer: function () {
+    this.setState({_ui: 'player'})
+  },
+
+  _setUIDirectory: function () {
+    this.setState({_ui: 'directory'})
   }
 
 })
