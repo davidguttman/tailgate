@@ -39,6 +39,8 @@ function pathToUrl (path) {
 }
 
 function parseName (name) {
+  if (name[0] === '/') name = name.slice(1)
+
   var metaStart = name.length
   for (var i = 0; i < name.length; i++) {
     if (name[i] === '(' || name[i] === '[' ) {
