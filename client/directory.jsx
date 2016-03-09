@@ -3,11 +3,13 @@ var React = require('react')
 var rebass = require('rebass')
 var resolve = require('path').resolve
 var normalize = require('path').normalize
+var fuzzysearch = require('fuzzysearch')
 var Icon = require('react-geomicons')
 var api = require('./api')
 
 var Text = rebass.Text
 var Card = rebass.Card
+var Input = rebass.Input
 var Radio = rebass.Radio
 var Heading = rebass.Heading
 var Container = rebass.Container
@@ -30,7 +32,8 @@ var Directory = module.exports = React.createClass({
       _error: false,
       files: [],
       directories: [],
-      sortBy: 'mtime'
+      sortBy: 'mtime',
+      search: ''
     }
   },
 
@@ -75,7 +78,11 @@ var Directory = module.exports = React.createClass({
 
     var styleButton = { outline: 0 }
 
-    var directories = _.sortBy(this.state.directories, this.state.sortBy)
+    var search = this.state.search.toLowerCase()
+    var filtered = this.state.directories.filter(function (dir) {
+      return fuzzysearch(search, dir.name.toLowerCase())
+    })
+    var directories = _.sortBy(filtered, this.state.sortBy)
     if (this.state.sortBy === 'mtime') directories.reverse()
 
     return (
@@ -93,19 +100,27 @@ var Directory = module.exports = React.createClass({
         }
 
         <Container style={{width: 200, marginBottom: 20}}>
+          <Input
+            label=''
+            name='search'
+            placeholder='Search'
+            onChange={this._onInput}
+            type='text' />
+
           <Radio
             name='sortBy'
             value='name'
             checked={this.state.sortBy === 'name'}
-            onChange={this._changeSort}
+            onChange={this._onInput}
             label='By Name' />
 
           <Radio
             name='sortBy'
             value='mtime'
             checked={this.state.sortBy === 'mtime'}
-            onChange={this._changeSort}
+            onChange={this._onInput}
             label='By Time' />
+
         </Container>
 
         <div style={styleList}>
@@ -251,7 +266,7 @@ var Directory = module.exports = React.createClass({
     this.props.onAdd(dir)
   },
 
-  _changeSort: function (evt) {
+  _onInput: function (evt) {
     var change = {}
     change[evt.target.name] = evt.target.value
     this.setState(change)

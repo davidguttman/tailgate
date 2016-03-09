@@ -10,6 +10,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "fastclick": "^1.0.6",
+    "fuzzysearch": "^1.0.3",
     "hyperscript": "^1.4.7",
     "jsonist": "^0.1.1",
     "lodash": "^4.6.1",
