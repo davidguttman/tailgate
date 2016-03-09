@@ -86,7 +86,16 @@ var Directory = module.exports = React.createClass({
     var filtered = this.state.directories.filter(function (dir) {
       return fuzzysearch(search, dir.name.toLowerCase())
     })
-    var directories = _.sortBy(filtered, this.state.sortBy)
+
+    var directories
+    if (this.state.sortBy === 'name') {
+      directories = _.sortBy(filtered, function (item) {
+        return item.name.toLowerCase()
+      })
+    } else {
+      directories = _.sortBy(filtered, this.state.sortBy)
+    }
+
     if (this.state.sortBy === 'mtime') directories.reverse()
 
     return (
