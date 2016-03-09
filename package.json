@@ -36,7 +36,7 @@
   },
   "scripts": {
     "dev": "budo client/index.js:browserify.js -d public -l -- -t [ babelify --presets [ react ] ]",
-    "build": "browserify -t envify -t [ babelify --presets [ react ] ] client/index.js | uglifyjs -mc > public/browserify.js",
+    "build": "NODE_ENV=production browserify -t envify -t [ babelify --presets [ react ] ] client/index.js | uglifyjs -mc > public/browserify.js",
     "deploy": "npm run build && surge public"
   },
   "license": "MIT",
