@@ -99,6 +99,7 @@ var Main = module.exports = React.createClass({
               width={dirWidth}
               dirWidth={isMobile ? dirWidth - 20 : undefined}
               height={dirHeight}
+              playlist={this.state.playlist}
               onAdd={this._addAlbum} />
           </div>
 

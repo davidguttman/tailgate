@@ -20,7 +20,8 @@ var Directory = module.exports = React.createClass({
       onAdd: function () {},
       height: undefined,
       dirWidth: 320,
-      width: 500
+      width: 500,
+      playlist: []
     }
   },
 
@@ -127,6 +128,14 @@ var Directory = module.exports = React.createClass({
     if (dir.year) albumText += ' (' + dir.year + ')'
     var isSelected = dir.name === this.state.selected
 
+    var isPlaylist = false
+    for (var i = 0; i < this.props.playlist.length; i++) {
+      if (this.props.playlist[i].name === dir.name) {
+        isPlaylist = true
+        break
+      }
+    }
+
     var style = {
       marginLeft: 5,
       marginRight: 5,
@@ -152,6 +161,8 @@ var Directory = module.exports = React.createClass({
       bottom: 0,
       right: 0
     }
+
+    if (isPlaylist) { styleDir.background = 'rgba(0,50,0,0.5)' }
 
     var styleButton = { outline: 0 }
 
