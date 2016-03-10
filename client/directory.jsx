@@ -194,7 +194,7 @@ var Directory = module.exports = React.createClass({
       right: 0
     }
 
-    if (isPlaylist) { styleDir.background = 'rgba(0,50,0,0.5)' }
+    if (isPlaylist) { styleDir.background = 'rgba(20,50,50,0.5)' }
 
     var styleButton = { outline: 0 }
 
@@ -218,23 +218,13 @@ var Directory = module.exports = React.createClass({
           { !isSelected ? '' :
             <div style={styleSelect} onClick={this._select.bind(this, dir)} >
               <ButtonCircle
-                title='Navigate'
-                style={styleButton}
-                size={48}
-                color='white'
-                backgroundColor='#666'
-                onClick={this._navigate.bind(this, dir.path)} >
-                <Icon name={'external'} width={'2em'} height={'2em'}/>
-              </ButtonCircle>
-
-              <ButtonCircle
                 title='Add To Playlist'
                 style={styleButton}
                 color='white'
                 backgroundColor='#666'
                 onClick={this._add.bind(null, dir)}
                 size={48} >
-                <Icon name={'list'} width={'2em'} height={'2em'}/>
+                <Icon name={'play'} width={'2em'} height={'2em'}/>
               </ButtonCircle>
             </div>
           }
