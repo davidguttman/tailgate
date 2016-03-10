@@ -159,6 +159,8 @@ var Player = module.exports = React.createClass({
       <div>
         <Progress
           color={'primary'}
+          style={{cursor: 'pointer'}}
+          onClick={this._setProgress}
           value={progress} >
         </Progress>
 
@@ -287,5 +289,18 @@ var Player = module.exports = React.createClass({
       currentTime: audio.currentTime,
       duration: audio.duration
     })
+  },
+
+  _setProgress: function (evt) {
+    var box = evt.target.getBoundingClientRect()
+
+    var mx = evt.clientX
+    var bx = mx - box.left
+    var rx = bx / box.width
+
+    if (!this.state.duration) return
+
+    var time = rx * this.state.duration
+    this.state.audioPlayer.element().currentTime = time
   }
 })
