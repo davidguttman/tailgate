@@ -19,6 +19,25 @@ module.exports = {
     })
   },
 
+  getDirectory: function (path, cb) {
+    this.getPath(path, function (err, items) {
+      if (err) return self.setState({_error: err})
+
+      var dirs = []
+      var files = []
+
+      items.forEach(function (item) {
+        if (item.isDirectory) return dirs.push(item)
+        files.push(item)
+      })
+
+      cb(null, {
+        files: files,
+        directories: dirs
+      })
+    })
+  },
+
   albumArt: function(query, cb) {
     var url = baseUrl + '/api/art?q=' + encodeURIComponent(query)
     return auth.auth.get(url, cb)

@@ -36,7 +36,8 @@ var Directory = module.exports = React.createClass({
       files: [],
       directories: [],
       sortBy: 'name',
-      search: ''
+      search: '',
+      selected: null
     }
   },
 
@@ -44,18 +45,10 @@ var Directory = module.exports = React.createClass({
     var self = this
 
     this.setState({_isLoading: true})
-    api.getPath(this.props.path, function (err, items) {
+    api.getDirectory(this.props.path, function (err, dir) {
+      self.setState({_isLoading: false})
       if (err) return self.setState({_error: err})
-
-      var dirs = []
-      var files = []
-
-      items.forEach(function (item) {
-        if (item.isDirectory) return dirs.push(item)
-        files.push(item)
-      })
-
-      self.setState({files: files, directories: dirs, _isLoading: false})
+      self.setState(dir)
     })
   },
 
