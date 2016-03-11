@@ -21,9 +21,9 @@ module.exports = {
     signup: function (el) {
       var urlTemplate = window.location.origin + '#/confirm/<%= email %>/<%= confirmToken %>'
       var opts = {
-        from: 'thhis.com <accounts@thhis.com>',
-        subject: 'Welcome to thhis.com',
-        bodyTemplate: ['<h1>Welcome to thhis.com</h1>', '<p>Thanks for signing up! Please ', '<a href="' + urlTemplate + '">confirm your account</a> ', 'to continue.', '</p>'].join('')
+        from: 'Tailgate <accounts@thhis.com>',
+        subject: 'Welcome to Tailgate',
+        bodyTemplate: ['<h1>Welcome to Tailgate</h1>', '<p>Thanks for signing up! Please ', '<a href="' + urlTemplate + '">confirm your account</a> ', 'to continue.', '</p>'].join('')
       }
 
       el.appendChild(auth.signup(opts))
@@ -44,10 +44,10 @@ module.exports = {
 
     changePasswordRequest: function (el) {
       var urlTemplate = window.location.origin + '#/change-password/<%= email %>/<%= changeToken %>'
-      var bodyTemplate = ['<h1>thhis.com Password Change</h1>', '<p>We received your request to change your password. Please ', '<a href="' + urlTemplate + '">choose a new password</a> ', 'to continue.', '</p>'].join('')
+      var bodyTemplate = ['<h1>Tailgate Password Change</h1>', '<p>We received your request to change your password. Please ', '<a href="' + urlTemplate + '">choose a new password</a> ', 'to continue.', '</p>'].join('')
       var opts = {
-        from: 'thhis.com <accounts@thhis.com>',
-        subject: 'Change your thhis.com password',
+        from: 'Tailgate <accounts@thhis.com>',
+        subject: 'Change your Tailgate password',
         bodyTemplate: bodyTemplate
       }
       el.appendChild(auth.changePasswordRequest(opts))
