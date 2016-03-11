@@ -9,8 +9,17 @@ var auth = require('./auth').auth
 module.exports = {
   getPath: function(path, cb) {
     var url = pathToUrl(path)
-    return auth.auth.get(url, function (err, files) {
-      if (err) return cb(err)
+    auth.auth.get(url, function (err, files) {
+      if (err) {
+        if (err.message && err.message.match(/403/)) {
+          auth.logout()
+          return setTimeout(function () {
+            window.location.hash = '#/login'
+          })
+        }
+        return cb(err)
+      }
+
       cb(null, files.map(function (file) {
         file.path = join(path, file.name)
         if (file.isDirectory) { file = xtend(file, parseName(file.name)) }
@@ -21,7 +30,7 @@ module.exports = {
 
   getDirectory: function (path, cb) {
     this.getPath(path, function (err, items) {
-      if (err) return self.setState({_error: err})
+      if (err) return cb(err)
 
       var dirs = []
       var files = []
