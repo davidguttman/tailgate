@@ -55,29 +55,15 @@ var Player = module.exports = React.createClass({
     var info = api.parseName(albumPath)
 
     this.setState({_isLoading: true})
-    api.getPath(albumPath, function (err, files) {
+
+    api.getAlbum(albumPath, function (err, album) {
       if (err) return console.error(err)
 
-      var tracks = []
-      var images = []
-
-      files.forEach(function (file) {
-        if (['mp3', 'm4a'].indexOf(file.ext) >= 0) tracks.push(file)
-        if (['png', 'jpg'].indexOf(file.ext) >= 0) images.push(file)
-      })
-
-      var coverArt
-      for (var i = images.length - 1; i >= 0; i--) {
-        coverArt = images[i].url
-        if (images[i].name === 'folder.jpg') break
-        if (images[i].name === 'cover.jpg') break
-      }
-
       self.setState({
-        tracks: tracks,
-        coverArt: coverArt,
-        albumName: info.album,
-        artist: info.artist,
+        tracks: album.tracks,
+        coverArt: album.coverArt,
+        albumName: album.name,
+        artist: album.artist,
         idxTrack: 0,
         idxLoaded: null,
         currentTime: null,

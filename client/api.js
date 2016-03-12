@@ -47,8 +47,52 @@ module.exports = {
     })
   },
 
-  albumArt: function(query, cb) {
-    var url = baseUrl + '/api/art?q=' + encodeURIComponent(query)
+  getAlbum: function (path, cb) {
+    var self = this
+
+    this.getPath(path, function (err, files) {
+      if (err) return cb(err)
+
+      var albumName = path.split('/').slice(-1)[0]
+      var info = self.parseName(path)
+
+      var tracks = []
+      var images = []
+
+      files.forEach(function (file) {
+        if (['mp3', 'm4a'].indexOf(file.ext) >= 0) tracks.push(file)
+        if (['png', 'jpg'].indexOf(file.ext) >= 0) images.push(file)
+      })
+
+      var coverArt
+      for (var i = images.length - 1; i >= 0; i--) {
+        coverArt = images[i].url
+        if (images[i].name === 'folder.jpg') break
+        if (images[i].name === 'cover.jpg') break
+      }
+
+      var album = {
+        tracks: tracks,
+        coverArt: coverArt,
+        name: info.album,
+        artist: info.artist,
+        year: info.year,
+        meta: info.meta
+      }
+
+      if (album.coverArt) return cb(null, album)
+
+      self.getAlbumArt(album, function (err, art) {
+        album.coverArt = (art || {}).url
+        cb(null, album)
+      })
+    })
+  },
+
+  getAlbumArt: function(album, cb) {
+    var query = [album.artist]
+    if (album.name) query.push(album.name)
+    var url = baseUrl + '/api/art?q=' + encodeURIComponent(query.join(' - '))
     return auth.auth.get(url, cb)
   },
 
@@ -94,7 +138,7 @@ function parseName (name) {
 
   return {
     artist: artist,
-    album: album,
+    album: album.trim(),
     meta: meta,
     year: year
   }
