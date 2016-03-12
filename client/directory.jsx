@@ -212,12 +212,12 @@ var Directory = module.exports = React.createClass({
             <div style={styleSelect} onClick={this._select.bind(this, dir)} >
               <ButtonCircle
                 title='Add To Playlist'
-                style={styleButton}
+                style={{transform: 'rotate(0.125turn)'}}
                 color='white'
                 backgroundColor='#666'
                 onClick={this._add.bind(null, dir)}
                 size={48} >
-                <Icon name={'play'} width={'2em'} height={'2em'}/>
+                <Icon name={'close'} width={'2em'} height={'2em'}/>
               </ButtonCircle>
             </div>
           }
