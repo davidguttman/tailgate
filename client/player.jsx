@@ -51,8 +51,6 @@ var Player = module.exports = React.createClass({
 
   loadAlbum: function (albumPath) {
     var self = this
-    var albumName = albumPath.split('/').slice(-1)[0]
-    var info = api.parseName(albumPath)
 
     this.setState({_isLoading: true})
 
