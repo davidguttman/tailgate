@@ -1,14 +1,20 @@
 var URL = require('url')
 var jsonist = require('jsonist')
 var join = require('path').join
+var normalize = require('path').normalize
 var xtend = require('xtend')
 
 var baseUrl = 'https://music.thhis.com'
 var auth = require('./auth').auth
 
 module.exports = {
-  getPath: function(path, cb) {
-    var url = pathToUrl(path)
+  getPath: function(path, shareCode, cb) {
+    if (typeof shareCode === 'function') {
+      cb = shareCode
+      shareCode = null
+    }
+
+    var url = pathToUrl(path, shareCode)
     auth.auth.get(url, function (err, files) {
       if (err) {
         if (err.message && err.message.match(/403/)) {
@@ -47,10 +53,18 @@ module.exports = {
     })
   },
 
-  getAlbum: function (path, cb) {
+  getAlbum: function (path, shareCode, cb) {
+    if (typeof shareCode === 'function') {
+      cb = shareCode
+      shareCode = null
+    }
+
+    var norm = normalize(path)
+    if (!norm || norm === '/') return cb(new Error('Album Path Required'))
+
     var self = this
 
-    this.getPath(path, function (err, files) {
+    this.getPath(path, shareCode, function (err, files) {
       if (err) return cb(err)
 
       var albumName = path.split('/').slice(-1)[0]
@@ -82,17 +96,23 @@ module.exports = {
 
       if (album.coverArt) return cb(null, album)
 
-      self.getAlbumArt(album, function (err, art) {
+      self.getAlbumArt(album, shareCode, function (err, art) {
         album.coverArt = (art || {}).url
         cb(null, album)
       })
     })
   },
 
-  getAlbumArt: function(album, cb) {
+  getAlbumArt: function(album, shareCode, cb) {
+    if (typeof shareCode === 'function') {
+      cb = shareCode
+      shareCode = null
+    }
+
     var query = [album.artist]
     if (album.name) query.push(album.name)
     var url = baseUrl + '/api/art?q=' + encodeURIComponent(query.join(' - '))
+    if (shareCode) url += '&_shareToken=' + shareCode
     return auth.auth.get(url, cb)
   },
 
@@ -106,8 +126,10 @@ module.exports = {
   parseName: parseName
 }
 
-function pathToUrl (path) {
-  return baseUrl + '/api/get?path=' + encodeURIComponent(path)
+function pathToUrl (path, shareCode) {
+  var url = baseUrl + '/api/get?path=' + encodeURIComponent(path)
+  if (shareCode) url += '&_shareToken=' + shareCode
+  return url
 }
 
 function parseName (name) {

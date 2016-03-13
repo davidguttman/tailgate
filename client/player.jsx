@@ -20,6 +20,7 @@ var Player = module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       albumPath: null,
+      shareCode: null,
       onFinish: function () {}
     }
   },
@@ -54,7 +55,7 @@ var Player = module.exports = React.createClass({
 
     this.setState({_isLoading: true})
 
-    api.getAlbum(albumPath, function (err, album) {
+    api.getAlbum(albumPath, this.props.shareCode, function (err, album) {
       if (err) return console.error(err)
 
       self.setState({
