@@ -1,6 +1,8 @@
 var React = require('react')
 var rebass = require('rebass')
 var Icon = require('react-geomicons')
+var api = require('./api')
+var h = require('hyperscript')
 
 var Card = rebass.Card
 var Container = rebass.Container
@@ -18,6 +20,7 @@ var Playlist = module.exports = React.createClass({
   getInitialState: function() {
     return {
       selected: (this.props.playlist[0] || {}).path,
+      shareToken: null,
       _removeMode: false
     }
   },
@@ -25,6 +28,14 @@ var Playlist = module.exports = React.createClass({
   componentWillReceiveProps: function (nextProps) {
     if (this.state.selected) return
     this.setState({selected: (nextProps.playlist[0] || {}).path})
+  },
+
+  componentDidMount: function() {
+    var self = this
+    api.getShareToken(function (err, res) {
+      if (err) return console.error(err)
+      self.setState({shareToken: res.shareToken})
+    })
   },
 
   render: function () {
@@ -91,6 +102,17 @@ var Playlist = module.exports = React.createClass({
 
     return (
       <div style={styleSelect}>
+        { !this.state.shareToken ? '' :
+          <ButtonCircle
+            title='Share Link'
+            style={styleButton}
+            color='white'
+            backgroundColor='#666'
+            onClick={this._link.bind(null, dir)} >
+            <Icon name={'link'} />
+          </ButtonCircle>
+        }
+
         <ButtonCircle
           title='Remove'
           style={styleButton}
@@ -115,6 +137,17 @@ var Playlist = module.exports = React.createClass({
     }
 
     this.props.onRemove(dir)
+  },
+
+  _link: function (dir) {
+    var albumPath = dir.path
+    var shareToken = this.state.shareToken
+    var url = window.location.origin + '/'
+    url += ['#', 'shared', shareToken, albumPath].join('/')
+
+    var a = h('a', {href: url, target: '_blank', style: {display: 'none'}})
+    document.body.appendChild(a)
+    a.click()
   },
 
   _toggleRemoveMode: function () {

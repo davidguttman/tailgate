@@ -116,6 +116,11 @@ module.exports = {
     return auth.auth.get(url, cb)
   },
 
+  getShareToken: function (cb) {
+    var url = baseUrl + '/api/share-token'
+    return auth.auth.get(url, cb)
+  },
+
   authenticateUrl: function(url) {
     var parsed = URL.parse(url, true)
     parsed.query._authToken = auth.authToken()

@@ -76,7 +76,9 @@ var Player = module.exports = React.createClass({
   },
 
   render: function () {
-    if (!this.state.tracks.length) return <div style={{height: 256}} />
+    if (!this.state.tracks.length) {
+      return <div style={{height: 256}}><Loading /></div>
+    }
 
     return (
       <Container style={{paddingTop: 25}}>
