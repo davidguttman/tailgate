@@ -143,7 +143,7 @@ var Playlist = module.exports = React.createClass({
     var albumPath = dir.path
     var shareToken = this.state.shareToken
     var url = window.location.origin + '/'
-    url += ['#', 'shared', shareToken, albumPath].join('/')
+    url += ['#', 'shared', shareToken, encodeURIComponent(albumPath)].join('/')
 
     var a = h('a', {href: url, target: '_blank', style: {display: 'none'}})
     document.body.appendChild(a)

@@ -34,7 +34,7 @@ function runRoutes (el) {
   if (appState.match(/^shared/)) {
     var parts = appState.split('/')
     var shareCode = parts[1]
-    var albumPath = parts.slice(2).join('/')
+    var albumPath = decodeURIComponent(parts.slice(2).join('/'))
     return sharedRoute(el, shareCode, albumPath)
   }
 
@@ -56,7 +56,7 @@ function mainRoute (el, appState) {
 function sharedRoute (el, shareCode, albumPath) {
   if (loaded) return el.appendChild(loaded)
 
-  var main = h('.main', {style: {width: '300px', margin: '50px auto'}})
+  var main = h('.main', {style: {width: '300px', margin: '20px auto'}})
   el.appendChild(main)
   ReactDOM.render(React.createElement(Player, {
     albumPath: albumPath,
