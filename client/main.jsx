@@ -66,7 +66,7 @@ var Main = module.exports = React.createClass({
     }
 
     var dirStyle = {}
-    var playerStyle = {height: totalHeight}
+    var playerStyle = {height: totalHeight, width: playerWidth}
 
     if (isMobile) {
       if (this.state._ui !== 'directory') dirStyle.display = 'none'
