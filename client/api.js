@@ -17,7 +17,7 @@ module.exports = {
     var url = pathToUrl(path, shareCode)
     auth.auth.get(url, function (err, files) {
       if (err) {
-        if (err.message && err.message.match(/403/)) {
+        if (err.message && err.message.match(/403|401/)) {
           auth.logout()
           return setTimeout(function () {
             window.location.hash = '#/login'
