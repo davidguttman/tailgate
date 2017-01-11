@@ -124,7 +124,7 @@ var Main = module.exports = React.createClass({
       if (dir.path !== item.path) playlist.push(item)
     })
 
-    playlist.push(dir)
+    playlist.unshift(dir)
     this.setState({playlist: playlist})
     window.localStorage.tgPlaylist = JSON.stringify(playlist)
   },
