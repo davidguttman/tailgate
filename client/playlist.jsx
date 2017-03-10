@@ -3,6 +3,7 @@ var rebass = require('rebass')
 var Icon = require('react-geomicons')
 var api = require('./api')
 var h = require('hyperscript')
+var querystring = require('querystring')
 
 var Card = rebass.Card
 var Container = rebass.Container
@@ -142,8 +143,11 @@ var Playlist = module.exports = React.createClass({
   _link: function (dir) {
     var albumPath = dir.path
     var shareToken = this.state.shareToken
-    var url = window.location.origin + '/'
-    url += ['#', 'shared', shareToken, encodeURIComponent(albumPath)].join('/')
+
+    var target = window.location.origin + '/'
+    target += ['#', 'shared', shareToken, encodeURIComponent(albumPath)].join('/')
+
+    var url = 'http://listento.thhis.com/?' + querystring.stringify({ url: target })
 
     var a = h('a', {href: url, target: '_blank', style: {display: 'none'}})
     document.body.appendChild(a)
