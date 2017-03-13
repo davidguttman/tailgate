@@ -129,12 +129,6 @@ var Directory = module.exports = React.createClass({
 
         </Container>
 
-        <div style={styleList}>
-          { this.state.files.map(function (file) {
-            return self.renderFile(file)
-          }) }
-        </div>
-
         { this.state._isLoading ? <Loading /> :
           <div style={styleList}>
             { directories.map(function (file) {
