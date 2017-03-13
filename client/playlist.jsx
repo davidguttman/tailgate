@@ -20,15 +20,17 @@ var Playlist = module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      selected: (this.props.playlist[0] || {}).path,
+      selected: (this.props.playlist[this.props.idxSelected] || {}).path,
       shareToken: null,
       _removeMode: false
     }
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if (this.state.selected) return
-    this.setState({selected: (nextProps.playlist[0] || {}).path})
+    var nextSelected = (nextProps.playlist[nextProps.idxSelected] || {}).path
+    this.setState({
+      selected: nextSelected
+    })
   },
 
   componentDidMount: function() {

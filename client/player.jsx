@@ -263,8 +263,9 @@ var Player = module.exports = React.createClass({
   },
 
   trackEnded: function (evt) {
-    if ( (this.state.idxTrack + 1) >= this.state.tracks.length ) {
-      this.props.onFinish()
+    var idxNext = this.state.idxTrack + 1
+    if ( idxNext >= this.state.tracks.length ) {
+      return this.props.onFinish()
     }
 
     this._next()

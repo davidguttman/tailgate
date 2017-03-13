@@ -109,6 +109,7 @@ var Main = module.exports = React.createClass({
               albumPath={albumPath}
               onFinish={this._onAlbumFinish} />
             <Playlist
+              idxSelected={this.state.idxSelected}
               playlist={this.state.playlist}
               onSelect={this._selectAlbum}
               onRemove={this._removeAlbum} />
