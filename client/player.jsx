@@ -81,9 +81,9 @@ var Player = module.exports = React.createClass({
     }
 
     return (
-      <Container style={{paddingTop: 25}}>
+      <div style={{paddingTop: 0}}>
         { this.state._isLoading ? <Loading /> : this.renderPlayer() }
-      </Container>
+      </div>
     )
   },
 
