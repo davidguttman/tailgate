@@ -1,6 +1,7 @@
 var React = require('react')
 var rebass = require('rebass')
 var Icon = require('react-geomicons')
+var xtend = require('xtend')
 
 var Player = require('./player.jsx')
 var Directory = require('./directory.jsx')
@@ -62,7 +63,17 @@ var Main = module.exports = React.createClass({
     var styleUISelect = {
       display: 'flex',
       justifyContent: 'space-around',
-      paddingTop: 25
+      // paddingTop: 25,
+      // paddingBottom: 25,
+      // backgroundColor: 'gray'
+    }
+
+    var styleUISelectTab = {
+      width: '50%',
+      backgroundColor: 'red',
+      paddingTop: 25,
+      paddingBottom: 25,
+      textAlign: 'center'
     }
 
     var dirStyle = {}
@@ -73,21 +84,46 @@ var Main = module.exports = React.createClass({
       if (this.state._ui !== 'player') playerStyle.display = 'none'
     }
 
+    // backgroundColor={ this.state._ui === 'player' ? '#aaa' : '#444'}
+    // backgroundColor={this.state._ui == 'directory' ? '#aaa' : '#444'}>
+
     return (
       <div>
         { !isMobile ? '' :
           <div style={styleUISelect}>
-            <ButtonCircle title='Albums' onClick={this._setUIDirectory}
-              color='white'
-              backgroundColor={this.state._ui == 'directory' ? '#aaa' : '#444'}>
-              <Icon name={'folder'} />
-            </ButtonCircle>
+            <div
+              style={xtend(styleUISelectTab, {
+                backgroundColor: this.state._ui === 'directory'
+                  ? 'transparent'
+                  : '#333'
+              })}
+              onClick={this._setUIDirectory}
+            >
+              <ButtonCircle title='Albums'
+                color={this.state._ui === 'directory'
+                  ? 'white'
+                  : '#999'}
+                backgroundColor='transparent' >
+                <Icon name={'folder'} width={'2em'} height={'2em'}/>
+              </ButtonCircle>
+            </div>
 
-            <ButtonCircle title='Music Player' onClick={this._setUIPlayer}
-              color='white'
-              backgroundColor={ this.state._ui === 'player' ? '#aaa' : '#444'} >
-              <Icon name={'musicNote'} />
-            </ButtonCircle>
+            <div
+              style={xtend(styleUISelectTab, {
+                backgroundColor: this.state._ui === 'player'
+                  ? 'transparent'
+                  : '#333'
+              })}
+              onClick={this._setUIPlayer}
+            >
+              <ButtonCircle title='Music Player'
+                color={this.state._ui === 'player'
+                  ? 'white'
+                  : '#999'}
+                backgroundColor='transparent' >
+                <Icon name={'musicNote'} width={'2em'} height={'2em'}/>
+              </ButtonCircle>
+            </div>
           </div>
         }
 
