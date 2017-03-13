@@ -70,14 +70,13 @@ var Main = module.exports = React.createClass({
 
     var styleUISelectTab = {
       width: '50%',
-      backgroundColor: 'red',
-      paddingTop: 25,
-      paddingBottom: 25,
+      paddingTop: 16,
+      paddingBottom: 16,
       textAlign: 'center'
     }
 
     var dirStyle = {}
-    var playerStyle = {height: totalHeight, width: playerWidth}
+    var playerStyle = {height: totalHeight, width: '100%'}
 
     if (isMobile) {
       if (this.state._ui !== 'directory') dirStyle.display = 'none'
@@ -140,7 +139,7 @@ var Main = module.exports = React.createClass({
               onAdd={this._addAlbum} />
           </div>
 
-          <Container style={playerStyle}>
+          <div style={playerStyle}>
             <Player
               albumPath={albumPath}
               onFinish={this._onAlbumFinish} />
@@ -149,7 +148,7 @@ var Main = module.exports = React.createClass({
               playlist={this.state.playlist}
               onSelect={this._selectAlbum}
               onRemove={this._removeAlbum} />
-          </Container>
+          </div>
         </div>
       </div>
     )
