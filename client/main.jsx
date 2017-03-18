@@ -41,7 +41,7 @@ var Main = module.exports = React.createClass({
     var totalWidth = this.state.width
     var totalHeight = this.state.height
 
-    var playerWidth = 300
+    var playerWidth = 250
     var dirWidth = totalWidth - playerWidth
     var dirHeight = totalHeight
 
