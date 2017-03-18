@@ -92,7 +92,7 @@ var Player = module.exports = React.createClass({
     var trackName = track.name.replace('.' + track.ext, '')
 
     return (
-      <Card>
+      <Card style={{marginBottom: 10}}>
 
         {!this.state.coverArt ? '' : <CardImage src={this.state.coverArt} />}
 

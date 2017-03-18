@@ -47,14 +47,14 @@ var Playlist = module.exports = React.createClass({
     var self = this
 
     return (
-      <Container style={{paddingBottom: 50}}>
+      <div style={{paddingBottom: 50}}>
         { this.props.playlist.map(function (dir) {
           var isSelected = dir.path === self.state.selected
 
           return (
             <Card
               key={dir.path}
-              style={{cursor: 'pointer', position: 'relative'}}
+              style={{cursor: 'pointer', position: 'relative', marginBottom: 10}}
               backgroundColor={ isSelected ? '#666' : undefined}
               color={ isSelected ? 'white' : undefined}
               onClick={self._select.bind(null, dir)}>
@@ -73,7 +73,7 @@ var Playlist = module.exports = React.createClass({
             <Icon name='cog' />
           </ButtonCircle>
         </div>
-      </Container>
+      </div>
     )
   },
 
