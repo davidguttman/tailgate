@@ -1,7 +1,7 @@
 {
   "name": "thhis-music-client",
   "author": "David Guttman",
-  "version": "3.12.1",
+  "version": "3.12.2",
   "description": "Serve your music collection",
   "main": "index.js",
   "dependencies": {
