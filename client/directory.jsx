@@ -35,7 +35,7 @@ var Directory = module.exports = React.createClass({
       _isLoading: false,
       files: [],
       directories: [],
-      sortBy: 'name',
+      sortBy: 'mtime',
       search: '',
       selected: null
     }
