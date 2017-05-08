@@ -20,10 +20,12 @@ module.exports = {
 
     signup: function (el) {
       var urlTemplate = window.location.origin + '#/confirm/<%= email %>/<%= confirmToken %>'
+      var bodyTemplate = ['<h1>Welcome to Tailgate</h1>', '<p>Thanks for signing up! Please ', '<a href="' + urlTemplate + '">confirm your account</a> ', 'to continue.', '</p>'].join('')
       var opts = {
         from: 'Tailgate <accounts@thhis.com>',
         subject: 'Welcome to Tailgate',
-        bodyTemplate: ['<h1>Welcome to Tailgate</h1>', '<p>Thanks for signing up! Please ', '<a href="' + urlTemplate + '">confirm your account</a> ', 'to continue.', '</p>'].join('')
+        confirmUrl: urlTemplate,
+        provide: { bodyTemplate: bodyTemplate }
       }
 
       el.appendChild(auth.signup(opts))
@@ -48,7 +50,8 @@ module.exports = {
       var opts = {
         from: 'Tailgate <accounts@thhis.com>',
         subject: 'Change your Tailgate password',
-        bodyTemplate: bodyTemplate
+        changeUrl: urlTemplate,
+        provide: { bodyTemplate: bodyTemplate }
       }
       el.appendChild(auth.changePasswordRequest(opts))
     },
