@@ -1,6 +1,6 @@
 var React = require('react')
 var rebass = require('rebass')
-var Icon = require('react-geomicons')
+var Icon = require('react-geomicons').default
 var api = require('./api')
 var h = require('hyperscript')
 var querystring = require('querystring')

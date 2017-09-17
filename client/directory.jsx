@@ -4,7 +4,7 @@ var rebass = require('rebass')
 var resolve = require('path').resolve
 var normalize = require('path').normalize
 var fuzzysearch = require('fuzzysearch')
-var Icon = require('react-geomicons')
+var Icon = require('react-geomicons').default
 
 var api = require('./api')
 var Loading = require('./loading.jsx')
