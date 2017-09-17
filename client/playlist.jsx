@@ -4,12 +4,13 @@ var Icon = require('react-geomicons').default
 var api = require('./api')
 var h = require('hyperscript')
 var querystring = require('querystring')
+var createClass = require('create-react-class')
 
 var Card = rebass.Card
 var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 
-var Playlist = module.exports = React.createClass({
+var Playlist = module.exports = createClass({
   getDefaultProps: function() {
     return {
       playlist: [],

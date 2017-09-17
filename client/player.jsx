@@ -3,6 +3,7 @@ var rebass = require('rebass')
 var moment = require('moment')
 var Icon = require('react-geomicons').default
 var playAudio = require('dg-play-audio')
+var createClass = require('create-react-class')
 
 var api = require('./api')
 var Loading = require('./loading.jsx')
@@ -16,7 +17,7 @@ var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 var DotIndicator = rebass.DotIndicator
 
-var Player = module.exports = React.createClass({
+var Player = module.exports = createClass({
   getDefaultProps: function() {
     return {
       albumPath: null,

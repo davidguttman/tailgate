@@ -1,10 +1,11 @@
 var React = require('react')
 var rebass = require('rebass')
+var createClass = require('create-react-class')
 
 var Card = rebass.Card
 var DotIndicator = rebass.DotIndicator
 
-var Loading = module.exports = React.createClass({
+var Loading = module.exports = createClass({
 
   getInitialState: function() {
     return {

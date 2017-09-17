@@ -5,6 +5,7 @@ var resolve = require('path').resolve
 var normalize = require('path').normalize
 var fuzzysearch = require('fuzzysearch')
 var Icon = require('react-geomicons').default
+var createClass = require('create-react-class')
 
 var api = require('./api')
 var Loading = require('./loading.jsx')
@@ -17,7 +18,7 @@ var Heading = rebass.Heading
 var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 
-var Directory = module.exports = React.createClass({
+var Directory = module.exports = createClass({
   getDefaultProps: function() {
     return {
       path: '/',

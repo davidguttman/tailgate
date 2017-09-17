@@ -2,6 +2,7 @@ var React = require('react')
 var rebass = require('rebass')
 var Icon = require('react-geomicons').default
 var xtend = require('xtend')
+var createClass = require('create-react-class')
 
 var Player = require('./player.jsx')
 var Directory = require('./directory.jsx')
@@ -10,7 +11,7 @@ var Playlist = require('./playlist.jsx')
 var Container = rebass.Container
 var ButtonCircle = rebass.ButtonCircle
 
-var Main = module.exports = React.createClass({
+var Main = module.exports = createClass({
   getInitialState: function() {
     return {
       path: window.location.hash.replace('#/', ''),

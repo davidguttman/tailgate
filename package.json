@@ -10,6 +10,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "budo": "^10.0.4",
+    "create-react-class": "^15.6.0",
     "dg-play-audio": "0.0.4",
     "fastclick": "^1.0.6",
     "fuzzysearch": "^1.0.3",
