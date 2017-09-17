@@ -2,7 +2,7 @@ var React = require('react')
 var rebass = require('rebass')
 var moment = require('moment')
 var Icon = require('react-geomicons')
-var playAudio = require('play-audio')
+var playAudio = require('dg-play-audio')
 
 var api = require('./api')
 var Loading = require('./loading.jsx')
