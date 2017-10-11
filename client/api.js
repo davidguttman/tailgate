@@ -74,7 +74,7 @@ module.exports = {
       var images = []
 
       files.forEach(function (file) {
-        if (['mp3', 'm4a'].indexOf(file.ext) >= 0) tracks.push(file)
+        if (['mp3', 'm4a', 'm4b'].indexOf(file.ext) >= 0) tracks.push(file)
         if (['png', 'jpg'].indexOf(file.ext) >= 0) images.push(file)
       })
 
