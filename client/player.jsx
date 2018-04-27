@@ -1,3 +1,4 @@
+var Url = require('url')
 var React = require('react')
 var rebass = require('rebass')
 var moment = require('moment')
@@ -249,7 +250,9 @@ var Player = module.exports = createClass({
     var track = this.state.tracks[idx]
     if (!track) return
 
-    var url = track.url
+    var urlObj = Url.parse(track.url, true)
+    urlObj.query.cb = Date.now()
+    var url = urlObj.format(urlObj)
 
     if (player) {
       player.src(url)
