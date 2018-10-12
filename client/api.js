@@ -5,6 +5,7 @@ var normalize = require('path').normalize
 var xtend = require('xtend')
 
 var baseUrl = 'https://music.thhis.com'
+// var baseUrl = 'http://localhost:3000'
 var auth = require('./auth').auth
 
 module.exports = {
@@ -18,6 +19,12 @@ module.exports = {
     auth.auth.get(url, function (err, files) {
       if (err) {
         if (err.message && err.message.match(/403|401/)) {
+          if (shareCode) {
+            window.localStorage.alert = 'Sorry, this share code has expired. Ask for a new link?'
+          } else {
+            window.localStorage.alert = 'Sorry, your account has not been whitelisted, but you can ask someone to make that happen.'
+          }
+
           auth.logout()
           return setTimeout(function () {
             window.location.hash = '#/login'

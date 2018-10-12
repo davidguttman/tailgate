@@ -15,6 +15,12 @@ module.exports = {
   auth: auth,
   routes: {
     login: function (el) {
+      var message = window.localStorage.alert || ''
+      window.localStorage.alert = ''
+      var alert = document.createElement('div')
+      alert.style = 'text-align: center; margin: 20px'
+      alert.innerHTML = message
+      el.appendChild(alert)
       el.appendChild(auth.login(onLogin))
     },
 
