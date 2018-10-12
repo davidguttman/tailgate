@@ -32,7 +32,7 @@
     "supervisor": "^0.6.0",
     "surge": "^0.17.7",
     "tape": "^4.4.0",
-    "uglify-js": "^2.4.13",
+    "uglify-es": "^3.3.9",
     "watchify": "^3.7.0"
   },
   "scripts": {
